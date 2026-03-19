@@ -8,9 +8,19 @@ export default function StickyFooter() {
       className="fixed bottom-0 left-0 right-0 z-50 border-t border-white/[0.08] bg-[#000]"
       style={{ backgroundColor: '#000000' }}
     >
-      <div className="flex flex-col sm:flex-row items-center justify-between gap-2 sm:gap-4 px-3 sm:px-4 md:px-8 py-3 sm:py-0 h-auto sm:h-14 md:h-16 sm:min-h-[3.5rem]">
-        <p className="text-[10px] sm:text-xs text-white/40 text-center sm:text-left order-2 sm:order-1">© Vedlik. News, Decoded.</p>
-        <div className="flex items-center gap-4 sm:gap-6 order-1 sm:order-2">
+      <div className="relative flex items-center justify-between px-3 sm:px-4 md:px-8 py-2 h-10 sm:h-11 md:h-12">
+        <p className="text-[9px] sm:text-[10px] md:text-xs text-white/45 text-left whitespace-nowrap pr-2">
+          © Vedlik. News, Decoded.
+        </p>
+        <a
+          href="https://mantravi.com"
+          target="_blank"
+          rel="noreferrer"
+          className="absolute left-1/2 -translate-x-1/2 text-[9px] sm:text-[10px] md:text-xs text-white/65 hover:text-white transition-colors whitespace-nowrap"
+        >
+          Powered by Mantravi
+        </a>
+        <div className="flex items-center gap-3 sm:gap-5">
           <a href="#" className="text-xs font-medium transition-colors hover:opacity-80" style={{ color: TEAL }}>
             Privacy
           </a>
