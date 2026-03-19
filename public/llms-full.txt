@@ -1,0 +1,27 @@
+# Vedlik Website Content Snapshot
+
+Vedlik is an AI and technology insights platform built to reduce information noise and surface high-signal updates quickly. It is designed for developers, founders, students, and curious professionals who want concise context and practical relevance from tech updates.
+
+## Key Public Pages
+
+1. Home (`https://vedlik.com/`)
+   - Product positioning and benefits.
+   - Core feature summaries.
+   - Download CTAs and brand context.
+
+2. Privacy Policy (`https://vedlik.com/privacy-policy`)
+   - What data may be collected.
+   - Data usage, sharing, retention, and security controls.
+   - User rights and deletion pathways.
+
+3. Terms and Conditions (`https://vedlik.com/terms-and-conditions`)
+   - Legal terms for app usage.
+   - Intellectual property and user obligations.
+   - Liability disclaimers and governing law.
+
+4. Data Deletion Request (`https://vedlik.com/data-deletion-request`)
+   - In-app and email-based deletion process.
+   - Processing timeline and verification expectations.
+
+## Contact
+- support@mantravi.com

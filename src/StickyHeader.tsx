@@ -59,7 +59,7 @@ export default function StickyHeader() {
       style={{ backgroundColor: '#000000' }}
     >
       <div className="flex items-center justify-between gap-2 sm:gap-4 px-3 sm:px-4 md:px-8 h-12 sm:h-14 md:h-16 min-h-0">
-        <a href="#" className="flex items-center gap-2 shrink-0">
+        <a href="/" className="flex items-center gap-2 shrink-0">
           <img
             src="/images/vedlik_logo_header.png"
             alt="Vedlik"

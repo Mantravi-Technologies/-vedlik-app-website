@@ -44,3 +44,32 @@ body {
     display: none;
   }
 }
+
+.legal-content h2 {
+  margin-top: 1.4rem;
+  margin-bottom: 0.65rem;
+  font-size: 1.15rem;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  color: rgba(255, 255, 255, 0.96);
+}
+
+.legal-content ul {
+  margin: 0.45rem 0 1rem 1.2rem;
+  padding: 0;
+}
+
+.legal-content li {
+  margin-bottom: 0.45rem;
+}
+
+.legal-content a {
+  color: #2dd4bf;
+}
+
+.legal-content code {
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 0.35rem;
+  padding: 0.08rem 0.35rem;
+}

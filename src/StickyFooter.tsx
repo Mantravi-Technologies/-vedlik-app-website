@@ -10,7 +10,7 @@ export default function StickyFooter() {
     >
       <div className="relative flex items-center justify-between px-3 sm:px-4 md:px-8 py-2 h-10 sm:h-11 md:h-12">
         <p className="text-[9px] sm:text-[10px] md:text-xs text-white/45 text-left whitespace-nowrap pr-2">
-          © Vedlik. News, Decoded.
+          © Vedlik. Signals, Decoded.
         </p>
         <a
           href="https://mantravi.com"
@@ -21,10 +21,10 @@ export default function StickyFooter() {
           Powered by Mantravi
         </a>
         <div className="flex items-center gap-3 sm:gap-5">
-          <a href="#" className="text-xs font-medium transition-colors hover:opacity-80" style={{ color: TEAL }}>
+          <a href="/privacy-policy" className="text-xs font-medium transition-colors hover:opacity-80" style={{ color: TEAL }}>
             Privacy
           </a>
-          <a href="#" className="text-xs font-medium transition-colors hover:opacity-80" style={{ color: TEAL }}>
+          <a href="/terms-and-conditions" className="text-xs font-medium transition-colors hover:opacity-80" style={{ color: TEAL }}>
             Terms
           </a>
         </div>

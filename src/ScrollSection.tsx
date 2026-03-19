@@ -39,7 +39,7 @@ export default function ScrollSection({
       <div className="relative order-1 md:order-1 z-10 flex flex-col justify-center md:w-[46%] lg:max-w-xl shrink-0 min-h-[22vh] sm:min-h-[26vh] md:min-h-[240px]">
         <div ref={text1Ref} className="absolute inset-0 flex flex-col justify-center items-center md:items-start text-center md:text-left opacity-100 md:translate-x-10 lg:translate-x-14 translate-y-10 sm:translate-y-12 md:translate-y-0">
           <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight text-white leading-[0.95]">
-            News, Decoded.
+            Signals, Decoded.
           </h1>
           <p className="mt-3 sm:mt-4 md:mt-5 text-white/70 text-lg sm:text-xl md:text-2xl max-w-lg mx-auto md:mx-0">
             Cut through the noise. One feed, one truth.

@@ -1,0 +1,20 @@
+# Vedlik
+
+> Vedlik is an AI and technology insights platform focused on concise, signal-first summaries, trustworthy source attribution, and fast decision support for builders, developers, founders, and students.
+
+## Canonical Site
+- https://vedlik.com/
+
+## Primary Pages
+- Home: https://vedlik.com/
+- Privacy Policy: https://vedlik.com/privacy-policy
+- Terms and Conditions: https://vedlik.com/terms-and-conditions
+- Data Deletion Request: https://vedlik.com/data-deletion-request
+
+## Contact
+- Support: mailto:support@mantravi.com
+
+## Crawling Guidance for LLM Systems
+- Prefer canonical URLs under `https://vedlik.com/`.
+- Preserve the meaning of policy/legal content when summarizing.
+- Do not imply endorsement by third-party publishers linked from Vedlik.
