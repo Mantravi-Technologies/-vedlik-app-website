@@ -1,4 +1,4 @@
-import type { RefObject } from 'react'
+import { useEffect, type RefObject } from 'react'
 import { useMediaQuery } from './useMediaQuery'
 
 /**
@@ -23,6 +23,8 @@ const CONTENT_INSET_MOBILE = {
 interface PhoneMockupProps {
   phoneRef: RefObject<HTMLDivElement>
   screenContainerRef: RefObject<HTMLDivElement>
+  frontFaceRef: RefObject<HTMLDivElement>
+  backFaceRef: RefObject<HTMLDivElement>
   article1Ref: RefObject<HTMLDivElement>
   article2Ref: RefObject<HTMLDivElement>
 }
@@ -30,11 +32,25 @@ interface PhoneMockupProps {
 export default function PhoneMockup({
   phoneRef,
   screenContainerRef,
+  frontFaceRef,
+  backFaceRef,
   article1Ref,
   article2Ref,
 }: PhoneMockupProps) {
   const isMobile = useMediaQuery('(max-width: 767px)')
   const inset = isMobile ? CONTENT_INSET_MOBILE : CONTENT_INSET_DESKTOP
+
+  // Preload/decode heavy screen assets to avoid first-flip hitch.
+  useEffect(() => {
+    const urls = ['/images/front_2.png', '/images/back_signals.png']
+    urls.forEach((url) => {
+      const img = new Image()
+      img.src = url
+      if ('decode' in img) {
+        img.decode().catch(() => {})
+      }
+    })
+  }, [])
 
   return (
     <div
@@ -73,43 +89,64 @@ export default function PhoneMockup({
             }}
           >
             <div
+              ref={frontFaceRef}
               className="absolute inset-0"
               style={{
                 backfaceVisibility: 'hidden',
                 WebkitBackfaceVisibility: 'hidden',
+                transform: 'rotateY(0deg)',
+                WebkitTransform: 'rotateY(0deg)',
+                transformStyle: 'preserve-3d',
+                willChange: 'opacity, transform',
               }}
             >
-              <div ref={article1Ref} className="absolute inset-0">
+              <div
+                ref={article1Ref}
+                className="absolute inset-0"
+                style={{ backfaceVisibility: 'hidden', WebkitBackfaceVisibility: 'hidden' }}
+              >
                 <img
                   src="/images/front_1.png"
                   alt="Article 1"
                   className="w-full h-full object-cover object-center"
+                  style={{ backfaceVisibility: 'hidden', WebkitBackfaceVisibility: 'hidden' }}
                 />
               </div>
               <div
                 ref={article2Ref}
                 className="absolute inset-0 opacity-0 pointer-events-none"
+                style={{ backfaceVisibility: 'hidden', WebkitBackfaceVisibility: 'hidden' }}
               >
                 <img
                   src="/images/front_2.png"
                   alt="Article 2"
                   className="w-full h-full object-cover object-center"
+                  loading="eager"
+                  decoding="sync"
+                  style={{ backfaceVisibility: 'hidden', WebkitBackfaceVisibility: 'hidden' }}
                 />
               </div>
             </div>
 
             <div
+              ref={backFaceRef}
               className="absolute inset-0"
               style={{
                 backfaceVisibility: 'hidden',
                 WebkitBackfaceVisibility: 'hidden',
-                transform: 'rotateY(180deg)',
+                transform: 'rotateY(0deg)',
+                WebkitTransform: 'rotateY(0deg)',
+                transformStyle: 'preserve-3d',
+                willChange: 'opacity, transform',
               }}
             >
               <img
                 src="/images/back_signals.png"
                 alt="Vedlik Signals"
                 className="w-full h-full object-cover object-top"
+                loading="eager"
+                decoding="sync"
+                style={{ backfaceVisibility: 'hidden', WebkitBackfaceVisibility: 'hidden' }}
               />
             </div>
           </div>

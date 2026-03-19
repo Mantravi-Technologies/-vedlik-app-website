@@ -8,6 +8,8 @@ interface ScrollSectionProps {
   text3Ref: RefObject<HTMLDivElement>
   phoneRef: RefObject<HTMLDivElement>
   screenContainerRef: RefObject<HTMLDivElement>
+  frontFaceRef: RefObject<HTMLDivElement>
+  backFaceRef: RefObject<HTMLDivElement>
   article1Ref: RefObject<HTMLDivElement>
   article2Ref: RefObject<HTMLDivElement>
 }
@@ -19,6 +21,8 @@ export default function ScrollSection({
   text3Ref,
   phoneRef,
   screenContainerRef,
+  frontFaceRef,
+  backFaceRef,
   article1Ref,
   article2Ref,
 }: ScrollSectionProps) {
@@ -27,8 +31,8 @@ export default function ScrollSection({
       ref={sectionRef}
       className="relative w-full flex flex-col md:flex-row md:items-center md:justify-between gap-8 sm:gap-10 md:gap-12 px-4 sm:px-6 md:px-10 lg:px-12 py-8 sm:py-12 md:py-20 h-[100vh] min-h-[100dvh] max-h-[100vh] bg-[#000] border-b border-white/[0.08] overflow-hidden snap-start snap-always"
     >
-      <div className="absolute inset-0 opacity-[0.04] pointer-events-none">
-        <img src="/images/hero_see_the_signals.png" alt="" className="w-full h-full object-cover object-center" />
+      <div className="absolute inset-0 opacity-[0.28] pointer-events-none">
+        <img src="/images/hero_gradient_34.jpg" alt="" className="w-full h-full object-cover object-center" />
       </div>
 
       {/* Text: on mobile first (order-1), on desktop left (md:order-1) */}
@@ -64,6 +68,8 @@ export default function ScrollSection({
         <PhoneMockup
           phoneRef={phoneRef}
           screenContainerRef={screenContainerRef}
+          frontFaceRef={frontFaceRef}
+          backFaceRef={backFaceRef}
           article1Ref={article1Ref}
           article2Ref={article2Ref}
         />

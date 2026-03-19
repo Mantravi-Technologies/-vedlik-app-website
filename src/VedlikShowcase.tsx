@@ -10,6 +10,7 @@ gsap.registerPlugin(Observer)
 
 const ANIM_DURATION = 0.72
 const SECTION_DURATION = 1.08
+const FLIP_SWAP_POINT = 0.45
 
 export default function VedlikShowcase() {
   const containerRef = useRef<HTMLDivElement>(null)
@@ -20,6 +21,8 @@ export default function VedlikShowcase() {
   const text3Ref = useRef<HTMLDivElement>(null)
   const phoneRef = useRef<HTMLDivElement>(null)
   const screenContainerRef = useRef<HTMLDivElement>(null)
+  const frontFaceRef = useRef<HTMLDivElement>(null)
+  const backFaceRef = useRef<HTMLDivElement>(null)
   const article1Ref = useRef<HTMLDivElement>(null)
   const article2Ref = useRef<HTMLDivElement>(null)
   const currentSection = useRef(0)
@@ -35,6 +38,8 @@ export default function VedlikShowcase() {
       const container = containerRef.current
       const sectionsWrapper = sectionsWrapperRef.current
       const screenContainer = screenContainerRef.current
+      const frontFace = frontFaceRef.current
+      const backFace = backFaceRef.current
       const text1 = text1Ref.current
       const text2 = text2Ref.current
       const text3 = text3Ref.current
@@ -46,6 +51,8 @@ export default function VedlikShowcase() {
         !container ||
         !sectionsWrapper ||
         !screenContainer ||
+        !frontFace ||
+        !backFace ||
         !text1 ||
         !text2 ||
         !text3 ||
@@ -64,6 +71,8 @@ export default function VedlikShowcase() {
           gsap.set(article1, { yPercent: 0, opacity: 1 })
           gsap.set(article2, { yPercent: 100, opacity: 0 })
           gsap.set(screenContainer, { rotateY: 0, force3D: true })
+          gsap.set(frontFace, { opacity: 1 })
+          gsap.set(backFace, { opacity: 0 })
         } else if (step === 1) {
           gsap.set(text1, { opacity: 0 })
           gsap.set(text2, { opacity: 1 })
@@ -71,13 +80,17 @@ export default function VedlikShowcase() {
           gsap.set(article1, { yPercent: -100, opacity: 0 })
           gsap.set(article2, { yPercent: 0, opacity: 1 })
           gsap.set(screenContainer, { rotateY: 0, force3D: true })
+          gsap.set(frontFace, { opacity: 1 })
+          gsap.set(backFace, { opacity: 0 })
         } else {
           gsap.set(text1, { opacity: 0 })
           gsap.set(text2, { opacity: 0 })
           gsap.set(text3, { opacity: 1 })
           gsap.set(article1, { yPercent: -100, opacity: 0 })
           gsap.set(article2, { yPercent: 0, opacity: 1 })
-          gsap.set(screenContainer, { rotateY: 180, force3D: true })
+          gsap.set(screenContainer, { rotateY: 0, force3D: true })
+          gsap.set(frontFace, { opacity: 0 })
+          gsap.set(backFace, { opacity: 1 })
         }
       }
 
@@ -114,7 +127,14 @@ export default function VedlikShowcase() {
           })
             .to(text2, { opacity: 0, duration: ANIM_DURATION * 0.42 }, 0)
             .to(text3, { opacity: 1, duration: ANIM_DURATION * 0.42 }, 0)
-            .to(screenContainer, { rotateY: 180, force3D: true }, 0)
+            .to(screenContainer, { rotateY: 90, force3D: true, duration: ANIM_DURATION * 0.5 }, 0)
+            .to(frontFace, { opacity: 0, duration: 0.001 }, ANIM_DURATION * FLIP_SWAP_POINT)
+            .to(backFace, { opacity: 1, duration: 0.001 }, ANIM_DURATION * FLIP_SWAP_POINT)
+            .to(
+              screenContainer,
+              { rotateY: 0, force3D: true, duration: ANIM_DURATION * 0.5 },
+              ANIM_DURATION * 0.5
+            )
         }
       }
 
@@ -130,7 +150,14 @@ export default function VedlikShowcase() {
           })
             .to(text3, { opacity: 0, duration: ANIM_DURATION * 0.42 }, 0)
             .to(text2, { opacity: 1, duration: ANIM_DURATION * 0.42 }, 0)
-            .to(screenContainer, { rotateY: 0, force3D: true }, 0)
+            .to(screenContainer, { rotateY: 90, force3D: true, duration: ANIM_DURATION * 0.5 }, 0)
+            .to(backFace, { opacity: 0, duration: 0.001 }, ANIM_DURATION * FLIP_SWAP_POINT)
+            .to(frontFace, { opacity: 1, duration: 0.001 }, ANIM_DURATION * FLIP_SWAP_POINT)
+            .to(
+              screenContainer,
+              { rotateY: 0, force3D: true, duration: ANIM_DURATION * 0.5 },
+              ANIM_DURATION * 0.5
+            )
           return
         }
         if (heroStep.current === 1) {
@@ -247,6 +274,8 @@ export default function VedlikShowcase() {
             text3Ref={text3Ref}
             phoneRef={phoneRef}
             screenContainerRef={screenContainerRef}
+          frontFaceRef={frontFaceRef}
+          backFaceRef={backFaceRef}
             article1Ref={article1Ref}
             article2Ref={article2Ref}
           />
