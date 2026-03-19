@@ -55,10 +55,10 @@ export default function PhoneMockup({
   return (
     <div
       ref={phoneRef}
-      className="relative w-[248px] min-w-[248px] shrink-0 sm:w-[300px] sm:min-w-[300px] md:w-[360px] md:min-w-[360px] lg:w-[380px] lg:min-w-[380px] origin-center"
+      className="relative w-[230px] min-w-[230px] shrink-0 sm:w-[300px] sm:min-w-[300px] md:w-[360px] md:min-w-[360px] lg:w-[380px] lg:min-w-[380px] origin-center"
       style={{ perspective: 1000 }}
     >
-      <div className="relative w-full aspect-[9/19] max-h-[min(46dvh,430px)] sm:max-h-[min(74vh,640px)] md:max-h-[min(78vh,680px)]">
+      <div className="relative w-full aspect-[9/19] max-h-[min(38dvh,360px)] sm:max-h-[min(74vh,640px)] md:max-h-[min(78vh,680px)]">
         <img
           src="/images/mockup_frame.webp"
           alt="Phone"
@@ -71,7 +71,7 @@ export default function PhoneMockup({
 
         {/* Content area: no rounded corners, sits inside mockup screen; inset from edges so it doesn’t overflow */}
         <div
-          className="absolute overflow-hidden bg-[#000]"
+          className="absolute overflow-hidden isolate bg-[#000]"
           style={{
             top: inset.top,
             left: inset.left,
@@ -83,7 +83,7 @@ export default function PhoneMockup({
         >
           <div
             ref={screenContainerRef}
-            className="relative w-full h-full overflow-hidden"
+            className="relative w-full h-full overflow-hidden isolate"
             style={{
               transformStyle: 'preserve-3d',
               position: 'relative',

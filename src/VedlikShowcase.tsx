@@ -326,7 +326,7 @@ export default function VedlikShowcase() {
             article1Ref={article1Ref}
             article2Ref={article2Ref}
           />
-          <section className="relative h-[100dvh] min-h-[100dvh] flex items-center border-t border-white/[0.08] bg-[#000] px-4 sm:px-6 md:px-10 lg:px-12 pt-16 sm:pt-[4.5rem] md:pt-0 pb-14 sm:pb-16 md:pb-0 overflow-hidden">
+          <section className="vedlik-mobile-section relative flex items-center border-t border-white/[0.08] bg-[#000] px-4 sm:px-6 md:px-10 lg:px-12 md:pt-0 md:pb-0 md:h-[100dvh] md:min-h-[100dvh] overflow-hidden">
             <picture>
               <source media="(max-width: 768px)" srcSet="/images/hero_gradient_34-960.webp" type="image/webp" />
               <source media="(min-width: 769px)" srcSet="/images/hero_gradient_34-1600.webp" type="image/webp" />
@@ -340,20 +340,20 @@ export default function VedlikShowcase() {
               />
             </picture>
             <div className="absolute inset-0 bg-black/28 md:bg-black/45 pointer-events-none" />
-            <div className="relative z-10 max-w-6xl w-full grid grid-cols-1 md:grid-cols-[1.25fr_1fr] gap-6 sm:gap-8 md:gap-14 items-start">
+            <div className="relative z-10 max-w-6xl w-full grid grid-cols-1 md:grid-cols-[1.25fr_1fr] gap-4 sm:gap-8 md:gap-14 items-start">
               <div>
                 <p className="text-[#2DD4BF] text-xs sm:text-sm tracking-[0.14em] uppercase">Why Vedlik</p>
-                <h2 className="mt-2 sm:mt-3 text-[2rem] sm:text-4xl md:text-5xl lg:text-6xl font-semibold tracking-tight text-white leading-[0.95]">
+                <h2 className="mt-2 sm:mt-3 text-[1.9rem] sm:text-4xl md:text-5xl lg:text-6xl font-semibold tracking-tight text-white leading-[0.95]">
                   Less noise. Faster signal.
                 </h2>
-                <p className="mt-3 sm:mt-5 text-white/70 text-[1.02rem] sm:text-lg md:text-xl leading-relaxed max-w-2xl">
+                <p className="mt-2.5 sm:mt-5 text-white/70 text-[0.98rem] sm:text-lg md:text-xl leading-relaxed max-w-2xl">
                   Most tech coverage buries the important part. Vedlik is built for people who need to understand what changed,
                   why it matters, and what to do next.
                 </p>
               </div>
               <div className="border-l border-white/[0.12] pl-4 sm:pl-6 md:pl-8">
                 <p className="text-[#2DD4BF] text-[11px] tracking-[0.14em] uppercase">Designed For</p>
-                <div className="mt-3 sm:mt-4 space-y-3 sm:space-y-5">
+                <div className="mt-2.5 sm:mt-4 space-y-2.5 sm:space-y-5">
                   <div>
                     <p className="text-white text-sm font-semibold">Developers & Engineers</p>
                     <p className="mt-1 text-white/60 text-xs sm:text-sm leading-relaxed">Breaking changes, API pricing, and source links without marketing filler.</p>
@@ -370,43 +370,43 @@ export default function VedlikShowcase() {
               </div>
             </div>
           </section>
-          <section className="h-[100dvh] min-h-[100dvh] flex items-start md:items-center border-t border-white/[0.08] bg-[#0a0a0a] px-4 sm:px-6 md:px-10 lg:px-12 pt-16 sm:pt-[4.5rem] md:pt-0 pb-14 sm:pb-16 md:pb-0">
-            <div className="max-w-7xl w-full grid grid-cols-1 md:grid-cols-[1.1fr_1fr] gap-4 sm:gap-6 md:gap-12 items-start md:items-center">
+          <section className="vedlik-mobile-section flex items-start md:items-center border-t border-white/[0.08] bg-[#0a0a0a] px-4 sm:px-6 md:px-10 lg:px-12 md:pt-0 md:pb-0 md:h-[100dvh] md:min-h-[100dvh]">
+            <div className="max-w-7xl w-full grid grid-cols-1 md:grid-cols-[1.1fr_1fr] gap-3 sm:gap-6 md:gap-12 items-start md:items-center">
               <div>
               <p className="text-[#2DD4BF] text-xs sm:text-sm tracking-[0.14em] uppercase">Core Features</p>
-              <h2 className="mt-2 text-[2rem] sm:text-4xl md:text-5xl lg:text-6xl font-semibold tracking-tight text-white leading-[0.95]">
+              <h2 className="mt-1.5 sm:mt-2 text-[1.9rem] sm:text-4xl md:text-5xl lg:text-6xl font-semibold tracking-tight text-white leading-[0.95]">
                 Four ways to read smarter.
               </h2>
-              <div className="mt-4 sm:mt-8 divide-y divide-white/[0.12] border-t border-b border-white/[0.12]">
-                <div className="py-2.5 sm:py-5 grid grid-cols-1 md:grid-cols-[180px_1fr] gap-1.5 sm:gap-3 md:gap-6">
+              <div className="mt-3 sm:mt-8 divide-y divide-white/[0.12] border-t border-b border-white/[0.12]">
+                <div className="py-2 sm:py-5 grid grid-cols-1 md:grid-cols-[180px_1fr] gap-1 sm:gap-3 md:gap-6">
                   <p className="text-white/45 text-xs sm:text-sm tracking-[0.08em] uppercase">01 — Intelligence Flip</p>
-                  <p className="text-white/80 text-[0.97rem] sm:text-base leading-relaxed">Tap a card and flip into extracted metrics: model size, valuation, hardware footprint, and licensing.</p>
+                  <p className="text-white/80 text-[0.91rem] sm:text-base leading-relaxed">Tap a card and flip into extracted metrics: model size, valuation, hardware footprint, and licensing.</p>
                 </div>
-                <div className="py-2.5 sm:py-5 grid grid-cols-1 md:grid-cols-[180px_1fr] gap-1.5 sm:gap-3 md:gap-6">
+                <div className="py-2 sm:py-5 grid grid-cols-1 md:grid-cols-[180px_1fr] gap-1 sm:gap-3 md:gap-6">
                   <p className="text-white/45 text-xs sm:text-sm tracking-[0.08em] uppercase">02 — Knowledge Engine</p>
-                  <p className="text-white/80 text-[0.97rem] sm:text-base leading-relaxed">Highlight a technical term and get a plain-language definition without leaving the feed.</p>
+                  <p className="text-white/80 text-[0.91rem] sm:text-base leading-relaxed">Highlight a technical term and get a plain-language definition without leaving the feed.</p>
                 </div>
-                <div className="py-2.5 sm:py-5 grid grid-cols-1 md:grid-cols-[180px_1fr] gap-1.5 sm:gap-3 md:gap-6">
+                <div className="py-2 sm:py-5 grid grid-cols-1 md:grid-cols-[180px_1fr] gap-1 sm:gap-3 md:gap-6">
                   <p className="text-white/45 text-xs sm:text-sm tracking-[0.08em] uppercase">03 — Anti-Fluff Feed</p>
-                  <p className="text-white/80 text-[0.97rem] sm:text-base leading-relaxed">Short summaries that preserve the signal and remove repetitive narrative.</p>
+                  <p className="text-white/80 text-[0.91rem] sm:text-base leading-relaxed">Short summaries that preserve the signal and remove repetitive narrative.</p>
                 </div>
-                <div className="py-2.5 sm:py-5 grid grid-cols-1 md:grid-cols-[180px_1fr] gap-1.5 sm:gap-3 md:gap-6">
+                <div className="py-2 sm:py-5 grid grid-cols-1 md:grid-cols-[180px_1fr] gap-1 sm:gap-3 md:gap-6">
                   <p className="text-white/45 text-xs sm:text-sm tracking-[0.08em] uppercase">04 — Intel Library</p>
-                  <p className="text-white/80 text-[0.97rem] sm:text-base leading-relaxed">Bookmark key updates and build a personal research trail you can return to fast.</p>
+                  <p className="text-white/80 text-[0.91rem] sm:text-base leading-relaxed">Bookmark key updates and build a personal research trail you can return to fast.</p>
                 </div>
               </div>
               </div>
-              <div className="w-full flex items-start justify-center md:justify-end -mt-8 sm:-mt-3 md:mt-0 pt-0">
+              <div className="w-full flex items-start justify-center md:justify-end -mt-6 sm:-mt-3 md:mt-0 pt-0">
                 <img
                   src="/images/vedlik_mockup_2.png"
                   alt="Vedlik app mockup"
-                  className="w-auto h-[35vh] sm:h-[58vh] md:h-[78vh] lg:h-[84vh] max-w-full object-contain object-center select-none pointer-events-none mix-blend-screen"
+                  className="w-auto h-[27vh] sm:h-[58vh] md:h-[78vh] lg:h-[84vh] max-w-full object-contain object-center select-none pointer-events-none mix-blend-screen"
                   draggable={false}
                 />
               </div>
             </div>
           </section>
-          <section className="relative h-[100dvh] min-h-[100dvh] flex items-center border-t border-white/[0.08] bg-[#000] px-4 sm:px-6 md:px-10 lg:px-12 pt-16 sm:pt-[4.5rem] md:pt-0 pb-14 sm:pb-16 md:pb-0 overflow-hidden">
+          <section className="vedlik-mobile-section relative flex items-center border-t border-white/[0.08] bg-[#000] px-4 sm:px-6 md:px-10 lg:px-12 md:pt-0 md:pb-0 md:h-[100dvh] md:min-h-[100dvh] overflow-hidden">
             <img
               src="/images/section_4_bg.png"
               alt=""
@@ -415,10 +415,10 @@ export default function VedlikShowcase() {
             <div className="absolute inset-0 bg-black/30 md:bg-black/46 pointer-events-none" />
             <div className="relative z-10 max-w-6xl w-full">
               <p className="text-[#2DD4BF] text-xs sm:text-sm tracking-[0.14em] uppercase">Why People Trust Vedlik</p>
-              <h2 className="mt-2 sm:mt-3 text-[2rem] sm:text-4xl md:text-5xl lg:text-6xl font-semibold tracking-tight text-white leading-[0.95] max-w-4xl">
+              <h2 className="mt-2 sm:mt-3 text-[1.9rem] sm:text-4xl md:text-5xl lg:text-6xl font-semibold tracking-tight text-white leading-[0.95] max-w-4xl">
                 Clarity you can trust.
               </h2>
-              <div className="mt-5 sm:mt-8 grid grid-cols-1 md:grid-cols-3 gap-3 sm:gap-6 md:gap-8">
+              <div className="mt-4 sm:mt-8 grid grid-cols-1 md:grid-cols-3 gap-2.5 sm:gap-6 md:gap-8">
                 <div>
                   <p className="text-white text-sm font-semibold">No clickbait, no fluff</p>
                   <p className="mt-2 text-white/60 text-xs sm:text-sm leading-relaxed">You get the point in seconds with concise, useful summaries instead of endless noise.</p>
@@ -432,7 +432,7 @@ export default function VedlikShowcase() {
                   <p className="mt-2 text-white/60 text-xs sm:text-sm leading-relaxed">From developers to founders, Vedlik helps you stay informed and act with confidence.</p>
                 </div>
               </div>
-              <div className="mt-5 sm:mt-9 flex flex-row items-center gap-3 sm:gap-5">
+              <div className="mt-4 sm:mt-9 flex flex-row items-center gap-3 sm:gap-5">
                 <a href="#" className="inline-flex w-[44%] sm:w-auto">
                   <img
                     src="/images/app_store_badge.png"
