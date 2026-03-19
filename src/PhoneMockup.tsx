@@ -14,10 +14,10 @@ const CONTENT_INSET_DESKTOP = {
 }
 
 const CONTENT_INSET_MOBILE = {
-  top: '10.3%',
-  left: '14.7%',
-  right: '15.7%',
-  bottom: '13%',
+  top: '17.3%',
+  left: '13.7%',
+  right: '14.7%',
+  bottom: '19.5%',
 }
 
 interface PhoneMockupProps {
@@ -55,10 +55,10 @@ export default function PhoneMockup({
   return (
     <div
       ref={phoneRef}
-      className="relative w-[230px] min-w-[230px] shrink-0 sm:w-[300px] sm:min-w-[300px] md:w-[360px] md:min-w-[360px] lg:w-[380px] lg:min-w-[380px] origin-center"
+      className="relative w-[250px] min-w-[250px] shrink-0 sm:w-[300px] sm:min-w-[300px] md:w-[360px] md:min-w-[360px] lg:w-[380px] lg:min-w-[380px] origin-center"
       style={{ perspective: 1000 }}
     >
-      <div className="relative w-full aspect-[9/19] max-h-[min(38dvh,360px)] sm:max-h-[min(74vh,640px)] md:max-h-[min(78vh,680px)]">
+      <div className="relative w-full aspect-[9/19] max-h-[min(65vh,730px)] sm:max-h-[min(74vh,640px)] md:max-h-[min(78vh,680px)]">
         <img
           src="/images/mockup_frame.webp"
           alt="Phone"
@@ -83,7 +83,7 @@ export default function PhoneMockup({
         >
           <div
             ref={screenContainerRef}
-            className="relative w-full h-full overflow-hidden isolate"
+            className="relative w-full h-full overflow-hidden isolate z-10"
             style={{
               transformStyle: 'preserve-3d',
               position: 'relative',
@@ -159,6 +159,7 @@ export default function PhoneMockup({
             </div>
           </div>
         </div>
+
       </div>
     </div>
   )
