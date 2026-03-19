@@ -14,10 +14,10 @@ const CONTENT_INSET_DESKTOP = {
 }
 
 const CONTENT_INSET_MOBILE = {
-  top: '17%',
-  left: '13%',
-  right: '14.2%',
-  bottom: '19%',
+  top: '10.3%',
+  left: '14.7%',
+  right: '15.7%',
+  bottom: '13%',
 }
 
 interface PhoneMockupProps {
@@ -40,9 +40,9 @@ export default function PhoneMockup({
   const isMobile = useMediaQuery('(max-width: 767px)')
   const inset = isMobile ? CONTENT_INSET_MOBILE : CONTENT_INSET_DESKTOP
 
-  // Preload/decode heavy screen assets to avoid first-flip hitch.
+  // Preload/decode screen assets so hero mockup appears quickly on mobile.
   useEffect(() => {
-    const urls = ['/images/front_2.png', '/images/back_signals.png']
+    const urls = ['/images/front_1.webp', '/images/front_2.webp', '/images/back_signals.webp']
     urls.forEach((url) => {
       const img = new Image()
       img.src = url
@@ -55,14 +55,17 @@ export default function PhoneMockup({
   return (
     <div
       ref={phoneRef}
-      className="relative w-[280px] min-w-[280px] shrink-0 sm:w-[300px] sm:min-w-[300px] md:w-[360px] md:min-w-[360px] lg:w-[380px] lg:min-w-[380px] origin-center"
+      className="relative w-[248px] min-w-[248px] shrink-0 sm:w-[300px] sm:min-w-[300px] md:w-[360px] md:min-w-[360px] lg:w-[380px] lg:min-w-[380px] origin-center"
       style={{ perspective: 1000 }}
     >
-      <div className="relative w-full aspect-[9/19] max-h-[min(72vh,620px)] sm:max-h-[min(74vh,640px)] md:max-h-[min(78vh,680px)]">
+      <div className="relative w-full aspect-[9/19] max-h-[min(46dvh,430px)] sm:max-h-[min(74vh,640px)] md:max-h-[min(78vh,680px)]">
         <img
-          src="/images/mockup_frame.png"
+          src="/images/mockup_frame.webp"
           alt="Phone"
           className="absolute inset-0 w-full h-full object-contain object-center select-none pointer-events-none"
+          loading="eager"
+          fetchPriority="high"
+          decoding="async"
           draggable={false}
         />
 
@@ -106,9 +109,12 @@ export default function PhoneMockup({
                 style={{ backfaceVisibility: 'hidden', WebkitBackfaceVisibility: 'hidden' }}
               >
                 <img
-                  src="/images/front_1.png"
+                  src="/images/front_1.webp"
                   alt="Article 1"
                   className="w-full h-full object-cover object-center"
+                  loading="eager"
+                  fetchPriority="high"
+                  decoding="async"
                   style={{ backfaceVisibility: 'hidden', WebkitBackfaceVisibility: 'hidden' }}
                 />
               </div>
@@ -118,11 +124,12 @@ export default function PhoneMockup({
                 style={{ backfaceVisibility: 'hidden', WebkitBackfaceVisibility: 'hidden' }}
               >
                 <img
-                  src="/images/front_2.png"
+                  src="/images/front_2.webp"
                   alt="Article 2"
                   className="w-full h-full object-cover object-center"
                   loading="eager"
-                  decoding="sync"
+                  fetchPriority="high"
+                  decoding="async"
                   style={{ backfaceVisibility: 'hidden', WebkitBackfaceVisibility: 'hidden' }}
                 />
               </div>
@@ -141,11 +148,12 @@ export default function PhoneMockup({
               }}
             >
               <img
-                src="/images/back_signals.png"
+                src="/images/back_signals.webp"
                 alt="Vedlik Signals"
                 className="w-full h-full object-cover object-top"
                 loading="eager"
-                decoding="sync"
+                fetchPriority="high"
+                decoding="async"
                 style={{ backfaceVisibility: 'hidden', WebkitBackfaceVisibility: 'hidden' }}
               />
             </div>
