@@ -100,7 +100,7 @@ export default function CoreFeaturesSection() {
           {/* Mobile: premium horizontal cards with peek + snap */}
           <div
             data-vedlik-carousel
-            className="mt-3 flex min-h-0 w-full touch-pan-x gap-3 overflow-x-auto overflow-y-visible overscroll-x-contain pb-1 pt-0.5 scrollbar-hide snap-x snap-mandatory md:hidden"
+            className="mt-3 flex min-h-0 w-full touch-auto touch-pan-x gap-3 overflow-x-auto overflow-y-visible overscroll-x-contain pb-1 pt-0.5 pr-3 scrollbar-hide snap-x snap-mandatory md:hidden"
           >
             {FEATURES.map((f) => (
               <FeatureCardItem
@@ -109,7 +109,7 @@ export default function CoreFeaturesSection() {
                 title={f.title}
                 tag={f.tag}
                 body={f.body}
-                className="w-[88%] min-w-[88%] shrink-0 snap-center snap-always"
+                className="w-[88%] min-w-[88%] shrink-0 touch-pan-x snap-center snap-always"
               />
             ))}
           </div>
