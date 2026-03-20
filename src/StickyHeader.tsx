@@ -1,14 +1,15 @@
 'use client'
 
-import { useState, useRef, useLayoutEffect } from 'react'
+import { useState, useRef, useLayoutEffect, useEffect } from 'react'
 import gsap from 'gsap'
 
 const TEAL = '#2DD4BF'
 const TABS = ['Overview', 'Why Vedlik', 'Features', 'Under The Hood', 'Download']
 const SECTION_MAP = [0, 1, 2, 3, 3]
+const SECTION_TO_TAB = [0, 1, 2, 3]
 
 export default function StickyHeader() {
-  const [activeIndex, setActiveIndex] = useState(1)
+  const [activeIndex, setActiveIndex] = useState(0)
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
   const activeIndexRef = useRef(activeIndex)
   activeIndexRef.current = activeIndex
@@ -42,6 +43,21 @@ export default function StickyHeader() {
       ease: 'power2.out',
     })
   }, [activeIndex])
+
+
+
+  useEffect(() => {
+    const onSectionChange = (e: Event) => {
+      const custom = e as CustomEvent<{ sectionIndex?: number }>
+      const sectionIndex = custom.detail?.sectionIndex
+      if (typeof sectionIndex !== 'number') return
+      const nextTab = SECTION_TO_TAB[sectionIndex] ?? 0
+      setActiveIndex(nextTab)
+    }
+
+    window.addEventListener('vedlik:section-change', onSectionChange as EventListener)
+    return () => window.removeEventListener('vedlik:section-change', onSectionChange as EventListener)
+  }, [])
 
   const handleTabClick = (tabIndex: number) => {
     setActiveIndex(tabIndex)

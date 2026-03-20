@@ -12,6 +12,7 @@ interface ScrollSectionProps {
   backFaceRef: RefObject<HTMLDivElement>
   article1Ref: RefObject<HTMLDivElement>
   article2Ref: RefObject<HTMLDivElement>
+  onJoinWaitlist: () => void
 }
 
 export default function ScrollSection({
@@ -25,6 +26,7 @@ export default function ScrollSection({
   backFaceRef,
   article1Ref,
   article2Ref,
+  onJoinWaitlist,
 }: ScrollSectionProps) {
   return (
     <section
@@ -45,12 +47,13 @@ export default function ScrollSection({
             Artificial intelligence, startups, and technology intelligence—one clear feed.
           </p>
           <div className="mt-3.5 sm:mt-6 w-full flex justify-center md:justify-start -translate-x-1 sm:translate-x-0 md:translate-x-0">
-            <a
-              href="#"
-              className="inline-flex items-center justify-center rounded-2xl border border-[#2DD4BF]/60 bg-gradient-to-r from-[#0A1114] via-[#102B2F] to-[#0A1114] shadow-[0_12px_36px_rgba(45,212,191,0.22)] px-9 sm:px-12 py-4 sm:py-4.5 text-lg sm:text-2xl font-semibold tracking-[0.01em] text-white hover:from-[#102125] hover:via-[#15383d] hover:to-[#102125] transition-colors"
+            <button
+              type="button"
+              onClick={onJoinWaitlist}
+              className="inline-flex items-center justify-center rounded-2xl border border-[#2DD4BF]/60 bg-gradient-to-r from-[#0A1114] via-[#102B2F] to-[#0A1114] shadow-[0_12px_36px_rgba(45,212,191,0.22)] px-7 sm:px-12 py-3 sm:py-4.5 text-base sm:text-2xl font-semibold tracking-[0.01em] text-white hover:from-[#102125] hover:via-[#15383d] hover:to-[#102125] transition-colors"
             >
               Join Waitlist
-            </a>
+            </button>
           </div>
         </div>
         <div ref={text2Ref} className="absolute inset-0 flex flex-col justify-start pt-2 sm:pt-3 md:justify-center md:pt-0 items-center md:items-start text-center md:text-left opacity-0 md:translate-x-10 lg:translate-x-14 translate-y-0 sm:translate-y-3 md:translate-y-0">
@@ -61,12 +64,13 @@ export default function ScrollSection({
             AI-powered clarity on every story.
           </p>
           <div className="mt-3.5 sm:mt-6 w-full flex justify-center md:justify-start -translate-x-1 sm:translate-x-0 md:translate-x-0">
-            <a
-              href="#"
-              className="inline-flex items-center justify-center rounded-2xl border border-[#2DD4BF]/60 bg-gradient-to-r from-[#0A1114] via-[#102B2F] to-[#0A1114] shadow-[0_12px_36px_rgba(45,212,191,0.22)] px-9 sm:px-12 py-4 sm:py-4.5 text-lg sm:text-2xl font-semibold tracking-[0.01em] text-white hover:from-[#102125] hover:via-[#15383d] hover:to-[#102125] transition-colors"
+            <button
+              type="button"
+              onClick={onJoinWaitlist}
+              className="inline-flex items-center justify-center rounded-2xl border border-[#2DD4BF]/60 bg-gradient-to-r from-[#0A1114] via-[#102B2F] to-[#0A1114] shadow-[0_12px_36px_rgba(45,212,191,0.22)] px-7 sm:px-12 py-3 sm:py-4.5 text-base sm:text-2xl font-semibold tracking-[0.01em] text-white hover:from-[#102125] hover:via-[#15383d] hover:to-[#102125] transition-colors"
             >
               Join Waitlist
-            </a>
+            </button>
           </div>
         </div>
         <div ref={text3Ref} className="absolute inset-0 flex flex-col justify-start pt-2 sm:pt-3 md:justify-center md:pt-0 items-center md:items-start text-center md:text-left opacity-0 md:translate-x-10 lg:translate-x-14 translate-y-0 sm:translate-y-3 md:translate-y-0">
@@ -77,12 +81,13 @@ export default function ScrollSection({
             Credibility, context, and entities—built for tech and startup funding intelligence.
           </p>
           <div className="mt-3.5 sm:mt-6 w-full flex justify-center md:justify-start -translate-x-1 sm:translate-x-0 md:translate-x-0">
-            <a
-              href="#"
-              className="inline-flex items-center justify-center rounded-2xl border border-[#2DD4BF]/60 bg-gradient-to-r from-[#0A1114] via-[#102B2F] to-[#0A1114] shadow-[0_12px_36px_rgba(45,212,191,0.22)] px-9 sm:px-12 py-4 sm:py-4.5 text-lg sm:text-2xl font-semibold tracking-[0.01em] text-white hover:from-[#102125] hover:via-[#15383d] hover:to-[#102125] transition-colors"
+            <button
+              type="button"
+              onClick={onJoinWaitlist}
+              className="inline-flex items-center justify-center rounded-2xl border border-[#2DD4BF]/60 bg-gradient-to-r from-[#0A1114] via-[#102B2F] to-[#0A1114] shadow-[0_12px_36px_rgba(45,212,191,0.22)] px-7 sm:px-12 py-3 sm:py-4.5 text-base sm:text-2xl font-semibold tracking-[0.01em] text-white hover:from-[#102125] hover:via-[#15383d] hover:to-[#102125] transition-colors"
             >
               Join Waitlist
-            </a>
+            </button>
           </div>
         </div>
       </div>

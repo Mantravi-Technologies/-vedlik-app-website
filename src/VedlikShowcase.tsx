@@ -1,4 +1,4 @@
-import { useRef } from 'react'
+import { useRef, useState } from 'react'
 import { useGSAP } from '@gsap/react'
 import gsap from 'gsap'
 import { Observer } from 'gsap/all'
@@ -6,6 +6,7 @@ import ScrollSection from './ScrollSection'
 import StickyHeader from './StickyHeader'
 import StickyFooter from './StickyFooter'
 import CoreFeaturesSection from './CoreFeaturesSection'
+import WaitlistModal from './WaitlistModal'
 
 gsap.registerPlugin(Observer)
 
@@ -32,6 +33,10 @@ export default function VedlikShowcase() {
   const lastGestureAt = useRef(0)
   const lockUntil = useRef(0)
   const totalSections = 4
+  const [isWaitlistOpen, setIsWaitlistOpen] = useState(false)
+
+  const openWaitlistModal = () => setIsWaitlistOpen(true)
+  const closeWaitlistModal = () => setIsWaitlistOpen(false)
 
   useGSAP(
     () => {
@@ -98,6 +103,7 @@ export default function VedlikShowcase() {
       const ease = 'power2.inOut'
       setHeroStepInstant(0)
       gsap.set(sectionsWrapper, { y: 0, force3D: true })
+      window.dispatchEvent(new CustomEvent('vedlik:section-change', { detail: { sectionIndex: 0 } }))
 
       const getSectionOffset = (index: number) => -index * window.innerHeight
 
@@ -209,6 +215,7 @@ export default function VedlikShowcase() {
           onComplete: () => {
             isAnimating.current = false
             lockUntil.current = performance.now() + 220
+            window.dispatchEvent(new CustomEvent('vedlik:section-change', { detail: { sectionIndex: index } }))
           },
         })
       }
@@ -328,6 +335,7 @@ export default function VedlikShowcase() {
             backFaceRef={backFaceRef}
             article1Ref={article1Ref}
             article2Ref={article2Ref}
+            onJoinWaitlist={openWaitlistModal}
           />
           <section className="vedlik-mobile-section relative flex items-center border-t border-white/[0.08] bg-[#000] px-4 sm:px-6 md:px-10 lg:px-12 md:pt-0 md:pb-0 md:h-[100dvh] md:min-h-[100dvh] overflow-hidden">
             <picture>
@@ -403,22 +411,22 @@ export default function VedlikShowcase() {
                     </div>
                   </div>
                   <div className="mt-4 sm:mt-9 flex flex-row items-center gap-3 sm:gap-5">
-                    <a href="#" className="inline-flex w-[44%] sm:w-auto">
+                    <button type="button" onClick={openWaitlistModal} className="inline-flex w-[44%] sm:w-auto">
                       <img
                         src="/images/app_store_badge.png"
                         alt="Download on the App Store"
                         className="h-auto w-full sm:w-auto sm:h-14 md:h-16 lg:h-[72px] object-contain"
                         draggable={false}
                       />
-                    </a>
-                    <a href="#" className="inline-flex w-[44%] sm:w-auto">
+                    </button>
+                    <button type="button" onClick={openWaitlistModal} className="inline-flex w-[44%] sm:w-auto">
                       <img
                         src="/images/google_play_badge.png"
                         alt="Get it on Google Play"
                         className="h-auto w-full sm:w-auto sm:h-14 md:h-16 lg:h-[72px] object-contain"
                         draggable={false}
                       />
-                    </a>
+                    </button>
                   </div>
                 </div>
               </div>
@@ -427,6 +435,7 @@ export default function VedlikShowcase() {
           </section>
         </div>
       </main>
+      <WaitlistModal isOpen={isWaitlistOpen} onClose={closeWaitlistModal} />
     </div>
   )
 }
