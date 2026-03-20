@@ -30,7 +30,7 @@ export default function VedlikShowcase() {
   const isAnimating = useRef(false)
   const lastGestureAt = useRef(0)
   const lockUntil = useRef(0)
-  const totalSections = 4
+  const totalSections = 5
 
   useGSAP(
     () => {
@@ -452,9 +452,11 @@ export default function VedlikShowcase() {
               </div>
             </div>
           </section>
+          <section className="vedlik-mobile-section relative flex flex-col justify-end border-t border-white/[0.08] bg-[#000] min-h-[100dvh] h-[100dvh]">
+            <StickyFooter />
+          </section>
         </div>
       </main>
-      <StickyFooter />
     </div>
   )
 }
