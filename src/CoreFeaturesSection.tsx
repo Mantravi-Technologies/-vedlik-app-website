@@ -85,7 +85,7 @@ export default function CoreFeaturesSection() {
               Four ways to read smarter.
             </h2>
             <p className="mt-1.5 max-w-md text-[12px] leading-relaxed text-white/45 sm:mt-2 sm:text-sm md:text-[0.9375rem] md:leading-relaxed">
-              Built for AI news, technology updates, and startup funding—without the noise.
+              Built for AI, technology, startup, and funding intelligence—without the noise.
             </p>
           </header>
 

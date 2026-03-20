@@ -42,7 +42,7 @@ export default function ScrollSection({
             AI &amp; Tech, Decoded.
           </h1>
           <p className="mt-2 sm:mt-4 md:mt-5 text-white/70 text-[1.03rem] sm:text-xl md:text-2xl max-w-lg mx-auto md:mx-0">
-            Artificial intelligence, startups, and technology news—one clear feed.
+            Artificial intelligence, startups, and technology intelligence—one clear feed.
           </p>
           <div className="mt-3.5 sm:mt-6 w-full flex justify-center md:justify-start -translate-x-1 sm:translate-x-0 md:translate-x-0">
             <a
@@ -74,7 +74,7 @@ export default function ScrollSection({
             See the insight.
           </h1>
           <p className="mt-2 sm:mt-4 md:mt-5 text-white/70 text-[1.03rem] sm:text-xl md:text-2xl max-w-lg mx-auto md:mx-0">
-            Credibility, context, and entities—built for tech and funding news.
+            Credibility, context, and entities—built for tech and startup funding intelligence.
           </p>
           <div className="mt-3.5 sm:mt-6 w-full flex justify-center md:justify-start -translate-x-1 sm:translate-x-0 md:translate-x-0">
             <a

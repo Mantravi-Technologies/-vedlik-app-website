@@ -227,9 +227,9 @@ const ROUTES: Record<string, RouteConfig> = {
 }
 
 const SITE_URL = 'https://vedlik.com'
-const HOME_TITLE = 'Vedlik — AI & Tech News for Builders'
+const HOME_TITLE = 'Vedlik — AI, Tech & Startup Intelligence'
 const HOME_DESCRIPTION =
-  'Stay ahead with Artificial Intelligence, technology, and startup news—funding rounds, product launches, and policy—in short, trustworthy briefs with sources.'
+  'Stay ahead with artificial intelligence, technology, startups, and funding intelligence in short, trustworthy briefs with source attribution.'
 
 function setMetaTag(selector: string, attr: 'name' | 'property', key: string, content: string) {
   let element = document.head.querySelector<HTMLMetaElement>(selector)

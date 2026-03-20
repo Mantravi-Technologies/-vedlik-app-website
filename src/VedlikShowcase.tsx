@@ -9,8 +9,8 @@ import CoreFeaturesSection from './CoreFeaturesSection'
 
 gsap.registerPlugin(Observer)
 
-const ANIM_DURATION = 0.62
-const SECTION_DURATION = 0.9
+const ANIM_DURATION = 0.68
+const SECTION_DURATION = 1.02
 const FLIP_SWAP_POINT = 0.45
 
 export default function VedlikShowcase() {
@@ -108,7 +108,7 @@ export default function VedlikShowcase() {
             defaults: { duration: ANIM_DURATION, ease },
             onComplete: () => {
               isAnimating.current = false
-              lockUntil.current = performance.now() + 150
+              lockUntil.current = performance.now() + 180
             },
           })
             .to(text1, { opacity: 0, y: -8, filter: 'blur(2px)', duration: ANIM_DURATION * 0.42 }, 0)
@@ -128,7 +128,7 @@ export default function VedlikShowcase() {
             defaults: { duration: ANIM_DURATION, ease },
             onComplete: () => {
               isAnimating.current = false
-              lockUntil.current = performance.now() + 150
+              lockUntil.current = performance.now() + 180
             },
           })
             .to(text2, { opacity: 0, y: -8, filter: 'blur(2px)', duration: ANIM_DURATION * 0.42 }, 0)
@@ -156,7 +156,7 @@ export default function VedlikShowcase() {
             defaults: { duration: ANIM_DURATION, ease },
             onComplete: () => {
               isAnimating.current = false
-              lockUntil.current = performance.now() + 150
+              lockUntil.current = performance.now() + 180
             },
           })
             .to(text3, { opacity: 0, y: -8, filter: 'blur(2px)', duration: ANIM_DURATION * 0.42 }, 0)
@@ -182,7 +182,7 @@ export default function VedlikShowcase() {
             defaults: { duration: ANIM_DURATION, ease },
             onComplete: () => {
               isAnimating.current = false
-              lockUntil.current = performance.now() + 150
+              lockUntil.current = performance.now() + 180
             },
           })
             .to(text2, { opacity: 0, y: -8, filter: 'blur(2px)', duration: ANIM_DURATION * 0.42 }, 0)
@@ -204,11 +204,11 @@ export default function VedlikShowcase() {
         gsap.to(sectionsWrapper, {
           y: getSectionOffset(index),
           duration: SECTION_DURATION,
-          ease: 'power2.out',
+          ease: 'power3.inOut',
           force3D: true,
           onComplete: () => {
             isAnimating.current = false
-            lockUntil.current = performance.now() + 170
+            lockUntil.current = performance.now() + 220
           },
         })
       }
@@ -234,7 +234,7 @@ export default function VedlikShowcase() {
 
       const goNext = () => {
         const now = performance.now()
-        if (now - lastGestureAt.current < 170) return
+        if (now - lastGestureAt.current < 205) return
         if (now < lockUntil.current) return
         if (isAnimating.current) return
         lastGestureAt.current = now
@@ -252,7 +252,7 @@ export default function VedlikShowcase() {
 
       const goPrev = () => {
         const now = performance.now()
-        if (now - lastGestureAt.current < 170) return
+        if (now - lastGestureAt.current < 205) return
         if (now < lockUntil.current) return
         if (isAnimating.current) return
         lastGestureAt.current = now
@@ -275,7 +275,7 @@ export default function VedlikShowcase() {
         target: container,
         type: 'wheel,touch',
         wheelSpeed: -1,
-        tolerance: 14,
+        tolerance: 16,
         preventDefault: true,
         lockAxis: true,
         // Let Core Features horizontal carousel use native touch / wheel scroll
