@@ -40,12 +40,12 @@ export default function ScrollSection({
       {/* Text: on mobile first (order-1), on desktop left (md:order-1) */}
       <div className="relative order-1 md:order-1 z-10 flex flex-col justify-center pt-4 sm:pt-5 md:pt-0 md:w-[46%] lg:max-w-xl shrink-0 min-h-[18.5vh] sm:min-h-[24vh] md:min-h-[240px]">
         <div ref={text1Ref} className="absolute inset-0 flex flex-col justify-start pt-2 sm:pt-3 md:justify-center md:pt-0 items-center md:items-start text-center md:text-left opacity-100 md:translate-x-10 lg:translate-x-14 translate-y-0 sm:translate-y-3 md:translate-y-0">
-          <h1 className="max-w-[8.4ch] md:max-w-none text-[1.95rem] leading-[0.95] sm:text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight text-white">
+          <h1 className="max-w-none text-[1.72rem] leading-[1.02] sm:text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight text-white">
             AI &amp; Tech, Decoded.
           </h1>
           <p className="mt-2 sm:mt-4 md:mt-5 text-white/70 text-[0.74rem] leading-[1.3] sm:text-xl md:text-2xl max-w-lg mx-auto md:mx-0">
-            <span className="block whitespace-nowrap sm:inline sm:whitespace-normal">Artificial intelligence, startups,</span>
-            <span className="block whitespace-nowrap sm:inline sm:whitespace-normal">technology intelligence in one feed.</span>
+            <span className="block whitespace-nowrap sm:hidden">AI, startups, and tech in one feed.</span>
+            <span className="hidden sm:inline">Artificial intelligence, startups, and technology intelligence one clear feed.</span>
           </p>
           <div className="mt-3.5 sm:mt-6 w-full flex justify-center md:justify-start -translate-x-1 sm:translate-x-0 md:translate-x-0">
             <button
@@ -58,12 +58,12 @@ export default function ScrollSection({
           </div>
         </div>
         <div ref={text2Ref} className="absolute inset-0 flex flex-col justify-start pt-2 sm:pt-3 md:justify-center md:pt-0 items-center md:items-start text-center md:text-left opacity-0 md:translate-x-10 lg:translate-x-14 translate-y-0 sm:translate-y-3 md:translate-y-0">
-          <h1 className="max-w-[8.4ch] md:max-w-none text-[1.95rem] leading-[0.95] sm:text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight text-white">
+          <h1 className="max-w-none text-[1.72rem] leading-[1.02] sm:text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight text-white">
             Read what matters.
           </h1>
           <p className="mt-2 sm:mt-4 md:mt-5 text-white/70 text-[0.74rem] leading-[1.3] sm:text-xl md:text-2xl max-w-lg mx-auto md:mx-0">
-            <span className="block whitespace-nowrap sm:inline sm:whitespace-normal">AI-powered clarity</span>
-            <span className="block whitespace-nowrap sm:inline sm:whitespace-normal">on every story.</span>
+            <span className="block whitespace-nowrap sm:hidden">AI-powered clarity on every story.</span>
+            <span className="hidden sm:inline">AI-powered clarity on every story.</span>
           </p>
           <div className="mt-3.5 sm:mt-6 w-full flex justify-center md:justify-start -translate-x-1 sm:translate-x-0 md:translate-x-0">
             <button
@@ -76,12 +76,12 @@ export default function ScrollSection({
           </div>
         </div>
         <div ref={text3Ref} className="absolute inset-0 flex flex-col justify-start pt-2 sm:pt-3 md:justify-center md:pt-0 items-center md:items-start text-center md:text-left opacity-0 md:translate-x-10 lg:translate-x-14 translate-y-0 sm:translate-y-3 md:translate-y-0">
-          <h1 className="max-w-[8.4ch] md:max-w-none text-[1.95rem] leading-[0.95] sm:text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight text-white">
+          <h1 className="max-w-none text-[1.72rem] leading-[1.02] sm:text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight text-white">
             See the insight.
           </h1>
           <p className="mt-2 sm:mt-4 md:mt-5 text-white/70 text-[0.74rem] leading-[1.3] sm:text-xl md:text-2xl max-w-lg mx-auto md:mx-0">
-            <span className="block whitespace-nowrap sm:inline sm:whitespace-normal">Credibility, context, entities.</span>
-            <span className="block whitespace-nowrap sm:inline sm:whitespace-normal">For tech and startup funding.</span>
+            <span className="block whitespace-nowrap sm:hidden">Context and credibility for funding intel.</span>
+            <span className="hidden sm:inline">Credibility, context, and entities built for tech and startup funding intelligence.</span>
           </p>
           <div className="mt-3.5 sm:mt-6 w-full flex justify-center md:justify-start -translate-x-1 sm:translate-x-0 md:translate-x-0">
             <button
