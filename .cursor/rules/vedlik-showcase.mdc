@@ -1,0 +1,30 @@
+---
+description: Vedlik Showcase — primary project context and how to run it
+alwaysApply: true
+---
+
+# Vedlik Showcase
+
+This repo is the user’s **primary** frontend project unless they say otherwise.
+
+## Stack
+
+- Vite 5, React 18, TypeScript, Tailwind CSS, GSAP (`@gsap/react`)
+
+## Commands
+
+- Dev server: `npm run dev` (from repo root)
+- Production build: `npm run build`
+- Preview build: `npm run preview`
+
+## Paths
+
+- App entry: `src/main.tsx`, routing/UI in `src/` (e.g. `VedlikShowcase.tsx`, `AppRouter.tsx`)
+
+## Mobile / emulator
+
+- To open the dev URL from another device or an Android emulator browser, bind the host:  
+  `npm run dev -- --host`  
+  Then use the machine’s LAN IP (emulator: host is often `10.0.2.2` from inside the emulator, or use the printed network URL).
+
+When the user mentions “the project” without a name, assume **vedlik-showcase** here.

@@ -14,10 +14,10 @@ const CONTENT_INSET_DESKTOP = {
 }
 
 const CONTENT_INSET_MOBILE = {
-  top: '17.3%',
+  top: '14.3%',
   left: '13.7%',
   right: '14.7%',
-  bottom: '19.5%',
+  bottom: '16.5%',
 }
 
 interface PhoneMockupProps {
