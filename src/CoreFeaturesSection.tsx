@@ -83,8 +83,7 @@ export default function CoreFeaturesSection() {
     const reducedMotionQuery = window.matchMedia('(prefers-reduced-motion: reduce)')
     if (!mobileQuery.matches || reducedMotionQuery.matches) return
 
-    let rafId = 0
-    let lastFrameAt = 0
+    let intervalId = 0
     let resumeAt = performance.now() + 900
     let direction: 1 | -1 = 1
 
@@ -92,17 +91,13 @@ export default function CoreFeaturesSection() {
       resumeAt = performance.now() + delayMs
     }
 
-    const tick = (frameAt: number) => {
+    const tick = () => {
       const maxScrollLeft = Math.max(0, carousel.scrollWidth - carousel.clientWidth)
       const now = performance.now()
-      if (!lastFrameAt) lastFrameAt = frameAt
-
-      const dt = Math.min(32, frameAt - lastFrameAt)
-      lastFrameAt = frameAt
 
       if (!document.hidden && now >= resumeAt && maxScrollLeft > 0) {
-        const speedPxPerMs = 0.04
-        const next = carousel.scrollLeft + direction * dt * speedPxPerMs
+        const stepPx = 1.4
+        const next = carousel.scrollLeft + direction * stepPx
 
         if (next >= maxScrollLeft) {
           carousel.scrollLeft = maxScrollLeft
@@ -117,7 +112,6 @@ export default function CoreFeaturesSection() {
         }
       }
 
-      rafId = window.requestAnimationFrame(tick)
     }
 
     const onTouchStart = () => pauseAutoScroll(2800)
@@ -128,10 +122,10 @@ export default function CoreFeaturesSection() {
     carousel.addEventListener('pointerdown', onPointerDown, { passive: true })
     carousel.addEventListener('wheel', onWheel, { passive: true })
 
-    rafId = window.requestAnimationFrame(tick)
+    intervalId = window.setInterval(tick, 18)
 
     return () => {
-      window.cancelAnimationFrame(rafId)
+      window.clearInterval(intervalId)
       carousel.removeEventListener('touchstart', onTouchStart)
       carousel.removeEventListener('pointerdown', onPointerDown)
       carousel.removeEventListener('wheel', onWheel)
