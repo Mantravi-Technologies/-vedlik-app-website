@@ -320,7 +320,7 @@ export default function VedlikShowcase() {
   )
 
   return (
-    <div ref={containerRef} className="h-screen w-full overflow-hidden overscroll-none touch-none bg-[#000] text-white">
+    <div ref={containerRef} className="h-screen w-full overflow-hidden overscroll-none bg-[#000] text-white">
       <StickyHeader />
       <main className="h-screen w-full relative overflow-hidden">
         <div ref={sectionsWrapperRef} className="w-full absolute inset-0 will-change-transform" style={{ height: `${totalSections * 100}dvh` }}>
