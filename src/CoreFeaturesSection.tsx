@@ -84,51 +84,60 @@ export default function CoreFeaturesSection() {
     if (!mobileQuery.matches || reducedMotionQuery.matches) return
 
     let intervalId = 0
-    let resumeAt = performance.now() + 900
-    let direction: 1 | -1 = 1
+    let resumeAt = performance.now() + 1200
+    let activeIndex = 0
 
     const pauseAutoScroll = (delayMs = 2400) => {
       resumeAt = performance.now() + delayMs
     }
 
+    const getCards = () => Array.from(carousel.children) as HTMLElement[]
+
     const tick = () => {
-      const maxScrollLeft = Math.max(0, carousel.scrollWidth - carousel.clientWidth)
-      const now = performance.now()
-
-      if (!document.hidden && now >= resumeAt && maxScrollLeft > 0) {
-        const stepPx = 1.4
-        const next = carousel.scrollLeft + direction * stepPx
-
-        if (next >= maxScrollLeft) {
-          carousel.scrollLeft = maxScrollLeft
-          direction = -1
-          pauseAutoScroll(1100)
-        } else if (next <= 0) {
-          carousel.scrollLeft = 0
-          direction = 1
-          pauseAutoScroll(1100)
-        } else {
-          carousel.scrollLeft = next
-        }
-      }
-
+      if (document.hidden || performance.now() < resumeAt) return
+      const cards = getCards()
+      if (cards.length <= 1) return
+      activeIndex = (activeIndex + 1) % cards.length
+      const targetCard = cards[activeIndex]
+      if (!targetCard) return
+      const left = Math.max(0, targetCard.offsetLeft - (carousel.clientWidth - targetCard.clientWidth) / 2)
+      carousel.scrollTo({ left, behavior: 'smooth' })
+      pauseAutoScroll(2300)
     }
 
     const onTouchStart = () => pauseAutoScroll(2800)
     const onPointerDown = () => pauseAutoScroll(2800)
     const onWheel = () => pauseAutoScroll(2600)
+    const onScroll = () => {
+      const cards = getCards()
+      if (!cards.length) return
+      const left = carousel.getBoundingClientRect().left
+      let nearestIndex = 0
+      let nearestDistance = Number.POSITIVE_INFINITY
+      cards.forEach((card, idx) => {
+        const distance = Math.abs(card.getBoundingClientRect().left - left)
+        if (distance < nearestDistance) {
+          nearestDistance = distance
+          nearestIndex = idx
+        }
+      })
+      activeIndex = nearestIndex
+    }
 
     carousel.addEventListener('touchstart', onTouchStart, { passive: true })
     carousel.addEventListener('pointerdown', onPointerDown, { passive: true })
     carousel.addEventListener('wheel', onWheel, { passive: true })
+    carousel.addEventListener('scroll', onScroll, { passive: true })
 
-    intervalId = window.setInterval(tick, 18)
+    onScroll()
+    intervalId = window.setInterval(tick, 1300)
 
     return () => {
       window.clearInterval(intervalId)
       carousel.removeEventListener('touchstart', onTouchStart)
       carousel.removeEventListener('pointerdown', onPointerDown)
       carousel.removeEventListener('wheel', onWheel)
+      carousel.removeEventListener('scroll', onScroll)
     }
   }, [])
 

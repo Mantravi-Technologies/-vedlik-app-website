@@ -43,8 +43,9 @@ export default function ScrollSection({
           <h1 className="max-w-[8.4ch] md:max-w-none text-[1.95rem] leading-[0.95] sm:text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight text-white">
             AI &amp; Tech, Decoded.
           </h1>
-          <p className="mt-2 sm:mt-4 md:mt-5 text-white/70 text-[1.03rem] sm:text-xl md:text-2xl max-w-lg mx-auto md:mx-0">
-            Artificial intelligence, startups, and technology intelligence—one clear feed.
+          <p className="mt-2 sm:mt-4 md:mt-5 text-white/70 text-[0.74rem] leading-[1.3] sm:text-xl md:text-2xl max-w-lg mx-auto md:mx-0">
+            <span className="block whitespace-nowrap sm:inline sm:whitespace-normal">Artificial intelligence, startups,</span>
+            <span className="block whitespace-nowrap sm:inline sm:whitespace-normal">technology intelligence in one feed.</span>
           </p>
           <div className="mt-3.5 sm:mt-6 w-full flex justify-center md:justify-start -translate-x-1 sm:translate-x-0 md:translate-x-0">
             <button
@@ -60,8 +61,9 @@ export default function ScrollSection({
           <h1 className="max-w-[8.4ch] md:max-w-none text-[1.95rem] leading-[0.95] sm:text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight text-white">
             Read what matters.
           </h1>
-          <p className="mt-2 sm:mt-4 md:mt-5 text-white/70 text-[1.03rem] sm:text-xl md:text-2xl max-w-lg mx-auto md:mx-0">
-            AI-powered clarity on every story.
+          <p className="mt-2 sm:mt-4 md:mt-5 text-white/70 text-[0.74rem] leading-[1.3] sm:text-xl md:text-2xl max-w-lg mx-auto md:mx-0">
+            <span className="block whitespace-nowrap sm:inline sm:whitespace-normal">AI-powered clarity</span>
+            <span className="block whitespace-nowrap sm:inline sm:whitespace-normal">on every story.</span>
           </p>
           <div className="mt-3.5 sm:mt-6 w-full flex justify-center md:justify-start -translate-x-1 sm:translate-x-0 md:translate-x-0">
             <button
@@ -77,8 +79,9 @@ export default function ScrollSection({
           <h1 className="max-w-[8.4ch] md:max-w-none text-[1.95rem] leading-[0.95] sm:text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight text-white">
             See the insight.
           </h1>
-          <p className="mt-2 sm:mt-4 md:mt-5 text-white/70 text-[1.03rem] sm:text-xl md:text-2xl max-w-lg mx-auto md:mx-0">
-            Credibility, context, and entities—built for tech and startup funding intelligence.
+          <p className="mt-2 sm:mt-4 md:mt-5 text-white/70 text-[0.74rem] leading-[1.3] sm:text-xl md:text-2xl max-w-lg mx-auto md:mx-0">
+            <span className="block whitespace-nowrap sm:inline sm:whitespace-normal">Credibility, context, entities.</span>
+            <span className="block whitespace-nowrap sm:inline sm:whitespace-normal">For tech and startup funding.</span>
           </p>
           <div className="mt-3.5 sm:mt-6 w-full flex justify-center md:justify-start -translate-x-1 sm:translate-x-0 md:translate-x-0">
             <button
