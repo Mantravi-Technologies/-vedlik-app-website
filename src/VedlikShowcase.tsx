@@ -287,6 +287,10 @@ export default function VedlikShowcase() {
         lockAxis: true,
         // Let Core Features horizontal carousel use native touch / wheel scroll
         ignore: '[data-vedlik-carousel]',
+        ignoreCheck: (event) => {
+          const target = event.target
+          return target instanceof Element ? Boolean(target.closest('[data-vedlik-carousel]')) : false
+        },
         onDown: goPrev,
         onUp: goNext,
       })
