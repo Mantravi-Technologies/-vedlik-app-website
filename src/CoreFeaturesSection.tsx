@@ -124,7 +124,7 @@ export default function CoreFeaturesSection() {
             <img
               src="/images/vedlik_mockup_2.png"
               alt="Vedlik app on iPhone"
-              className="h-auto max-h-full w-full max-w-[min(96vw,480px)] object-contain object-center drop-shadow-[0_28px_80px_rgba(0,0,0,0.75)] sm:max-w-[min(94vw,520px)] md:max-h-[min(88dvh,920px)] md:max-w-[min(640px,58vw)] md:w-auto"
+              className="mx-auto h-auto max-h-full w-full max-w-[90vw] object-contain object-center drop-shadow-[0_28px_80px_rgba(0,0,0,0.75)] sm:max-w-[min(90vw,520px)] md:max-h-[min(88dvh,920px)] md:max-w-[min(560px,52vw)]"
               draggable={false}
               decoding="async"
             />

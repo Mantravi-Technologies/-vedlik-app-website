@@ -36,8 +36,8 @@ export default function ScrollSection({
       </div>
 
       {/* Text: on mobile first (order-1), on desktop left (md:order-1) */}
-      <div className="relative order-1 md:order-1 z-10 flex flex-col justify-center md:w-[46%] lg:max-w-xl shrink-0 min-h-[18.5vh] sm:min-h-[24vh] md:min-h-[240px]">
-        <div ref={text1Ref} className="absolute inset-0 flex flex-col justify-center items-center md:items-start text-center md:text-left opacity-100 md:translate-x-10 lg:translate-x-14 translate-y-0 sm:translate-y-3 md:translate-y-0">
+      <div className="relative order-1 md:order-1 z-10 flex flex-col justify-center pt-4 sm:pt-5 md:pt-0 md:w-[46%] lg:max-w-xl shrink-0 min-h-[18.5vh] sm:min-h-[24vh] md:min-h-[240px]">
+        <div ref={text1Ref} className="absolute inset-0 flex flex-col justify-start pt-2 sm:pt-3 md:justify-center md:pt-0 items-center md:items-start text-center md:text-left opacity-100 md:translate-x-10 lg:translate-x-14 translate-y-0 sm:translate-y-3 md:translate-y-0">
           <h1 className="text-[1.95rem] leading-[0.95] sm:text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight text-white">
             AI &amp; Tech, Decoded.
           </h1>
@@ -53,7 +53,7 @@ export default function ScrollSection({
             </a>
           </div>
         </div>
-        <div ref={text2Ref} className="absolute inset-0 flex flex-col justify-center items-center md:items-start text-center md:text-left opacity-0 md:translate-x-10 lg:translate-x-14 translate-y-0 sm:translate-y-3 md:translate-y-0">
+        <div ref={text2Ref} className="absolute inset-0 flex flex-col justify-start pt-2 sm:pt-3 md:justify-center md:pt-0 items-center md:items-start text-center md:text-left opacity-0 md:translate-x-10 lg:translate-x-14 translate-y-0 sm:translate-y-3 md:translate-y-0">
           <h1 className="text-[1.95rem] leading-[0.95] sm:text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight text-white">
             Read what matters.
           </h1>
@@ -69,7 +69,7 @@ export default function ScrollSection({
             </a>
           </div>
         </div>
-        <div ref={text3Ref} className="absolute inset-0 flex flex-col justify-center items-center md:items-start text-center md:text-left opacity-0 md:translate-x-10 lg:translate-x-14 translate-y-0 sm:translate-y-3 md:translate-y-0">
+        <div ref={text3Ref} className="absolute inset-0 flex flex-col justify-start pt-2 sm:pt-3 md:justify-center md:pt-0 items-center md:items-start text-center md:text-left opacity-0 md:translate-x-10 lg:translate-x-14 translate-y-0 sm:translate-y-3 md:translate-y-0">
           <h1 className="text-[1.95rem] leading-[0.95] sm:text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight text-white">
             See the insight.
           </h1>
