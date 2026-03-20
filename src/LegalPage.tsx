@@ -1,4 +1,5 @@
 import type { ReactNode } from 'react'
+import SpaLink from './SpaLink'
 
 type LegalPageProps = {
   title: string
@@ -11,18 +12,18 @@ export default function LegalPage({ title, description, children }: LegalPagePro
     <div className="min-h-screen bg-[#040404] text-white">
       <header className="sticky top-0 z-10 border-b border-white/[0.08] bg-black/90 backdrop-blur px-4 sm:px-6 md:px-10 py-4">
         <div className="mx-auto max-w-5xl flex items-center justify-between gap-4">
-          <a href="/" className="inline-flex items-center gap-2 text-white/90 hover:text-white transition-colors">
+          <SpaLink href="/" className="inline-flex items-center gap-2 text-white/90 hover:text-white transition-colors">
             <img
               src="/images/vedlik_logo_header.png"
               alt="Vedlik"
               className="h-7 sm:h-8 w-auto object-contain"
               draggable={false}
             />
-          </a>
+          </SpaLink>
           <nav className="flex items-center gap-3 sm:gap-5 text-xs sm:text-sm">
-            <a href="/privacy-policy" className="text-white/70 hover:text-white transition-colors">Privacy</a>
-            <a href="/terms-and-conditions" className="text-white/70 hover:text-white transition-colors">Terms</a>
-            <a href="/data-deletion-request" className="text-white/70 hover:text-white transition-colors">Data Deletion</a>
+            <SpaLink href="/privacy-policy" className="text-white/70 hover:text-white transition-colors">Privacy</SpaLink>
+            <SpaLink href="/terms-and-conditions" className="text-white/70 hover:text-white transition-colors">Terms</SpaLink>
+            <SpaLink href="/data-deletion-request" className="text-white/70 hover:text-white transition-colors">Data Deletion</SpaLink>
           </nav>
         </div>
       </header>
@@ -39,13 +40,13 @@ export default function LegalPage({ title, description, children }: LegalPagePro
 
       <footer className="border-t border-white/[0.08] px-4 sm:px-6 md:px-10 py-5">
         <div className="mx-auto max-w-5xl flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
-          <p className="text-xs text-white/45">© Vedlik. Signals, Decoded.</p>
+          <p className="text-xs text-white/45">© Vedlik · AI &amp; tech intelligence</p>
           <div className="flex items-center gap-4 text-xs">
             <a href="https://mantravi.com" target="_blank" rel="noreferrer" className="text-white/65 hover:text-white">
               Powered by Mantravi
             </a>
-            <a href="/privacy-policy" className="text-[#2DD4BF] hover:opacity-85">Privacy</a>
-            <a href="/terms-and-conditions" className="text-[#2DD4BF] hover:opacity-85">Terms</a>
+            <SpaLink href="/privacy-policy" className="text-[#2DD4BF] hover:opacity-85">Privacy</SpaLink>
+            <SpaLink href="/terms-and-conditions" className="text-[#2DD4BF] hover:opacity-85">Terms</SpaLink>
           </div>
         </div>
       </footer>

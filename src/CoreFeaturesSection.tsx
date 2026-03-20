@@ -4,22 +4,22 @@ const FEATURES = [
   {
     id: '01',
     title: 'Intelligence Flip',
-    body: 'Tap a card and flip into extracted metrics: model size, valuation, hardware footprint, and licensing.',
+    body: 'Tap a card and flip into extracted metrics: model size, startup valuation, hardware footprint, and licensing.',
   },
   {
     id: '02',
     title: 'Knowledge Engine',
-    body: 'Highlight a technical term and get a plain-language definition without leaving the feed.',
+    body: 'Highlight AI or technology terms and get plain-language definitions without leaving your feed.',
   },
   {
     id: '03',
     title: 'Anti-Fluff Feed',
-    body: 'Short summaries that preserve the signal and remove repetitive narrative.',
+    body: 'Short summaries that keep the important tech and funding detail—and skip repetitive narrative.',
   },
   {
     id: '04',
     title: 'Intel Library',
-    body: 'Bookmark key updates and build a personal research trail you can return to fast.',
+    body: 'Bookmark AI industry and startup updates and build a research trail you can reopen anytime.',
   },
 ] as const
 
@@ -85,14 +85,14 @@ export default function CoreFeaturesSection() {
               Four ways to read smarter.
             </h2>
             <p className="mt-1.5 max-w-md text-[12px] leading-relaxed text-white/45 sm:mt-2 sm:text-sm md:text-[0.9375rem] md:leading-relaxed">
-              Precision tools for scanning signal—without the noise.
+              Built for AI news, technology updates, and startup funding—without the noise.
             </p>
           </header>
 
           {/* Mobile: horizontal snap row — frees vertical space for the device */}
           <div
             data-vedlik-carousel
-            className="mt-3 flex min-h-0 touch-pan-x gap-2.5 overflow-x-auto overflow-y-visible overscroll-x-contain pb-1 pt-0.5 scrollbar-hide snap-x snap-mandatory sm:gap-3 md:hidden"
+            className="mt-3 flex min-h-0 w-full touch-pan-x gap-0 overflow-x-auto overflow-y-visible overscroll-x-contain pb-1 pt-0.5 scrollbar-hide snap-x snap-mandatory md:hidden"
           >
             {FEATURES.map((f) => (
               <FeatureCardItem
@@ -100,7 +100,7 @@ export default function CoreFeaturesSection() {
                 id={f.id}
                 title={f.title}
                 body={f.body}
-                className="w-[min(82vw,300px)] shrink-0 snap-center sm:w-[min(78vw,320px)]"
+                className="w-full min-w-full max-w-none shrink-0 grow-0 snap-center snap-always basis-full"
               />
             ))}
           </div>

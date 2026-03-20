@@ -39,10 +39,10 @@ export default function ScrollSection({
       <div className="relative order-1 md:order-1 z-10 flex flex-col justify-center md:w-[46%] lg:max-w-xl shrink-0 min-h-[18.5vh] sm:min-h-[24vh] md:min-h-[240px]">
         <div ref={text1Ref} className="absolute inset-0 flex flex-col justify-center items-center md:items-start text-center md:text-left opacity-100 md:translate-x-10 lg:translate-x-14 translate-y-0 sm:translate-y-3 md:translate-y-0">
           <h1 className="text-[1.95rem] leading-[0.95] sm:text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight text-white">
-            Signals, Decoded.
+            AI &amp; Tech, Decoded.
           </h1>
           <p className="mt-2 sm:mt-4 md:mt-5 text-white/70 text-[1.03rem] sm:text-xl md:text-2xl max-w-lg mx-auto md:mx-0">
-            Cut through the noise. One feed, one truth.
+            Artificial intelligence, startups, and technology news—one clear feed.
           </p>
           <div className="mt-3.5 sm:mt-6 w-full flex justify-center md:justify-start -translate-x-1 sm:translate-x-0 md:translate-x-0">
             <a
@@ -71,10 +71,10 @@ export default function ScrollSection({
         </div>
         <div ref={text3Ref} className="absolute inset-0 flex flex-col justify-center items-center md:items-start text-center md:text-left opacity-0 md:translate-x-10 lg:translate-x-14 translate-y-0 sm:translate-y-3 md:translate-y-0">
           <h1 className="text-[1.95rem] leading-[0.95] sm:text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight text-white">
-            See the signals.
+            See the insight.
           </h1>
           <p className="mt-2 sm:mt-4 md:mt-5 text-white/70 text-[1.03rem] sm:text-xl md:text-2xl max-w-lg mx-auto md:mx-0">
-            Credibility. Sentiment. Entities.
+            Credibility, context, and entities—built for tech and funding news.
           </p>
           <div className="mt-3.5 sm:mt-6 w-full flex justify-center md:justify-start -translate-x-1 sm:translate-x-0 md:translate-x-0">
             <a

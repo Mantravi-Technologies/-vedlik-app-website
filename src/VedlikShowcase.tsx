@@ -347,7 +347,7 @@ export default function VedlikShowcase() {
               <div>
                 <p className="text-[#2DD4BF] text-xs sm:text-sm tracking-[0.14em] uppercase">Why Vedlik</p>
                 <h2 className="mt-2 sm:mt-3 text-[1.9rem] sm:text-4xl md:text-5xl lg:text-6xl font-semibold tracking-tight text-white leading-[0.95]">
-                  Less noise. Faster signal.
+                  Less noise. Faster insight.
                 </h2>
                 <p className="mt-2.5 sm:mt-5 text-white/70 text-[0.98rem] sm:text-lg md:text-xl leading-relaxed max-w-2xl">
                   Most tech coverage buries the important part. Vedlik is built for people who need to understand what changed,
@@ -363,7 +363,7 @@ export default function VedlikShowcase() {
                   </div>
                   <div>
                     <p className="text-white text-sm font-semibold">Founders & Investors</p>
-                    <p className="mt-1 text-white/60 text-xs sm:text-sm leading-relaxed">Signals around funding, M&amp;A, and category shifts that change strategy.</p>
+                    <p className="mt-1 text-white/60 text-xs sm:text-sm leading-relaxed">Funding, M&amp;A, and startup category shifts that change strategy.</p>
                   </div>
                   <div>
                     <p className="text-white text-sm font-semibold">Students & Tech Grads</p>
@@ -395,7 +395,7 @@ export default function VedlikShowcase() {
                     </div>
                     <div>
                       <p className="text-white text-sm font-semibold">Facts before opinions</p>
-                      <p className="mt-2 text-white/60 text-xs sm:text-sm leading-relaxed">Every story is broken into key facts and signals so you can understand impact quickly.</p>
+                      <p className="mt-2 text-white/60 text-xs sm:text-sm leading-relaxed">Every story is broken into key facts and takeaways so you can understand impact quickly.</p>
                     </div>
                     <div>
                       <p className="text-white text-sm font-semibold">Built for daily decisions</p>

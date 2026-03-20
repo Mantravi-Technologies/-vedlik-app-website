@@ -1,7 +1,8 @@
 import VedlikShowcase from './VedlikShowcase'
 import LegalPage from './LegalPage'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import type { ReactNode } from 'react'
+import { getPathname } from './spaNavigation'
 
 type RouteConfig = {
   title: string
@@ -111,7 +112,7 @@ const TERMS_CONTENT = (
       news hosting service.
     </p>
     <p>
-      <strong>Transformative Output:</strong> The App provides original short-form summaries based on factual signals.
+      <strong>Transformative Output:</strong> The App provides original short-form summaries based on factual reporting and data points.
       We do not intentionally host or reproduce complete third-party editorial content in the App feed.
     </p>
     <p>
@@ -226,9 +227,9 @@ const ROUTES: Record<string, RouteConfig> = {
 }
 
 const SITE_URL = 'https://vedlik.com'
-const HOME_TITLE = 'Vedlik — Signals, Decoded.'
+const HOME_TITLE = 'Vedlik — AI & Tech News for Builders'
 const HOME_DESCRIPTION =
-  'Vedlik helps you decode AI and tech updates quickly with concise, signal-first summaries, source attribution, and a premium reading experience.'
+  'Stay ahead with Artificial Intelligence, technology, and startup news—funding rounds, product launches, and policy—in short, trustworthy briefs with sources.'
 
 function setMetaTag(selector: string, attr: 'name' | 'property', key: string, content: string) {
   let element = document.head.querySelector<HTMLMetaElement>(selector)
@@ -251,7 +252,16 @@ function setCanonical(url: string) {
 }
 
 export default function AppRouter() {
-  const pathname = window.location.pathname.replace(/\/+$/, '') || '/'
+  const [pathname, setPathname] = useState(getPathname)
+  useEffect(() => {
+    const sync = () => setPathname(getPathname())
+    window.addEventListener('popstate', sync)
+    window.addEventListener('vedlik:route', sync)
+    return () => {
+      window.removeEventListener('popstate', sync)
+      window.removeEventListener('vedlik:route', sync)
+    }
+  }, [])
   const route = ROUTES[pathname]
 
   useEffect(() => {
