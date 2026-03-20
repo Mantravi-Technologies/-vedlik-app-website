@@ -5,6 +5,7 @@ import { Observer } from 'gsap/all'
 import ScrollSection from './ScrollSection'
 import StickyHeader from './StickyHeader'
 import StickyFooter from './StickyFooter'
+import CoreFeaturesSection from './CoreFeaturesSection'
 
 gsap.registerPlugin(Observer)
 
@@ -277,6 +278,8 @@ export default function VedlikShowcase() {
         tolerance: 18,
         preventDefault: true,
         lockAxis: true,
+        // Let Core Features horizontal carousel use native touch / wheel scroll
+        ignore: '[data-vedlik-carousel]',
         onDown: goPrev,
         onUp: goNext,
       })
@@ -370,42 +373,7 @@ export default function VedlikShowcase() {
               </div>
             </div>
           </section>
-          <section className="vedlik-mobile-section flex items-start md:items-center border-t border-white/[0.08] bg-[#0a0a0a] px-4 sm:px-6 md:px-10 lg:px-12 md:pt-0 md:pb-0 md:h-[100dvh] md:min-h-[100dvh]">
-            <div className="max-w-7xl w-full grid grid-cols-1 md:grid-cols-[1.1fr_1fr] gap-2 sm:gap-6 md:gap-12 items-start md:items-center">
-              <div>
-              <p className="text-[#2DD4BF] text-xs sm:text-sm tracking-[0.14em] uppercase">Core Features</p>
-              <h2 className="mt-1.5 sm:mt-2 text-[1.75rem] sm:text-4xl md:text-5xl lg:text-6xl font-semibold tracking-tight text-white leading-[0.95]">
-                Four ways to read smarter.
-              </h2>
-              <div className="mt-3 sm:mt-8 divide-y divide-white/[0.12] border-t border-b border-white/[0.12]">
-                <div className="py-1.5 sm:py-5 grid grid-cols-1 md:grid-cols-[180px_1fr] gap-1 sm:gap-3 md:gap-6">
-                  <p className="text-white/45 text-xs sm:text-sm tracking-[0.08em] uppercase">01 — Intelligence Flip</p>
-                  <p className="text-white/80 text-[0.86rem] sm:text-base leading-relaxed">Tap a card and flip into extracted metrics: model size, valuation, hardware footprint, and licensing.</p>
-                </div>
-                <div className="py-1.5 sm:py-5 grid grid-cols-1 md:grid-cols-[180px_1fr] gap-1 sm:gap-3 md:gap-6">
-                  <p className="text-white/45 text-xs sm:text-sm tracking-[0.08em] uppercase">02 — Knowledge Engine</p>
-                  <p className="text-white/80 text-[0.86rem] sm:text-base leading-relaxed">Highlight a technical term and get a plain-language definition without leaving the feed.</p>
-                </div>
-                <div className="py-1.5 sm:py-5 grid grid-cols-1 md:grid-cols-[180px_1fr] gap-1 sm:gap-3 md:gap-6">
-                  <p className="text-white/45 text-xs sm:text-sm tracking-[0.08em] uppercase">03 — Anti-Fluff Feed</p>
-                  <p className="text-white/80 text-[0.86rem] sm:text-base leading-relaxed">Short summaries that preserve the signal and remove repetitive narrative.</p>
-                </div>
-                <div className="py-1.5 sm:py-5 grid grid-cols-1 md:grid-cols-[180px_1fr] gap-1 sm:gap-3 md:gap-6">
-                  <p className="text-white/45 text-xs sm:text-sm tracking-[0.08em] uppercase">04 — Intel Library</p>
-                  <p className="text-white/80 text-[0.86rem] sm:text-base leading-relaxed">Bookmark key updates and build a personal research trail you can return to fast.</p>
-                </div>
-              </div>
-              </div>
-              <div className="w-full flex items-start justify-center md:justify-end -mt-2 sm:-mt-3 md:mt-0 pt-0">
-                <img
-                  src="/images/vedlik_mockup_2.png"
-                  alt="Vedlik app mockup"
-                  className="w-auto h-[40vh] sm:h-[58vh] md:h-[78vh] lg:h-[84vh] max-w-full object-contain object-center select-none pointer-events-none mix-blend-screen"
-                  draggable={false}
-                />
-              </div>
-            </div>
-          </section>
+          <CoreFeaturesSection />
           <section className="vedlik-mobile-section relative flex items-center border-t border-white/[0.08] bg-[#000] px-4 sm:px-6 md:px-10 lg:px-12 md:pt-0 md:pb-0 md:h-[100dvh] md:min-h-[100dvh] overflow-hidden">
             <img
               src="/images/section_4_bg.png"

@@ -37,7 +37,6 @@ body {
 
 :root {
   --vedlik-mobile-header-h: 3rem;
-  --vedlik-mobile-footer-h: 2.5rem;
 }
 
 @media (max-width: 767px) {
@@ -45,7 +44,8 @@ body {
     height: 100dvh;
     min-height: 100dvh;
     padding-top: calc(var(--vedlik-mobile-header-h) + env(safe-area-inset-top, 0px) + 0.5rem);
-    padding-bottom: calc(var(--vedlik-mobile-footer-h) + env(safe-area-inset-bottom, 0px) + 0.5rem);
+    /* Footer is in-document; keep only home-indicator breathing room */
+    padding-bottom: max(0.5rem, env(safe-area-inset-bottom, 0px));
   }
 }
 
