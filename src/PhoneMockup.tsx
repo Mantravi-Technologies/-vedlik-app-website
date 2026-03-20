@@ -14,9 +14,9 @@ const CONTENT_INSET_DESKTOP = {
 }
 
 const CONTENT_INSET_MOBILE = {
-  top: '13.8%',
-  left: '13.7%',
-  right: '14.7%',
+  top: '13.6%',
+  left: '13.6%',
+  right: '14.6%',
   bottom: '15.7%',
 }
 
