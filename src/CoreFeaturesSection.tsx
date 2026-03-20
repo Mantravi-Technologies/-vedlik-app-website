@@ -71,7 +71,7 @@ export default function CoreFeaturesSection() {
         aria-hidden
       />
 
-      <div className="relative z-10 flex h-full min-h-0 w-full flex-col px-4 pb-2 pt-0 sm:px-6 md:mx-auto md:max-w-[min(100%,1480px)] md:flex-row md:items-stretch md:gap-8 lg:gap-12 md:px-8 lg:px-6">
+      <div className="relative z-10 flex h-full min-h-0 w-full flex-col px-3 pb-2 pt-0 sm:px-6 md:mx-auto md:max-w-[min(100%,1480px)] md:flex-row md:items-stretch md:gap-8 lg:gap-12 md:px-8 lg:px-6">
         {/* Copy + features */}
         <div className="flex min-h-0 w-full shrink-0 flex-col md:max-w-[min(100%,480px)] lg:max-w-[520px] md:flex-none md:justify-center md:py-2">
           <header className="shrink-0 md:pr-2">
@@ -113,18 +113,18 @@ export default function CoreFeaturesSection() {
           </div>
         </div>
 
-        {/* Device — mobile: hug top below carousel; desktop: fill column height */}
-        <div className="relative mt-1 flex min-h-0 flex-1 flex-col items-center justify-start md:mt-0 md:min-h-0 md:flex-1 md:justify-center md:py-1 lg:py-2">
+        {/* Device — mobile: use all remaining height + ~full bleed width; desktop unchanged */}
+        <div className="relative mt-0.5 flex min-h-0 flex-1 flex-col items-stretch md:mt-0 md:items-center md:justify-center md:py-1 lg:py-2">
           <div
-            className="pointer-events-none absolute left-1/2 top-[42%] z-0 h-[min(55vw,240px)] w-[min(55vw,240px)] -translate-x-1/2 -translate-y-1/2 rounded-full opacity-70 blur-3xl sm:top-1/2 sm:h-[min(50vw,280px)] sm:w-[min(50vw,280px)] md:top-1/2 md:h-[min(55vw,560px)] md:w-[min(55vw,560px)] md:opacity-90"
+            className="pointer-events-none absolute left-1/2 top-[45%] z-0 h-[min(72vw,320px)] w-[min(72vw,320px)] -translate-x-1/2 -translate-y-1/2 rounded-full opacity-75 blur-3xl sm:top-1/2 sm:h-[min(68vw,380px)] sm:w-[min(68vw,380px)] md:top-1/2 md:h-[min(55vw,560px)] md:w-[min(55vw,560px)] md:opacity-90"
             style={{ background: `radial-gradient(circle, ${TEAL}33 0%, transparent 70%)` }}
             aria-hidden
           />
-          <div className="relative z-10 flex w-full max-w-[min(92vw,320px)] shrink-0 items-start justify-center sm:max-w-[min(88vw,360px)] md:h-full md:max-h-none md:max-w-none md:min-h-0 md:flex-1 md:items-center md:px-2 lg:px-4">
+          <div className="relative z-10 flex min-h-0 w-full flex-1 items-center justify-center px-0 sm:px-1 md:h-full md:min-h-0 md:flex-1 md:px-2 lg:px-4">
             <img
               src="/images/vedlik_mockup_2.png"
               alt="Vedlik app on iPhone"
-              className="h-auto w-full max-h-[min(36dvh,340px)] object-contain object-center drop-shadow-[0_28px_80px_rgba(0,0,0,0.75)] sm:max-h-[min(40dvh,400px)] md:max-h-[min(88dvh,920px)] md:max-w-[min(640px,58vw)] md:w-auto md:object-contain md:object-center"
+              className="h-auto max-h-full w-full max-w-[min(96vw,480px)] object-contain object-center drop-shadow-[0_28px_80px_rgba(0,0,0,0.75)] sm:max-w-[min(94vw,520px)] md:max-h-[min(88dvh,920px)] md:max-w-[min(640px,58vw)] md:w-auto"
               draggable={false}
               decoding="async"
             />

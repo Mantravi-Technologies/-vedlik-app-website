@@ -4,13 +4,26 @@ import { useMediaQuery } from './useMediaQuery'
 /**
  * Content area inset = gap between mockup edge and the article/signal content.
  * Increase left/right so content stays inside the phone and doesn’t overlap bezels.
- * These values are applied in the style object below — change here and save to see updates.
+ *
+ * - CONTENT_INSET_MOBILE: narrow viewport (normal mobile site).
+ * - CONTENT_INSET_DESKTOP: wide viewport + mouse / fine pointer (real desktop).
+ * - CONTENT_INSET_DESKTOP_TOUCH: wide viewport but touch-first UI — e.g. “Request desktop
+ *   site” on a phone. Uses `(hover: none) and (pointer: coarse)` with width ≥ 768.
+ *   Defaults match DESKTOP until you tune for that mode.
  */
 const CONTENT_INSET_DESKTOP = {
   top: '11%',
   left: '16%',
   right: '17.1%',
   bottom: '13.3%',
+}
+
+/** Same keys as above; edit when desktop layout on a phone looks misaligned. */
+const CONTENT_INSET_DESKTOP_TOUCH = {
+  top: '13.2%',
+  left: '14%',
+  right: '15.1%',
+  bottom: '14.3%',
 }
 
 const CONTENT_INSET_MOBILE = {
@@ -38,7 +51,12 @@ export default function PhoneMockup({
   article2Ref,
 }: PhoneMockupProps) {
   const isMobile = useMediaQuery('(max-width: 767px)')
-  const inset = isMobile ? CONTENT_INSET_MOBILE : CONTENT_INSET_DESKTOP
+  const isCoarseTouchUi = useMediaQuery('(hover: none) and (pointer: coarse)')
+  const inset = isMobile
+    ? CONTENT_INSET_MOBILE
+    : isCoarseTouchUi
+      ? CONTENT_INSET_DESKTOP_TOUCH
+      : CONTENT_INSET_DESKTOP
 
   // Preload/decode screen assets so hero mockup appears quickly on mobile.
   useEffect(() => {

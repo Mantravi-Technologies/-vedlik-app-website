@@ -31,7 +31,7 @@ export default function VedlikShowcase() {
   const isAnimating = useRef(false)
   const lastGestureAt = useRef(0)
   const lockUntil = useRef(0)
-  const totalSections = 5
+  const totalSections = 4
 
   useGSAP(
     () => {
@@ -374,54 +374,56 @@ export default function VedlikShowcase() {
             </div>
           </section>
           <CoreFeaturesSection />
-          <section className="vedlik-mobile-section relative flex items-center border-t border-white/[0.08] bg-[#000] px-4 sm:px-6 md:px-10 lg:px-12 md:pt-0 md:pb-0 md:h-[100dvh] md:min-h-[100dvh] overflow-hidden">
+          <section className="vedlik-mobile-section relative flex min-h-0 flex-col border-t border-white/[0.08] bg-[#000] md:h-[100dvh] md:min-h-[100dvh] overflow-hidden">
             <img
               src="/images/section_4_bg.png"
               alt=""
               className="absolute inset-0 w-full h-full object-cover object-[86%_88%] md:object-center opacity-68 md:opacity-52 pointer-events-none"
             />
             <div className="absolute inset-0 bg-black/30 md:bg-black/46 pointer-events-none" />
-            <div className="relative z-10 max-w-6xl w-full">
-              <p className="text-[#2DD4BF] text-xs sm:text-sm tracking-[0.14em] uppercase">Why People Trust Vedlik</p>
-              <h2 className="mt-2 sm:mt-3 text-[1.9rem] sm:text-4xl md:text-5xl lg:text-6xl font-semibold tracking-tight text-white leading-[0.95] max-w-4xl">
-                Clarity you can trust.
-              </h2>
-              <div className="mt-4 sm:mt-8 grid grid-cols-1 md:grid-cols-3 gap-2.5 sm:gap-6 md:gap-8">
-                <div>
-                  <p className="text-white text-sm font-semibold">No clickbait, no fluff</p>
-                  <p className="mt-2 text-white/60 text-xs sm:text-sm leading-relaxed">You get the point in seconds with concise, useful summaries instead of endless noise.</p>
-                </div>
-                <div>
-                  <p className="text-white text-sm font-semibold">Facts before opinions</p>
-                  <p className="mt-2 text-white/60 text-xs sm:text-sm leading-relaxed">Every story is broken into key facts and signals so you can understand impact quickly.</p>
-                </div>
-                <div>
-                  <p className="text-white text-sm font-semibold">Built for daily decisions</p>
-                  <p className="mt-2 text-white/60 text-xs sm:text-sm leading-relaxed">From developers to founders, Vedlik helps you stay informed and act with confidence.</p>
+            <div className="relative z-10 flex min-h-0 flex-1 flex-col">
+              <div className="flex min-h-0 flex-1 flex-col justify-center px-4 py-5 sm:px-6 sm:py-6 md:px-10 lg:px-12 md:py-8">
+                <div className="max-w-6xl w-full mx-auto">
+                  <p className="text-[#2DD4BF] text-xs sm:text-sm tracking-[0.14em] uppercase">Why People Trust Vedlik</p>
+                  <h2 className="mt-2 sm:mt-3 text-[1.9rem] sm:text-4xl md:text-5xl lg:text-6xl font-semibold tracking-tight text-white leading-[0.95] max-w-4xl">
+                    Clarity you can trust.
+                  </h2>
+                  <div className="mt-4 sm:mt-8 grid grid-cols-1 md:grid-cols-3 gap-2.5 sm:gap-6 md:gap-8">
+                    <div>
+                      <p className="text-white text-sm font-semibold">No clickbait, no fluff</p>
+                      <p className="mt-2 text-white/60 text-xs sm:text-sm leading-relaxed">You get the point in seconds with concise, useful summaries instead of endless noise.</p>
+                    </div>
+                    <div>
+                      <p className="text-white text-sm font-semibold">Facts before opinions</p>
+                      <p className="mt-2 text-white/60 text-xs sm:text-sm leading-relaxed">Every story is broken into key facts and signals so you can understand impact quickly.</p>
+                    </div>
+                    <div>
+                      <p className="text-white text-sm font-semibold">Built for daily decisions</p>
+                      <p className="mt-2 text-white/60 text-xs sm:text-sm leading-relaxed">From developers to founders, Vedlik helps you stay informed and act with confidence.</p>
+                    </div>
+                  </div>
+                  <div className="mt-4 sm:mt-9 flex flex-row items-center gap-3 sm:gap-5">
+                    <a href="#" className="inline-flex w-[44%] sm:w-auto">
+                      <img
+                        src="/images/app_store_badge.png"
+                        alt="Download on the App Store"
+                        className="h-auto w-full sm:w-auto sm:h-14 md:h-16 lg:h-[72px] object-contain"
+                        draggable={false}
+                      />
+                    </a>
+                    <a href="#" className="inline-flex w-[44%] sm:w-auto">
+                      <img
+                        src="/images/google_play_badge.png"
+                        alt="Get it on Google Play"
+                        className="h-auto w-full sm:w-auto sm:h-14 md:h-16 lg:h-[72px] object-contain"
+                        draggable={false}
+                      />
+                    </a>
+                  </div>
                 </div>
               </div>
-              <div className="mt-4 sm:mt-9 flex flex-row items-center gap-3 sm:gap-5">
-                <a href="#" className="inline-flex w-[44%] sm:w-auto">
-                  <img
-                    src="/images/app_store_badge.png"
-                    alt="Download on the App Store"
-                    className="h-auto w-full sm:w-auto sm:h-14 md:h-16 lg:h-[72px] object-contain"
-                    draggable={false}
-                  />
-                </a>
-                <a href="#" className="inline-flex w-[44%] sm:w-auto">
-                  <img
-                    src="/images/google_play_badge.png"
-                    alt="Get it on Google Play"
-                    className="h-auto w-full sm:w-auto sm:h-14 md:h-16 lg:h-[72px] object-contain"
-                    draggable={false}
-                  />
-                </a>
-              </div>
+              <StickyFooter />
             </div>
-          </section>
-          <section className="vedlik-mobile-section relative flex flex-col justify-end border-t border-white/[0.08] bg-[#000] min-h-[100dvh] h-[100dvh]">
-            <StickyFooter />
           </section>
         </div>
       </main>
