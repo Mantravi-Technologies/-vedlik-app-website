@@ -1,3 +1,5 @@
+import { useEffect, useRef } from 'react'
+
 const TEAL = '#2DD4BF'
 
 const FEATURES = [
@@ -71,6 +73,71 @@ function FeatureCardItem({
 }
 
 export default function CoreFeaturesSection() {
+  const carouselRef = useRef<HTMLDivElement>(null)
+
+  useEffect(() => {
+    const carousel = carouselRef.current
+    if (!carousel) return
+
+    const mobileQuery = window.matchMedia('(max-width: 767px)')
+    const reducedMotionQuery = window.matchMedia('(prefers-reduced-motion: reduce)')
+    if (!mobileQuery.matches || reducedMotionQuery.matches) return
+
+    let rafId = 0
+    let lastFrameAt = 0
+    let resumeAt = performance.now() + 900
+    let direction: 1 | -1 = 1
+
+    const pauseAutoScroll = (delayMs = 2400) => {
+      resumeAt = performance.now() + delayMs
+    }
+
+    const tick = (frameAt: number) => {
+      const maxScrollLeft = Math.max(0, carousel.scrollWidth - carousel.clientWidth)
+      const now = performance.now()
+      if (!lastFrameAt) lastFrameAt = frameAt
+
+      const dt = Math.min(32, frameAt - lastFrameAt)
+      lastFrameAt = frameAt
+
+      if (!document.hidden && now >= resumeAt && maxScrollLeft > 0) {
+        const speedPxPerMs = 0.04
+        const next = carousel.scrollLeft + direction * dt * speedPxPerMs
+
+        if (next >= maxScrollLeft) {
+          carousel.scrollLeft = maxScrollLeft
+          direction = -1
+          pauseAutoScroll(1100)
+        } else if (next <= 0) {
+          carousel.scrollLeft = 0
+          direction = 1
+          pauseAutoScroll(1100)
+        } else {
+          carousel.scrollLeft = next
+        }
+      }
+
+      rafId = window.requestAnimationFrame(tick)
+    }
+
+    const onTouchStart = () => pauseAutoScroll(2800)
+    const onPointerDown = () => pauseAutoScroll(2800)
+    const onWheel = () => pauseAutoScroll(2600)
+
+    carousel.addEventListener('touchstart', onTouchStart, { passive: true })
+    carousel.addEventListener('pointerdown', onPointerDown, { passive: true })
+    carousel.addEventListener('wheel', onWheel, { passive: true })
+
+    rafId = window.requestAnimationFrame(tick)
+
+    return () => {
+      window.cancelAnimationFrame(rafId)
+      carousel.removeEventListener('touchstart', onTouchStart)
+      carousel.removeEventListener('pointerdown', onPointerDown)
+      carousel.removeEventListener('wheel', onWheel)
+    }
+  }, [])
+
   return (
     <section className="vedlik-mobile-section relative flex flex-col overflow-hidden border-t border-white/[0.07] bg-[#050607] px-0 md:h-[100dvh] md:min-h-[100dvh] md:px-10 lg:px-12">
       <div
@@ -99,6 +166,7 @@ export default function CoreFeaturesSection() {
 
           {/* Mobile: premium horizontal cards with peek + snap */}
           <div
+            ref={carouselRef}
             data-vedlik-carousel
             className="mt-3 flex min-h-0 w-full touch-auto touch-pan-x gap-3 overflow-x-auto overflow-y-visible overscroll-x-contain pb-1 pt-0.5 pr-3 scrollbar-hide snap-x snap-mandatory md:hidden"
           >

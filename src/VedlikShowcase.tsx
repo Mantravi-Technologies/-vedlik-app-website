@@ -278,6 +278,10 @@ export default function VedlikShowcase() {
         gotoSection(target)
       }
 
+      let touchStartX = 0
+      let touchStartY = 0
+      let hasTouchStart = false
+
       const observer = Observer.create({
         target: container,
         type: 'wheel,touch',
@@ -285,11 +289,38 @@ export default function VedlikShowcase() {
         tolerance: 16,
         preventDefault: true,
         lockAxis: true,
-        // Let Core Features horizontal carousel use native touch / wheel scroll
-        ignore: '[data-vedlik-carousel]',
+        // Let horizontal gestures in Core Features carousel stay native.
         ignoreCheck: (event) => {
           const target = event.target
-          return target instanceof Element ? Boolean(target.closest('[data-vedlik-carousel]')) : false
+          if (!(target instanceof Element) || !target.closest('[data-vedlik-carousel]')) return false
+
+          const wheelLikeEvent = event as WheelEvent
+          if (typeof wheelLikeEvent.deltaX === 'number' && typeof wheelLikeEvent.deltaY === 'number') {
+            return Math.abs(wheelLikeEvent.deltaX) > Math.abs(wheelLikeEvent.deltaY)
+          }
+
+          const touchLikeEvent = event as TouchEvent
+          if (touchLikeEvent.touches && touchLikeEvent.touches.length > 0) {
+            const touch = touchLikeEvent.touches[0]
+            if (event.type === 'touchstart') {
+              touchStartX = touch.clientX
+              touchStartY = touch.clientY
+              hasTouchStart = true
+              return false
+            }
+            if (event.type === 'touchmove' && hasTouchStart) {
+              const dx = Math.abs(touch.clientX - touchStartX)
+              const dy = Math.abs(touch.clientY - touchStartY)
+              if (dx < 6 && dy < 6) return false
+              return dx > dy
+            }
+          }
+
+          if (event.type === 'touchend' || event.type === 'touchcancel') {
+            hasTouchStart = false
+          }
+
+          return false
         },
         onDown: goPrev,
         onUp: goNext,
