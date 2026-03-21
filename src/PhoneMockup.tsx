@@ -20,10 +20,10 @@ const CONTENT_INSET_DESKTOP = {
 }
 
 const CONTENT_INSET_DESKTOP_TOUCH = {
-  top: '22%',
+  top: '12%',
   left: '13.1%',
   right: '15.1%',
-  bottom: '23%',
+  bottom: '13.5%',
 }
 
 const CONTENT_INSET_MOBILE = {
