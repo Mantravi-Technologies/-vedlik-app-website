@@ -212,6 +212,7 @@ export default function CoreFeaturesSection() {
               alt="Vedlik app on iPhone"
               className="mx-auto h-auto max-h-full w-full max-w-[90vw] object-contain object-center drop-shadow-[0_28px_80px_rgba(0,0,0,0.75)] sm:max-w-[min(90vw,520px)] md:max-h-[min(88dvh,920px)] md:max-w-[min(560px,52vw)]"
               draggable={false}
+              loading="lazy"
               decoding="async"
             />
           </div>

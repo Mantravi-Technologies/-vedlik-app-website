@@ -39,11 +39,19 @@ body {
   --vedlik-mobile-header-h: 3rem;
 }
 
+/* Match StickyHeader: h-12 default, sm:h-14 up to md */
+@media (min-width: 640px) and (max-width: 767px) {
+  :root {
+    --vedlik-mobile-header-h: 3.5rem;
+  }
+}
+
 @media (max-width: 767px) {
   .vedlik-mobile-section {
     height: 100dvh;
     min-height: 100dvh;
-    padding-top: calc(var(--vedlik-mobile-header-h) + env(safe-area-inset-top, 0px) + 0.5rem);
+    /* Do not override this with Tailwind padding-top on the same element — it hides content under the fixed header */
+    padding-top: calc(var(--vedlik-mobile-header-h) + env(safe-area-inset-top, 0px) + 0.625rem);
     /* Footer is in-document; keep only home-indicator breathing room */
     padding-bottom: max(0.5rem, env(safe-area-inset-bottom, 0px));
   }

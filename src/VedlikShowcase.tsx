@@ -349,8 +349,7 @@ export default function VedlikShowcase() {
                 src="/images/hero_gradient_34.jpg"
                 alt=""
                 className="absolute inset-0 w-full h-full object-cover object-[86%_88%] md:object-center opacity-70 md:opacity-55 pointer-events-none"
-                loading="eager"
-                fetchPriority="high"
+                loading="lazy"
                 decoding="async"
               />
             </picture>
@@ -391,6 +390,8 @@ export default function VedlikShowcase() {
               src="/images/section_4_bg.png"
               alt=""
               className="absolute inset-0 w-full h-full object-cover object-[86%_88%] md:object-center opacity-68 md:opacity-52 pointer-events-none"
+              loading="lazy"
+              decoding="async"
             />
             <div className="absolute inset-0 bg-black/30 md:bg-black/46 pointer-events-none" />
             <div className="relative z-10 flex min-h-0 flex-1 flex-col">
@@ -421,6 +422,8 @@ export default function VedlikShowcase() {
                         alt="Download on the App Store"
                         className="h-auto w-full sm:w-auto sm:h-14 md:h-16 lg:h-[72px] object-contain"
                         draggable={false}
+                        loading="lazy"
+                        decoding="async"
                       />
                     </button>
                     <button type="button" onClick={openWaitlistModal} className="inline-flex w-[44%] sm:w-auto">
@@ -429,6 +432,8 @@ export default function VedlikShowcase() {
                         alt="Get it on Google Play"
                         className="h-auto w-full sm:w-auto sm:h-14 md:h-16 lg:h-[72px] object-contain"
                         draggable={false}
+                        loading="lazy"
+                        decoding="async"
                       />
                     </button>
                   </div>

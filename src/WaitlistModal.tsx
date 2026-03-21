@@ -10,26 +10,63 @@ const COLLECT_EMAIL_ENDPOINT =
 const COOLDOWN_MS = 15000
 const LAST_SUBMIT_KEY = 'vedlik_waitlist_last_submit_at'
 
+const FOCUSABLE_SELECTOR =
+  'button:not([disabled]), [href], input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])'
+
+function getVisibleFocusables(root: HTMLElement): HTMLElement[] {
+  return Array.from(root.querySelectorAll<HTMLElement>(FOCUSABLE_SELECTOR)).filter(
+    (el) => el.getClientRects().length > 0
+  )
+}
+
 export default function WaitlistModal({ isOpen, onClose }: WaitlistModalProps) {
   const [email, setEmail] = useState('')
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [status, setStatus] = useState<'idle' | 'success' | 'error'>('idle')
   const [message, setMessage] = useState('')
   const inputRef = useRef<HTMLInputElement>(null)
+  const modalRootRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
     if (!isOpen) return
+
+    const previouslyFocused = document.activeElement as HTMLElement | null
     const t = window.setTimeout(() => inputRef.current?.focus(), 130)
-    return () => window.clearTimeout(t)
-  }, [isOpen])
 
-  useEffect(() => {
-    if (!isOpen) return
-    const onEsc = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') onClose()
+    const onKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        e.preventDefault()
+        onClose()
+        return
+      }
+      if (e.key !== 'Tab' || !modalRootRef.current) return
+
+      const focusables = getVisibleFocusables(modalRootRef.current)
+      if (focusables.length === 0) return
+
+      const first = focusables[0]
+      const last = focusables[focusables.length - 1]
+      const active = document.activeElement as HTMLElement | null
+
+      if (e.shiftKey) {
+        if (active === first || !modalRootRef.current.contains(active)) {
+          e.preventDefault()
+          last.focus()
+        }
+      } else {
+        if (active === last || !modalRootRef.current.contains(active)) {
+          e.preventDefault()
+          first.focus()
+        }
+      }
     }
-    window.addEventListener('keydown', onEsc)
-    return () => window.removeEventListener('keydown', onEsc)
+
+    window.addEventListener('keydown', onKeyDown)
+    return () => {
+      window.clearTimeout(t)
+      window.removeEventListener('keydown', onKeyDown)
+      previouslyFocused?.focus?.()
+    }
   }, [isOpen, onClose])
 
   const canSubmit = useMemo(() => !isSubmitting && status !== 'success', [isSubmitting, status])
@@ -91,7 +128,7 @@ export default function WaitlistModal({ isOpen, onClose }: WaitlistModalProps) {
   }
 
   return (
-    <div className="fixed inset-0 z-[90] flex items-center justify-center p-4 sm:p-6">
+    <div ref={modalRootRef} className="fixed inset-0 z-[90] flex items-center justify-center p-4 sm:p-6">
       <button
         type="button"
         aria-label="Close waitlist modal"
@@ -99,7 +136,12 @@ export default function WaitlistModal({ isOpen, onClose }: WaitlistModalProps) {
         onClick={onClose}
       />
 
-      <div className="relative w-full max-w-md overflow-hidden rounded-2xl border border-white/[0.14] bg-[linear-gradient(155deg,rgba(18,30,34,0.95),rgba(8,12,14,0.98))] shadow-[0_40px_120px_rgba(0,0,0,0.55)]">
+      <div
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="waitlist-modal-title"
+        className="relative w-full max-w-md overflow-hidden rounded-2xl border border-white/[0.14] bg-[linear-gradient(155deg,rgba(18,30,34,0.95),rgba(8,12,14,0.98))] shadow-[0_40px_120px_rgba(0,0,0,0.55)]"
+      >
         <div className="pointer-events-none absolute -right-14 -top-14 h-36 w-36 rounded-full bg-[#2DD4BF]/20 blur-3xl" />
 
         <div className="relative p-5 sm:p-6">
@@ -107,7 +149,9 @@ export default function WaitlistModal({ isOpen, onClose }: WaitlistModalProps) {
             Priority access
           </div>
 
-          <h3 className="mt-3 text-2xl font-semibold tracking-tight text-white">Join the Vedlik waitlist</h3>
+          <h3 id="waitlist-modal-title" className="mt-3 text-2xl font-semibold tracking-tight text-white">
+            Join the Vedlik waitlist
+          </h3>
           <p className="mt-2 text-sm leading-relaxed text-white/68">
             Get early access to AI, tech, startup, and funding intelligence before public rollout.
           </p>
