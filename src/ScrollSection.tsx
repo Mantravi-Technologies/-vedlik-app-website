@@ -95,17 +95,19 @@ export default function ScrollSection({
         </div>
       </div>
 
-      {/* Phone: on mobile below text (order-2), on desktop right and brought left (center of column) */}
+      {/* Phone: mobile — tiny upward nudge only (`-translate-y`), no max-height hacks on the frame image */}
       <div className="order-2 md:order-2 z-10 flex min-h-0 flex-1 flex-col items-center justify-center max-md:mt-6 md:mt-10 md:w-[58%] min-h-[41vh] sm:min-h-[50vh] md:min-h-0 lg:mt-12">
-        <div className="flex max-h-full min-h-0 min-w-0 w-full max-w-full flex-1 items-center justify-center overflow-hidden px-1 md:pt-2 lg:pt-3">
-          <PhoneMockup
-            phoneRef={phoneRef}
-            screenContainerRef={screenContainerRef}
-            frontFaceRef={frontFaceRef}
-            backFaceRef={backFaceRef}
-            article1Ref={article1Ref}
-            article2Ref={article2Ref}
-          />
+        <div className="flex max-h-full min-h-0 min-w-0 w-full max-w-full flex-1 items-center justify-center overflow-visible px-1 md:overflow-hidden md:pt-2 lg:pt-3">
+          <div className="max-md:-translate-y-2 md:translate-y-0">
+            <PhoneMockup
+              phoneRef={phoneRef}
+              screenContainerRef={screenContainerRef}
+              frontFaceRef={frontFaceRef}
+              backFaceRef={backFaceRef}
+              article1Ref={article1Ref}
+              article2Ref={article2Ref}
+            />
+          </div>
         </div>
       </div>
     </section>

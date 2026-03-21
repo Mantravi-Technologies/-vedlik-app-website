@@ -75,8 +75,8 @@ export default function PhoneMockup({
   }, [])
 
   return (
-    <div className="relative mx-auto w-[85%] max-w-[min(320px,100%)] min-w-0 shrink overflow-hidden perspective-[1000px] sm:max-w-[340px] md:max-w-[360px]">
-      <div ref={phoneRef} className="relative w-full min-w-0 overflow-hidden [transform-style:preserve-3d]">
+    <div className="relative mx-auto w-[85%] max-w-[min(320px,100%)] min-w-0 shrink overflow-visible perspective-[1000px] md:overflow-hidden sm:max-w-[340px] md:max-w-[360px]">
+      <div ref={phoneRef} className="relative w-full min-w-0 overflow-visible md:overflow-hidden [transform-style:preserve-3d]">
         <div className="flex w-full min-w-0 justify-center">
           {/*
             Mobile: full-width column; desktop: `md:w-fit` so this box matches the frame img’s used size exactly
