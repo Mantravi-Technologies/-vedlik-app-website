@@ -116,6 +116,13 @@ export default function ScrollSection({
           />
         </div>
       </div>
+
+      <p
+        className="pointer-events-none absolute bottom-[max(0.65rem,env(safe-area-inset-bottom,0px))] left-0 right-0 z-20 px-4 text-center text-[7px] leading-tight text-white/40 sm:bottom-3 sm:px-6 md:bottom-4 md:px-10 lg:px-12"
+        role="note"
+      >
+        Demo UI for illustration only—not live data.
+      </p>
     </section>
   )
 }
