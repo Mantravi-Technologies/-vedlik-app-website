@@ -97,7 +97,7 @@ export default function ScrollSection({
 
       {/* Phone: on mobile below text (order-2), on desktop right and brought left (center of column) */}
       <div className="order-2 md:order-2 z-10 flex min-h-0 flex-1 flex-col items-center justify-center md:w-[58%] min-h-[41vh] sm:min-h-[50vh] md:min-h-0">
-        <div className="flex max-h-full min-h-0 w-full flex-1 items-center justify-center overflow-hidden">
+        <div className="flex max-h-full min-h-0 min-w-0 w-full max-w-full flex-1 items-center justify-center overflow-hidden px-1">
           <PhoneMockup
             phoneRef={phoneRef}
             screenContainerRef={screenContainerRef}
