@@ -14,6 +14,8 @@ import { useMediaQuery } from './useMediaQuery'
  *    the image without changing assets. Use `object-contain` if you prefer letterboxing over cropping.
  *
  * Frame sits under the screen layer so opaque mockups don’t hide UI.
+ *
+ * Vertical bleed: avoid `transform-style: preserve-3d` on the same node as `overflow-hidden` (clips fail). 3D lives on `screenContainerRef` only.
  */
 const CONTENT_INSET_DESKTOP = {
   top: '17.7%',
@@ -23,17 +25,17 @@ const CONTENT_INSET_DESKTOP = {
 }
 
 const CONTENT_INSET_DESKTOP_TOUCH = {
-  top: '16.2%',
-  left: '14%',
+  top: '17.2%',
+  left: '13.1%',
   right: '15.1%',
-  bottom: '17.3%',
+  bottom: '18.3%',
 }
 
 const CONTENT_INSET_MOBILE = {
-  top: '13.6%',
-  left: '13.6%',
-  right: '14.6%',
-  bottom: '15.7%',
+  top: '10.6%',
+  left: '14.6%',
+  right: '15.7%',
+  bottom: '13.5%',
 }
 
 interface PhoneMockupProps {
@@ -75,7 +77,7 @@ export default function PhoneMockup({
   return (
     <div
       ref={phoneRef}
-      className="relative mx-auto aspect-[430/932] w-[85%] max-w-[320px] shrink-0 origin-center sm:max-w-[340px] md:max-w-[360px] lg:max-w-[380px]"
+      className="relative mx-auto aspect-[430/932] w-[85%] max-w-[320px] min-h-0 max-h-full shrink-0 self-center overflow-hidden sm:max-w-[340px] md:max-w-[360px] lg:max-w-[380px]"
       style={{ perspective: 1000 }}
     >
       {/* Pillar 1: aspect-ratio parent drives both width and height together */}
@@ -127,39 +129,47 @@ export default function PhoneMockup({
           >
             <div
               ref={article1Ref}
-              className="absolute inset-0"
+              className="absolute inset-0 min-h-0 overflow-hidden"
               style={{ backfaceVisibility: 'hidden', WebkitBackfaceVisibility: 'hidden' }}
             >
               <img
                 src="/images/front_1.webp"
                 alt="Article 1"
-                className="h-full w-full object-cover object-center"
+                className="h-full min-h-0 w-full max-w-full object-cover object-center"
                 loading="eager"
                 fetchPriority="high"
                 decoding="async"
-                style={{ backfaceVisibility: 'hidden', WebkitBackfaceVisibility: 'hidden' }}
+                style={{
+                  backfaceVisibility: 'hidden',
+                  WebkitBackfaceVisibility: 'hidden',
+                  maxHeight: '100%',
+                }}
               />
             </div>
             <div
               ref={article2Ref}
-              className="pointer-events-none absolute inset-0 opacity-0"
+              className="pointer-events-none absolute inset-0 min-h-0 overflow-hidden opacity-0"
               style={{ backfaceVisibility: 'hidden', WebkitBackfaceVisibility: 'hidden' }}
             >
               <img
                 src="/images/front_2.webp"
                 alt="Article 2"
-                className="h-full w-full object-cover object-center"
+                className="h-full min-h-0 w-full max-w-full object-cover object-center"
                 loading="eager"
                 fetchPriority="high"
                 decoding="async"
-                style={{ backfaceVisibility: 'hidden', WebkitBackfaceVisibility: 'hidden' }}
+                style={{
+                  backfaceVisibility: 'hidden',
+                  WebkitBackfaceVisibility: 'hidden',
+                  maxHeight: '100%',
+                }}
               />
             </div>
           </div>
 
           <div
             ref={backFaceRef}
-            className="absolute inset-0"
+            className="absolute inset-0 min-h-0 overflow-hidden"
             style={{
               backfaceVisibility: 'hidden',
               WebkitBackfaceVisibility: 'hidden',
@@ -172,11 +182,15 @@ export default function PhoneMockup({
             <img
               src="/images/back_signals.webp"
               alt="Vedlik Signals"
-              className="h-full w-full object-cover object-top"
+              className="h-full min-h-0 w-full max-w-full object-cover object-top"
               loading="eager"
               fetchPriority="high"
               decoding="async"
-              style={{ backfaceVisibility: 'hidden', WebkitBackfaceVisibility: 'hidden' }}
+              style={{
+                backfaceVisibility: 'hidden',
+                WebkitBackfaceVisibility: 'hidden',
+                maxHeight: '100%',
+              }}
             />
           </div>
         </div>
