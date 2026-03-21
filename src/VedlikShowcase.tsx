@@ -291,8 +291,9 @@ export default function VedlikShowcase() {
         tolerance: 16,
         preventDefault: true,
         lockAxis: true,
-        // Let Core Features carousel always use native gestures.
-        ignore: '[data-vedlik-carousel], [data-vedlik-carousel] *, [data-vedlik-scrollable], [data-vedlik-scrollable] *',
+        // Carousel: always ignore Observer here (native swipe). FAQ scroll: do NOT list in `ignore` — that blocks
+        // section navigation entirely; use `ignoreCheck` only so wheel reaches prev/next section at scroll edges.
+        ignore: '[data-vedlik-carousel], [data-vedlik-carousel] *',
         ignoreCheck: (event) => {
           const target = event.target
           if (!(target instanceof Element)) return false
@@ -301,10 +302,13 @@ export default function VedlikShowcase() {
           const scrollRoot = target.closest('[data-vedlik-scrollable]') as HTMLElement | null
           if (!scrollRoot) return false
 
-          // Only steal wheel when this panel can scroll in that direction (keeps section nav at edges / when content fits).
+          // Wheel: only capture when the FAQ panel can still scroll in that direction.
           if (event instanceof WheelEvent) {
             const { scrollTop, scrollHeight, clientHeight } = scrollRoot
-            const edge = 2
+            const edge = 4
+            const canScrollY = scrollHeight > clientHeight + 1
+            if (!canScrollY) return false
+
             const atTop = scrollTop <= edge
             const atBottom = scrollTop + clientHeight >= scrollHeight - edge
             const dy = event.deltaY
