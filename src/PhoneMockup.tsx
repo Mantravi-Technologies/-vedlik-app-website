@@ -15,7 +15,7 @@ import { useMediaQuery } from './useMediaQuery'
  *
  * Frame sits under the screen layer so opaque mockups don’t hide UI.
  *
- * Vertical bleed: avoid `transform-style: preserve-3d` on the same node as `overflow-hidden` (clips fail). 3D lives on `screenContainerRef` only.
+ * Clipping: never put `transform-style: preserve-3d` on the screen **portal** (same node as overflow). 3D stays on `screenContainerRef` only — otherwise content spills left/right (and top/bottom) when the viewport shrinks or during rotateY.
  */
 const CONTENT_INSET_DESKTOP = {
   top: '17.7%',
@@ -33,8 +33,8 @@ const CONTENT_INSET_DESKTOP_TOUCH = {
 
 const CONTENT_INSET_MOBILE = {
   top: '10.6%',
-  left: '14.6%',
-  right: '15.7%',
+  left: '15.6%',
+  right: '16.7%',
   bottom: '13.5%',
 }
 
@@ -95,29 +95,28 @@ export default function PhoneMockup({
 
       {/* Screen portal: above frame so UI is never covered by mockup artwork */}
       <div
-        className="absolute isolate z-10 overflow-hidden rounded-none bg-black"
+        className="absolute isolate z-10 min-w-0 overflow-hidden rounded-none bg-black"
         style={{
           top: inset.top,
           left: inset.left,
           right: inset.right,
           bottom: inset.bottom,
-          transformStyle: 'preserve-3d',
           boxShadow: 'inset 0 0 0 1px rgba(255,255,255,0.04)',
+          clipPath: 'inset(0)',
         }}
       >
         <div
           ref={screenContainerRef}
-          className="relative isolate z-10 h-full w-full overflow-hidden"
+          className="relative z-10 h-full min-h-0 min-w-0 w-full max-w-full overflow-hidden"
           style={{
             transformStyle: 'preserve-3d',
             position: 'relative',
             willChange: 'transform',
-            contain: 'layout paint',
           }}
         >
           <div
             ref={frontFaceRef}
-            className="absolute inset-0"
+            className="absolute inset-0 min-h-0 min-w-0 max-w-full overflow-hidden"
             style={{
               backfaceVisibility: 'hidden',
               WebkitBackfaceVisibility: 'hidden',
@@ -129,13 +128,13 @@ export default function PhoneMockup({
           >
             <div
               ref={article1Ref}
-              className="absolute inset-0 min-h-0 overflow-hidden"
+              className="absolute inset-0 min-h-0 min-w-0 max-w-full overflow-hidden"
               style={{ backfaceVisibility: 'hidden', WebkitBackfaceVisibility: 'hidden' }}
             >
               <img
                 src="/images/front_1.webp"
                 alt="Article 1"
-                className="h-full min-h-0 w-full max-w-full object-cover object-center"
+                className="box-border h-full min-h-0 w-full min-w-0 max-w-full object-cover object-center"
                 loading="eager"
                 fetchPriority="high"
                 decoding="async"
@@ -143,18 +142,19 @@ export default function PhoneMockup({
                   backfaceVisibility: 'hidden',
                   WebkitBackfaceVisibility: 'hidden',
                   maxHeight: '100%',
+                  maxWidth: '100%',
                 }}
               />
             </div>
             <div
               ref={article2Ref}
-              className="pointer-events-none absolute inset-0 min-h-0 overflow-hidden opacity-0"
+              className="pointer-events-none absolute inset-0 min-h-0 min-w-0 max-w-full overflow-hidden opacity-0"
               style={{ backfaceVisibility: 'hidden', WebkitBackfaceVisibility: 'hidden' }}
             >
               <img
                 src="/images/front_2.webp"
                 alt="Article 2"
-                className="h-full min-h-0 w-full max-w-full object-cover object-center"
+                className="box-border h-full min-h-0 w-full min-w-0 max-w-full object-cover object-center"
                 loading="eager"
                 fetchPriority="high"
                 decoding="async"
@@ -162,6 +162,7 @@ export default function PhoneMockup({
                   backfaceVisibility: 'hidden',
                   WebkitBackfaceVisibility: 'hidden',
                   maxHeight: '100%',
+                  maxWidth: '100%',
                 }}
               />
             </div>
@@ -169,7 +170,7 @@ export default function PhoneMockup({
 
           <div
             ref={backFaceRef}
-            className="absolute inset-0 min-h-0 overflow-hidden"
+            className="absolute inset-0 min-h-0 min-w-0 max-w-full overflow-hidden"
             style={{
               backfaceVisibility: 'hidden',
               WebkitBackfaceVisibility: 'hidden',
@@ -182,7 +183,7 @@ export default function PhoneMockup({
             <img
               src="/images/back_signals.webp"
               alt="Vedlik Signals"
-              className="h-full min-h-0 w-full max-w-full object-cover object-top"
+              className="box-border h-full min-h-0 w-full min-w-0 max-w-full object-cover object-top"
               loading="eager"
               fetchPriority="high"
               decoding="async"
@@ -190,6 +191,7 @@ export default function PhoneMockup({
                 backfaceVisibility: 'hidden',
                 WebkitBackfaceVisibility: 'hidden',
                 maxHeight: '100%',
+                maxWidth: '100%',
               }}
             />
           </div>
