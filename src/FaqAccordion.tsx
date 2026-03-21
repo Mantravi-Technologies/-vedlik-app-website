@@ -8,32 +8,26 @@ const FAQ_ITEMS: readonly { question: string; answer: ReactNode }[] = [
       'Yes. Vedlik is free to download and use. There is no subscription or paywall for the core experience—we want trustworthy AI and tech intelligence available to everyone building and investing in the space.',
   },
   {
+    question: 'Why use Vedlik if I already read the news elsewhere?',
+    answer:
+      'Vedlik focuses on what changed and what matters—so you stay updated on AI, startups, and tech without drowning in noise. You get curated insight and clear takeaways with sources, built for people who want to stay current and act with context, not chase endless generic headlines.',
+  },
+  {
+    question: 'How can I read technical changes and Signals?',
+    answer:
+      'Start on the main story view for a quick, readable brief. Flip to the back (like turning the phone in the demo) to open Signals—a view aimed at what changed, technical implications, and structured context. Same story, two sides: fast scan in front, deeper technical and signal-style detail on the back.',
+  },
+  {
+    question: 'How do you pick sources and handle mistakes?',
+    answer:
+      'We prioritize reputable publishers and primary reporting, and we surface attribution so you can always open the original. Summaries and insights can miss nuance or get something wrong—use the source as the authority, and we keep improving wording and checks as the product evolves.',
+  },
+  {
     question: 'Which platforms is Vedlik on?',
     answer:
       'Vedlik is built for iOS and Android. Join the waitlist to be notified as soon as early access opens on your platform, and we will share App Store and Google Play links when they are live.',
   },
-  {
-    question: 'How do you use my data?',
-    answer: (
-      <>
-        We only collect what we need to run the app and improve the product, with encryption in transit and clear controls in line with our{' '}
-        <SpaLink
-          href="/privacy-policy"
-          className="text-[#2DD4BF] underline decoration-[#2DD4BF]/50 underline-offset-2 hover:decoration-[#2DD4BF]"
-        >
-          Privacy Policy
-        </SpaLink>
-        . You can request data deletion anytime via our{' '}
-        <SpaLink
-          href="/data-deletion-request"
-          className="text-[#2DD4BF] underline decoration-[#2DD4BF]/50 underline-offset-2 hover:decoration-[#2DD4BF]"
-        >
-          Data Deletion
-        </SpaLink>{' '}
-        page.
-      </>
-    ),
-  },
+  ,
   {
     question: 'How does the waitlist work?',
     answer:
@@ -52,7 +46,7 @@ export default function FaqAccordion() {
         Common questions
       </h2>
       <p className="mt-2 text-sm sm:text-base text-white/60 leading-relaxed max-w-2xl">
-        Quick answers on pricing, platforms, data, and early access.
+        Quick answers on the product, trust, platforms, data, and early access.
       </p>
       <div className="mt-5 sm:mt-6 rounded-xl border border-white/[0.1] bg-black/25 px-3 sm:px-5 divide-y divide-white/[0.08]">
         {FAQ_ITEMS.map(({ question, answer }) => (
