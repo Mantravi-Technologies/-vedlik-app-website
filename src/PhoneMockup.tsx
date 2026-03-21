@@ -75,7 +75,7 @@ export default function PhoneMockup({
   }, [])
 
   return (
-    <div className="relative mx-auto w-[85%] max-w-[min(320px,100%)] min-w-0 shrink overflow-visible perspective-[1000px] md:overflow-hidden sm:max-w-[340px] md:max-w-[360px]">
+    <div className="relative mx-auto w-[82%] max-w-[min(302px,100%)] min-w-0 shrink overflow-visible perspective-[1000px] md:overflow-hidden sm:max-w-[322px] md:max-w-[340px]">
       <div ref={phoneRef} className="relative w-full min-w-0 overflow-visible md:overflow-hidden [transform-style:preserve-3d]">
         <div className="flex w-full min-w-0 justify-center">
           {/*
@@ -89,7 +89,7 @@ export default function PhoneMockup({
               alt="Phone"
               width={720}
               height={1280}
-              className="relative z-0 block h-auto w-full min-w-0 select-none pointer-events-none md:w-auto md:max-w-full md:max-h-[min(80dvh,720px)]"
+              className="relative z-0 block h-auto w-full min-w-0 select-none pointer-events-none md:w-auto md:max-w-full md:max-h-[min(76dvh,680px)]"
               loading="eager"
               fetchPriority="high"
               decoding="async"

@@ -36,14 +36,14 @@ export default function ScrollSection({
   return (
     <section
       ref={sectionRef}
-      className="vedlik-mobile-section relative w-full flex flex-col md:flex-row md:items-center md:justify-between gap-4 sm:gap-8 md:gap-12 px-4 sm:px-6 md:px-10 lg:px-12 md:py-20 md:h-[100dvh] md:min-h-[100dvh] bg-[#000] border-b border-white/[0.08] overflow-hidden snap-start snap-always"
+      className="vedlik-mobile-section relative w-full flex flex-col md:flex-row md:items-center md:justify-between gap-8 sm:gap-10 md:gap-12 px-4 sm:px-6 md:px-10 lg:px-12 md:py-20 md:h-[100dvh] md:min-h-[100dvh] bg-[#000] border-b border-white/[0.08] overflow-hidden snap-start snap-always"
     >
       <div className="absolute inset-0 opacity-[0.38] md:opacity-[0.28] pointer-events-none">
         <img src="/images/section_2_bg.png" alt="" className="w-full h-full object-cover object-[86%_88%] md:object-center" />
       </div>
 
       {/* Text: on mobile first (order-1), on desktop left (md:order-1) */}
-      <div className="relative order-1 md:order-1 z-10 flex flex-col justify-center pt-4 sm:pt-5 md:pt-0 md:w-[46%] lg:max-w-xl shrink-0 min-h-[18.5vh] sm:min-h-[24vh] md:min-h-[240px]">
+      <div className="relative order-1 md:order-1 z-10 flex flex-col justify-center pt-4 sm:pt-5 md:pt-0 md:w-[46%] lg:max-w-xl shrink-0 min-h-[18.5vh] sm:min-h-[24vh] md:min-h-[240px] max-md:pb-3">
         <div ref={text1Ref} className="absolute inset-0 flex flex-col justify-start pt-2 sm:pt-3 md:justify-center md:pt-0 items-center md:items-start text-center md:text-left opacity-100 md:translate-x-10 lg:translate-x-14 translate-y-0 sm:translate-y-3 md:translate-y-0">
           <h1 className="max-w-none text-[1.72rem] leading-[1.02] sm:text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight text-white">
             AI &amp; Tech, Decoded.
@@ -103,19 +103,17 @@ export default function ScrollSection({
         </div>
       </div>
 
-      {/* Phone: mobile — tiny upward nudge only (`-translate-y`), no max-height hacks on the frame image */}
-      <div className="order-2 md:order-2 z-10 flex min-h-0 flex-1 flex-col items-center justify-center max-md:mt-6 md:mt-10 md:w-[58%] min-h-[41vh] sm:min-h-[50vh] md:min-h-0 lg:mt-12">
+      {/* Phone: extra top margin + section gap keeps space under Join Waitlist on narrow viewports */}
+      <div className="order-2 md:order-2 z-10 flex min-h-0 flex-1 flex-col items-center justify-center max-md:mt-10 sm:max-md:mt-12 md:mt-10 md:w-[58%] min-h-[41vh] sm:min-h-[50vh] md:min-h-0 lg:mt-12">
         <div className="flex max-h-full min-h-0 min-w-0 w-full max-w-full flex-1 items-center justify-center overflow-visible px-1 md:overflow-hidden md:pt-2 lg:pt-3">
-          <div className="max-md:-translate-y-2 md:translate-y-0">
-            <PhoneMockup
-              phoneRef={phoneRef}
-              screenContainerRef={screenContainerRef}
-              frontFaceRef={frontFaceRef}
-              backFaceRef={backFaceRef}
-              article1Ref={article1Ref}
-              article2Ref={article2Ref}
-            />
-          </div>
+          <PhoneMockup
+            phoneRef={phoneRef}
+            screenContainerRef={screenContainerRef}
+            frontFaceRef={frontFaceRef}
+            backFaceRef={backFaceRef}
+            article1Ref={article1Ref}
+            article2Ref={article2Ref}
+          />
         </div>
       </div>
     </section>
