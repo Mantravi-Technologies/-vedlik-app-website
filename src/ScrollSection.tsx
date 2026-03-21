@@ -1,5 +1,10 @@
 import type { RefObject } from 'react'
+import HeroKeywordRotate from './HeroKeywordRotate'
 import PhoneMockup from './PhoneMockup'
+
+const HERO_KEYWORDS_1 = ['Funding', 'Models', 'Startups', 'Policy'] as const
+const HERO_KEYWORDS_2 = ['Clarity', 'Signal', 'Depth', 'Truth'] as const
+const HERO_KEYWORDS_3 = ['Entities', 'Scores', 'Claims', 'Proof'] as const
 
 interface ScrollSectionProps {
   sectionRef: RefObject<HTMLElement>
@@ -47,6 +52,7 @@ export default function ScrollSection({
             <span className="block whitespace-nowrap sm:hidden">AI, startups, and tech in one feed.</span>
             <span className="hidden sm:inline">Artificial intelligence, startups, and technology intelligence one clear feed.</span>
           </p>
+          <HeroKeywordRotate words={HERO_KEYWORDS_1} />
           <div className="mt-3.5 sm:mt-6 w-full flex justify-center md:justify-start -translate-x-1 sm:translate-x-0 md:translate-x-0">
             <button
               type="button"
@@ -65,6 +71,7 @@ export default function ScrollSection({
             <span className="block whitespace-nowrap sm:hidden">AI-powered clarity on every story.</span>
             <span className="hidden sm:inline">AI-powered clarity on every story.</span>
           </p>
+          <HeroKeywordRotate words={HERO_KEYWORDS_2} />
           <div className="mt-3.5 sm:mt-6 w-full flex justify-center md:justify-start -translate-x-1 sm:translate-x-0 md:translate-x-0">
             <button
               type="button"
@@ -83,6 +90,7 @@ export default function ScrollSection({
             <span className="block whitespace-nowrap sm:hidden">Context and credibility for funding intel.</span>
             <span className="hidden sm:inline">Credibility, context, and entities built for tech and startup funding intelligence.</span>
           </p>
+          <HeroKeywordRotate words={HERO_KEYWORDS_3} />
           <div className="mt-3.5 sm:mt-6 w-full flex justify-center md:justify-start -translate-x-1 sm:translate-x-0 md:translate-x-0">
             <button
               type="button"
