@@ -4,9 +4,11 @@ import { useState, useRef, useLayoutEffect, useEffect } from 'react'
 import gsap from 'gsap'
 
 const TEAL = '#2DD4BF'
-const TABS = ['Overview', 'Why Vedlik', 'Features', 'Under The Hood', 'Download']
-const SECTION_MAP = [0, 1, 2, 3, 3]
-const SECTION_TO_TAB = [0, 1, 2, 3]
+const TABS = ['Overview', 'Why Vedlik', 'Features', 'Under The Hood', 'FAQ']
+/** Tab index → full-page section index (0 = hero … 4 = FAQ + footer) */
+const SECTION_MAP = [0, 1, 2, 3, 4]
+/** Section index → which tab is highlighted */
+const SECTION_TO_TAB = [0, 1, 2, 3, 4]
 
 export default function StickyHeader() {
   const [activeIndex, setActiveIndex] = useState(0)

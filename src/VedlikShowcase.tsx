@@ -6,6 +6,7 @@ import ScrollSection from './ScrollSection'
 import StickyHeader from './StickyHeader'
 import StickyFooter from './StickyFooter'
 import CoreFeaturesSection from './CoreFeaturesSection'
+import FaqAccordion from './FaqAccordion'
 import WaitlistModal from './WaitlistModal'
 
 gsap.registerPlugin(Observer)
@@ -32,7 +33,7 @@ export default function VedlikShowcase() {
   const isAnimating = useRef(false)
   const lastGestureAt = useRef(0)
   const lockUntil = useRef(0)
-  const totalSections = 4
+  const totalSections = 5
   const [isWaitlistOpen, setIsWaitlistOpen] = useState(false)
 
   const openWaitlistModal = () => setIsWaitlistOpen(true)
@@ -223,14 +224,19 @@ export default function VedlikShowcase() {
       const navigateToSection = (target: number) => {
         if (isAnimating.current) return
         const clamped = Math.max(0, Math.min(totalSections - 1, target))
-        if (clamped === currentSection.current) return
 
         if (clamped === 0) {
-          // Going to overview should always show first hero state.
+          // Going to overview always shows the first hero state (also when already on section 0).
           setHeroStepInstant(0)
-          gotoSection(0)
+          if (currentSection.current !== 0) {
+            gotoSection(0)
+          } else {
+            window.dispatchEvent(new CustomEvent('vedlik:section-change', { detail: { sectionIndex: 0 } }))
+          }
           return
         }
+
+        if (clamped === currentSection.current) return
 
         // If navigating away from hero, ensure hero is in completed state first.
         if (currentSection.current === 0 && heroStep.current < 2) {
@@ -286,10 +292,26 @@ export default function VedlikShowcase() {
         preventDefault: true,
         lockAxis: true,
         // Let Core Features carousel always use native gestures.
-        ignore: '[data-vedlik-carousel], [data-vedlik-carousel] *',
+        ignore: '[data-vedlik-carousel], [data-vedlik-carousel] *, [data-vedlik-scrollable], [data-vedlik-scrollable] *',
         ignoreCheck: (event) => {
           const target = event.target
-          return target instanceof Element ? Boolean(target.closest('[data-vedlik-carousel]')) : false
+          if (!(target instanceof Element)) return false
+          if (target.closest('[data-vedlik-carousel]')) return true
+
+          const scrollRoot = target.closest('[data-vedlik-scrollable]') as HTMLElement | null
+          if (!scrollRoot) return false
+
+          // Only steal wheel when this panel can scroll in that direction (keeps section nav at edges / when content fits).
+          if (event instanceof WheelEvent) {
+            const { scrollTop, scrollHeight, clientHeight } = scrollRoot
+            const edge = 2
+            const atTop = scrollTop <= edge
+            const atBottom = scrollTop + clientHeight >= scrollHeight - edge
+            const dy = event.deltaY
+            if (dy > 0 && !atBottom) return true
+            if (dy < 0 && !atTop) return true
+          }
+          return false
         },
         onDown: goPrev,
         onUp: goNext,
@@ -439,7 +461,44 @@ export default function VedlikShowcase() {
                   </div>
                 </div>
               </div>
-              <StickyFooter />
+            </div>
+          </section>
+          <section className="vedlik-mobile-section relative flex min-h-0 flex-col border-t border-white/[0.08] bg-[#030708] md:h-[100dvh] md:min-h-[100dvh] overflow-hidden">
+            <div className="absolute inset-0 bg-gradient-to-b from-[#0a1214]/90 to-[#000] pointer-events-none" aria-hidden />
+            <div className="relative z-10 flex min-h-0 flex-1 flex-col">
+              <div
+                className="flex min-h-0 flex-1 flex-col px-4 py-5 sm:px-6 sm:py-6 md:px-10 lg:px-12 md:pt-[calc(4rem+2rem)] lg:pt-[calc(4rem+2.5rem)] md:pb-3 overflow-y-auto overscroll-y-contain touch-pan-y [scrollbar-gutter:stable]"
+                data-vedlik-scrollable
+              >
+                <div className="max-w-6xl w-full mx-auto pb-3 md:pb-4">
+                  <FaqAccordion />
+                </div>
+              </div>
+              <div className="relative z-10 shrink-0">
+                <button
+                  type="button"
+                  onClick={() =>
+                    window.dispatchEvent(new CustomEvent('vedlik:navigate', { detail: { sectionIndex: 0 } }))
+                  }
+                  className="absolute left-1/2 bottom-full z-20 mb-1.5 -translate-x-1/2 inline-flex h-11 w-11 items-center justify-center rounded-full border border-white/[0.2] bg-[#0a1214]/95 text-[#2DD4BF] shadow-[0_8px_28px_rgba(0,0,0,0.45)] backdrop-blur-sm transition-colors hover:border-[#2DD4BF]/45 hover:bg-[#0f1a1c] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#2DD4BF]/50 md:h-12 md:w-12 md:mb-2"
+                  aria-label="Back to overview"
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2.25"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    className="h-5 w-5 md:h-6 md:w-6"
+                    aria-hidden
+                  >
+                    <path d="M12 19V5M5 12l7-7 7 7" />
+                  </svg>
+                </button>
+                <StickyFooter />
+              </div>
             </div>
           </section>
         </div>
