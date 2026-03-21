@@ -2,28 +2,31 @@ import { useEffect, type RefObject } from 'react'
 import { useMediaQuery } from './useMediaQuery'
 
 /**
- * Content area inset = gap between mockup edge and the article/signal content.
- * Increase left/right so content stays inside the phone and doesn’t overlap bezels.
+ * Customize the mockup (edit this file):
  *
- * - CONTENT_INSET_MOBILE: narrow viewport (normal mobile site).
- * - CONTENT_INSET_DESKTOP: wide viewport + mouse / fine pointer (real desktop).
- * - CONTENT_INSET_DESKTOP_TOUCH: wide viewport but touch-first UI — e.g. “Request desktop
- *   site” on a phone. Uses `(hover: none) and (pointer: coarse)` with width ≥ 768.
- *   Defaults match DESKTOP until you tune for that mode.
+ * 1) **Whole phone size** — `ref={phoneRef}` wrapper classes: `w-[85%]`, `max-w-[320px]`, `aspect-[430/932]`, breakpoints.
+ *
+ * 2) **Screen opening (position + size vs frame)** — `CONTENT_INSET_*` objects below (`top/left/right/bottom` as % of the
+ *    aspect box). Nudge in DevTools until the portal matches the glass area of `mockup_frame.webp`.
+ *
+ * 3) **Screenshot inside the portal** — each `<img>` uses `object-cover` + `object-center` / `object-top` (back).
+ *    Change to e.g. `object-[50%_20%]` (Tailwind arbitrary) or inline `style={{ objectPosition: 'center top' }}` to pan/zoom
+ *    the image without changing assets. Use `object-contain` if you prefer letterboxing over cropping.
+ *
+ * Frame sits under the screen layer so opaque mockups don’t hide UI.
  */
 const CONTENT_INSET_DESKTOP = {
-  top: '11%',
-  left: '16%',
-  right: '17.1%',
-  bottom: '13.3%',
+  top: '17.7%',
+  left: '13%',
+  right: '14.5%',
+  bottom: '19.9%',
 }
 
-/** Same keys as above; edit when desktop layout on a phone looks misaligned. */
 const CONTENT_INSET_DESKTOP_TOUCH = {
-  top: '13.2%',
+  top: '16.2%',
   left: '14%',
   right: '15.1%',
-  bottom: '14.3%',
+  bottom: '17.3%',
 }
 
 const CONTENT_INSET_MOBILE = {
@@ -58,7 +61,6 @@ export default function PhoneMockup({
       ? CONTENT_INSET_DESKTOP_TOUCH
       : CONTENT_INSET_DESKTOP
 
-  // Preload/decode screen assets so hero mockup appears quickly on mobile.
   useEffect(() => {
     const urls = ['/images/front_1.webp', '/images/front_2.webp', '/images/back_signals.webp']
     urls.forEach((url) => {
@@ -73,102 +75,80 @@ export default function PhoneMockup({
   return (
     <div
       ref={phoneRef}
-      className="relative w-[250px] min-w-[250px] shrink-0 sm:w-[300px] sm:min-w-[300px] md:w-[360px] md:min-w-[360px] lg:w-[380px] lg:min-w-[380px] origin-center"
+      className="relative mx-auto aspect-[430/932] w-[85%] max-w-[320px] shrink-0 origin-center sm:max-w-[340px] md:max-w-[360px] lg:max-w-[380px]"
       style={{ perspective: 1000 }}
     >
-      <div className="relative w-full aspect-[9/19] max-h-[min(65vh,730px)] sm:max-h-[min(74vh,640px)] md:max-h-[min(78vh,680px)]">
-        <img
-          src="/images/mockup_frame.webp"
-          alt="Phone"
-          className="absolute inset-0 w-full h-full object-contain object-center select-none pointer-events-none"
-          loading="eager"
-          fetchPriority="high"
-          decoding="async"
-          draggable={false}
-        />
+      {/* Pillar 1: aspect-ratio parent drives both width and height together */}
 
-        {/* Content area: no rounded corners, sits inside mockup screen; inset from edges so it doesn’t overflow */}
+      {/* Frame: sits UNDER the screen layer so an opaque mockup PNG cannot hide feed UI */}
+      <img
+        src="/images/mockup_frame.webp"
+        alt="Phone"
+        className="pointer-events-none absolute inset-0 z-0 h-full w-full select-none object-contain object-center"
+        loading="eager"
+        fetchPriority="high"
+        decoding="async"
+        draggable={false}
+      />
+
+      {/* Screen portal: above frame so UI is never covered by mockup artwork */}
+      <div
+        className="absolute isolate z-10 overflow-hidden rounded-none bg-black"
+        style={{
+          top: inset.top,
+          left: inset.left,
+          right: inset.right,
+          bottom: inset.bottom,
+          transformStyle: 'preserve-3d',
+          boxShadow: 'inset 0 0 0 1px rgba(255,255,255,0.04)',
+        }}
+      >
         <div
-          className="absolute overflow-hidden isolate bg-[#000]"
+          ref={screenContainerRef}
+          className="relative isolate z-10 h-full w-full overflow-hidden"
           style={{
-            top: inset.top,
-            left: inset.left,
-            right: inset.right,
-            bottom: inset.bottom,
             transformStyle: 'preserve-3d',
-            boxShadow: 'inset 0 0 0 1px rgba(255,255,255,0.04)',
+            position: 'relative',
+            willChange: 'transform',
+            contain: 'layout paint',
           }}
         >
           <div
-            ref={screenContainerRef}
-            className="relative w-full h-full overflow-hidden isolate z-10"
+            ref={frontFaceRef}
+            className="absolute inset-0"
             style={{
+              backfaceVisibility: 'hidden',
+              WebkitBackfaceVisibility: 'hidden',
+              transform: 'rotateY(0deg)',
+              WebkitTransform: 'rotateY(0deg)',
               transformStyle: 'preserve-3d',
-              position: 'relative',
-              willChange: 'transform',
-              contain: 'layout paint',
+              willChange: 'opacity, transform',
             }}
           >
             <div
-              ref={frontFaceRef}
+              ref={article1Ref}
               className="absolute inset-0"
-              style={{
-                backfaceVisibility: 'hidden',
-                WebkitBackfaceVisibility: 'hidden',
-                transform: 'rotateY(0deg)',
-                WebkitTransform: 'rotateY(0deg)',
-                transformStyle: 'preserve-3d',
-                willChange: 'opacity, transform',
-              }}
-            >
-              <div
-                ref={article1Ref}
-                className="absolute inset-0"
-                style={{ backfaceVisibility: 'hidden', WebkitBackfaceVisibility: 'hidden' }}
-              >
-                <img
-                  src="/images/front_1.webp"
-                  alt="Article 1"
-                  className="w-full h-full object-cover object-center"
-                  loading="eager"
-                  fetchPriority="high"
-                  decoding="async"
-                  style={{ backfaceVisibility: 'hidden', WebkitBackfaceVisibility: 'hidden' }}
-                />
-              </div>
-              <div
-                ref={article2Ref}
-                className="absolute inset-0 opacity-0 pointer-events-none"
-                style={{ backfaceVisibility: 'hidden', WebkitBackfaceVisibility: 'hidden' }}
-              >
-                <img
-                  src="/images/front_2.webp"
-                  alt="Article 2"
-                  className="w-full h-full object-cover object-center"
-                  loading="eager"
-                  fetchPriority="high"
-                  decoding="async"
-                  style={{ backfaceVisibility: 'hidden', WebkitBackfaceVisibility: 'hidden' }}
-                />
-              </div>
-            </div>
-
-            <div
-              ref={backFaceRef}
-              className="absolute inset-0"
-              style={{
-                backfaceVisibility: 'hidden',
-                WebkitBackfaceVisibility: 'hidden',
-                transform: 'rotateY(0deg)',
-                WebkitTransform: 'rotateY(0deg)',
-                transformStyle: 'preserve-3d',
-                willChange: 'opacity, transform',
-              }}
+              style={{ backfaceVisibility: 'hidden', WebkitBackfaceVisibility: 'hidden' }}
             >
               <img
-                src="/images/back_signals.webp"
-                alt="Vedlik Signals"
-                className="w-full h-full object-cover object-top"
+                src="/images/front_1.webp"
+                alt="Article 1"
+                className="h-full w-full object-cover object-center"
+                loading="eager"
+                fetchPriority="high"
+                decoding="async"
+                style={{ backfaceVisibility: 'hidden', WebkitBackfaceVisibility: 'hidden' }}
+              />
+            </div>
+            <div
+              ref={article2Ref}
+              className="pointer-events-none absolute inset-0 opacity-0"
+              style={{ backfaceVisibility: 'hidden', WebkitBackfaceVisibility: 'hidden' }}
+            >
+              <img
+                src="/images/front_2.webp"
+                alt="Article 2"
+                className="h-full w-full object-cover object-center"
                 loading="eager"
                 fetchPriority="high"
                 decoding="async"
@@ -176,8 +156,30 @@ export default function PhoneMockup({
               />
             </div>
           </div>
-        </div>
 
+          <div
+            ref={backFaceRef}
+            className="absolute inset-0"
+            style={{
+              backfaceVisibility: 'hidden',
+              WebkitBackfaceVisibility: 'hidden',
+              transform: 'rotateY(0deg)',
+              WebkitTransform: 'rotateY(0deg)',
+              transformStyle: 'preserve-3d',
+              willChange: 'opacity, transform',
+            }}
+          >
+            <img
+              src="/images/back_signals.webp"
+              alt="Vedlik Signals"
+              className="h-full w-full object-cover object-top"
+              loading="eager"
+              fetchPriority="high"
+              decoding="async"
+              style={{ backfaceVisibility: 'hidden', WebkitBackfaceVisibility: 'hidden' }}
+            />
+          </div>
+        </div>
       </div>
     </div>
   )
