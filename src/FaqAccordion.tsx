@@ -27,7 +27,28 @@ const FAQ_ITEMS: readonly { question: string; answer: ReactNode }[] = [
     answer:
       'Vedlik is built for iOS and Android. Join the waitlist to be notified as soon as early access opens on your platform, and we will share App Store and Google Play links when they are live.',
   },
-  ,
+  {
+    question: 'How do you use my data?',
+    answer: (
+      <>
+        We only collect what we need to run the app and improve the product, with encryption in transit and clear controls in line with our{' '}
+        <SpaLink
+          href="/privacy-policy"
+          className="text-[#2DD4BF] underline decoration-[#2DD4BF]/50 underline-offset-2 hover:decoration-[#2DD4BF]"
+        >
+          Privacy Policy
+        </SpaLink>
+        . You can request data deletion anytime via our{' '}
+        <SpaLink
+          href="/data-deletion-request"
+          className="text-[#2DD4BF] underline decoration-[#2DD4BF]/50 underline-offset-2 hover:decoration-[#2DD4BF]"
+        >
+          Data Deletion
+        </SpaLink>{' '}
+        page.
+      </>
+    ),
+  },
   {
     question: 'How does the waitlist work?',
     answer:
