@@ -1,0 +1,11 @@
+{
+  "applinks": {
+    "apps": [],
+    "details": [
+      {
+        "appID": "2AQVAF4GZY.com.mantravi.ai.briefing",
+        "paths": ["/article/*"]
+      }
+    ]
+  }
+}
