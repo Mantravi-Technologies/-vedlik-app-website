@@ -17,6 +17,10 @@
   ],
   "rewrites": [
     {
+      "source": "/article/(.*)",
+      "destination": "/deep_link_fallback.html"
+    },
+    {
       "source": "/((?!\\.well-known/).*)",
       "destination": "/index.html"
     }

@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="robots" content="noindex, nofollow" />
+    <title>Open in Vedlik</title>
+    <style>
+      :root { color-scheme: dark; }
+      * { box-sizing: border-box; }
+      body {
+        margin: 0;
+        min-height: 100vh;
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+        color: #fff;
+        background: radial-gradient(circle at 20% 20%, #112025 0%, #040607 56%, #000 100%);
+        display: grid;
+        place-items: center;
+        padding: 24px;
+      }
+      .card {
+        width: min(560px, 100%);
+        border: 1px solid rgba(255, 255, 255, 0.12);
+        background: rgba(0, 0, 0, 0.35);
+        backdrop-filter: blur(8px);
+        border-radius: 16px;
+        padding: 24px;
+      }
+      h1 {
+        margin: 0;
+        font-size: clamp(1.3rem, 2.2vw, 1.8rem);
+        line-height: 1.1;
+      }
+      p {
+        margin: 12px 0 0;
+        color: rgba(255, 255, 255, 0.72);
+        line-height: 1.5;
+      }
+      .id {
+        margin-top: 10px;
+        font-size: 0.85rem;
+        color: rgba(45, 212, 191, 0.9);
+        word-break: break-all;
+      }
+      .row {
+        margin-top: 18px;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+      }
+      a.button {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 10px;
+        border: 1px solid rgba(45, 212, 191, 0.5);
+        color: #fff;
+        text-decoration: none;
+        padding: 10px 14px;
+        background: linear-gradient(90deg, #0a1114, #102b2f, #0a1114);
+        font-weight: 600;
+        font-size: 0.9rem;
+      }
+      a.link {
+        display: inline-flex;
+        align-items: center;
+        color: #2dd4bf;
+        text-decoration: none;
+        font-size: 0.88rem;
+        padding: 10px 8px;
+      }
+    </style>
+  </head>
+  <body>
+    <main class="card">
+      <h1>Open this article in Vedlik</h1>
+      <p>
+        If Vedlik is installed, opening this link from Messages/Notes/WhatsApp should launch the app.
+      </p>
+      <p id="article-id" class="id" hidden></p>
+      <div class="row">
+        <a class="button" href="https://apps.apple.com/" rel="noreferrer">App Store</a>
+        <a class="button" href="https://play.google.com/store/apps" rel="noreferrer">Google Play</a>
+        <a class="link" href="/">Open website</a>
+      </div>
+    </main>
+    <script>
+      (function () {
+        var path = window.location.pathname || "";
+        var id = "";
+        var m = path.match(/^\/article\/(.+)$/);
+        if (m && m[1]) id = decodeURIComponent(m[1]);
+        if (!id) return;
+        var el = document.getElementById("article-id");
+        if (!el) return;
+        el.hidden = false;
+        el.textContent = "Article ID: " + id;
+      })();
+    </script>
+  </body>
+</html>
