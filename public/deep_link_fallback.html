@@ -79,8 +79,7 @@
       </p>
       <p id="article-id" class="id" hidden></p>
       <div class="row">
-        <a class="button" href="https://apps.apple.com/" rel="noreferrer">App Store</a>
-        <a class="button" href="https://play.google.com/store/apps" rel="noreferrer">Google Play</a>
+        <a id="store-link" class="button" href="https://play.google.com/store/apps" rel="noreferrer">Get the app</a>
         <a class="link" href="/">Open website</a>
       </div>
     </main>
@@ -90,11 +89,25 @@
         var id = "";
         var m = path.match(/^\/article\/(.+)$/);
         if (m && m[1]) id = decodeURIComponent(m[1]);
-        if (!id) return;
-        var el = document.getElementById("article-id");
-        if (!el) return;
-        el.hidden = false;
-        el.textContent = "Article ID: " + id;
+        var articleEl = document.getElementById("article-id");
+        if (id && articleEl) {
+          articleEl.hidden = false;
+          articleEl.textContent = "Article ID: " + id;
+        }
+
+        var ua = navigator.userAgent || "";
+        var isIOS = /iPad|iPhone|iPod/.test(ua) || (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1);
+        var storeLink = document.getElementById("store-link");
+        if (!storeLink) return;
+
+        if (isIOS) {
+          storeLink.href = "https://apps.apple.com/";
+          storeLink.textContent = "Download on App Store";
+          return;
+        }
+
+        storeLink.href = "https://play.google.com/store/apps";
+        storeLink.textContent = "Get it on Google Play";
       })();
     </script>
   </body>
