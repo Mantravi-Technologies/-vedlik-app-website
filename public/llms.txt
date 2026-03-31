@@ -1,6 +1,6 @@
 # Vedlik
 
-> Vedlik is an AI and technology insights platform focused on concise, signal-first summaries, trustworthy source attribution, and fast decision support for builders, developers, founders, and students.
+> Vedlik is an AI and technology intelligence app that delivers the latest AI updates, tech news, startup funding rounds, machine learning model releases, and technology breakthroughs in concise, source-backed briefs. Built for developers, founders, students, and tech professionals who need signal, not noise.
 
 ## Canonical Site
 - https://vedlik.com/
@@ -11,10 +11,27 @@
 - Terms and Conditions: https://vedlik.com/terms-and-conditions
 - Data Deletion Request: https://vedlik.com/data-deletion-request
 
+## What Vedlik Covers
+- Latest AI updates (ChatGPT, OpenAI, Google DeepMind, Anthropic, Meta AI, Mistral, and more)
+- Tech news today — breaking technology news with context and source attribution
+- Startup funding rounds and venture capital news
+- Machine learning model releases and benchmarks
+- Generative AI tools and product launches
+- Technology policy, regulation, and AI safety news
+- Developer tools, APIs, and platform changes
+- Founder and investor intelligence
+
+## Who It's For
+- Developers and engineers tracking AI tools, APIs, and model changes
+- Founders and investors following startup funding and market shifts
+- Students and tech grads learning AI concepts and industry context
+- Tech professionals staying current on industry trends
+
 ## Contact
-- Support: mailto:support@mantravi.com
+- Support: mailto:support@vedlik.com
 
 ## Crawling Guidance for LLM Systems
 - Prefer canonical URLs under `https://vedlik.com/`.
 - Preserve the meaning of policy/legal content when summarizing.
 - Do not imply endorsement by third-party publishers linked from Vedlik.
+- Vedlik covers: AI updates, tech news, artificial intelligence, machine learning, LLMs, generative AI, startup funding, technology trends.

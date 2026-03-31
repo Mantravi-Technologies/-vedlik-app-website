@@ -78,7 +78,7 @@ const PRIVACY_CONTENT = (
     <ul>
       <li><strong>In-App:</strong> Settings &gt; Account &gt; Delete Account.</li>
       <li>
-        <strong>Via Email:</strong> Send a request to <a href="mailto:support@mantravi.com">support@mantravi.com</a> with
+        <strong>Via Email:</strong> Send a request to <a href="mailto:support@vedlik.com">support@vedlik.com</a> with
         the subject line &quot;Vedlik Data Deletion&quot;. We target completion within 14 business days, subject to lawful retention needs.
       </li>
     </ul>
@@ -91,7 +91,7 @@ const PRIVACY_CONTENT = (
 
     <h2>7. Contact and Grievance Officer</h2>
     <p>Entity: The Vedlik Team</p>
-    <p>Email: <a href="mailto:support@mantravi.com">support@mantravi.com</a></p>
+    <p>Email: <a href="mailto:support@vedlik.com">support@vedlik.com</a></p>
   </>
 )
 
@@ -158,7 +158,7 @@ const TERMS_CONTENT = (
 
     <h2>G. Contact Us</h2>
     <p>Entity: The Vedlik Team</p>
-    <p>Email: <a href="mailto:support@mantravi.com">support@mantravi.com</a></p>
+    <p>Email: <a href="mailto:support@vedlik.com">support@vedlik.com</a></p>
   </>
 )
 
@@ -182,7 +182,7 @@ const DATA_DELETION_CONTENT = (
     <p>Open the Vedlik App and go to: Settings &gt; Account &gt; Delete Account.</p>
     <p><strong>Option 2: Email Request</strong></p>
     <p>
-      Email <a href="mailto:support@mantravi.com?subject=Vedlik%20Data%20Deletion">support@mantravi.com</a> with:
+      Email <a href="mailto:support@vedlik.com?subject=Vedlik%20Data%20Deletion">support@vedlik.com</a> with:
     </p>
     <ul>
       <li>Subject: <code>Vedlik Data Deletion</code></li>
@@ -204,7 +204,7 @@ const DATA_DELETION_CONTENT = (
 
     <h2>Need Help?</h2>
     <p>Entity: The Vedlik Team</p>
-    <p>Email: <a href="mailto:support@mantravi.com">support@mantravi.com</a></p>
+    <p>Email: <a href="mailto:support@vedlik.com">support@vedlik.com</a></p>
   </>
 )
 

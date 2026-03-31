@@ -508,6 +508,38 @@ export default function VedlikShowcase() {
         </div>
       </main>
       <WaitlistModal isOpen={isWaitlistOpen} onClose={closeWaitlistModal} />
+
+      {/* SEO-only content: visually hidden, crawlable by search engines */}
+      <div className="sr-only" aria-hidden="true">
+        <h2>Latest AI Updates &amp; Tech News</h2>
+        <p>
+          Vedlik is your source for the latest AI updates, artificial intelligence news, and technology breakthroughs.
+          Follow daily tech news including ChatGPT updates, OpenAI news, Google AI announcements, machine learning model
+          releases, and generative AI tool launches — all in concise, source-backed briefs.
+        </p>
+        <h3>What's Covered</h3>
+        <ul>
+          <li>AI updates and artificial intelligence news — OpenAI, Claude, Google DeepMind, Anthropic, Meta AI, Mistral</li>
+          <li>Tech news today — breaking technology news with context and attribution</li>
+          <li>Startup funding rounds — venture capital, seed, Series A/B/C, and M&amp;A</li>
+          <li>Machine learning news — model releases, benchmarks, and research</li>
+          <li>Generative AI — image generation, video AI, LLMs, and code generation tools</li>
+          <li>Technology policy and AI regulation news</li>
+          <li>Developer tools, API changes, and platform updates</li>
+          <li>Tech industry trends and emerging technology categories</li>
+        </ul>
+        <h3>Built For</h3>
+        <ul>
+          <li>Developers and software engineers tracking AI tools and APIs</li>
+          <li>Startup founders and investors following tech funding news</li>
+          <li>Students and tech graduates learning AI and machine learning</li>
+          <li>Tech professionals staying current on industry trends</li>
+        </ul>
+        <p>
+          Download the Vedlik app free on iOS and Android. Stay ahead of AI breakthroughs, technology trends, and
+          startup news every day.
+        </p>
+      </div>
     </div>
   )
 }

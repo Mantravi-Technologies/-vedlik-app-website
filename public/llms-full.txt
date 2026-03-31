@@ -1,13 +1,24 @@
 # Vedlik Website Content Snapshot
 
-Vedlik is an AI and technology insights platform built to reduce information noise and surface high-signal updates quickly. It is designed for developers, founders, students, and curious professionals who want concise context and practical relevance from tech updates.
+Vedlik is an AI and technology intelligence platform built to reduce information noise and surface high-signal updates quickly. It delivers the latest AI updates, tech news, startup funding rounds, and machine learning breakthroughs in concise, source-backed briefs. Designed for developers, founders, students, and curious professionals who want to stay current on artificial intelligence and tech industry trends.
+
+## Primary Topic Coverage
+
+- **AI Updates**: Latest releases, model updates, and breakthroughs from OpenAI (ChatGPT, GPT-4o), Google DeepMind (Gemini), Anthropic (Claude), Meta AI (Llama), Mistral, and the broader AI ecosystem.
+- **Tech News Today**: Breaking technology news with context, source attribution, and clear takeaways.
+- **Startup Funding**: Venture capital rounds, seed funding, Series A/B/C, M&A activity, and startup launches.
+- **Machine Learning**: Model releases, benchmark results, research papers, and technical implications.
+- **Generative AI**: Image generation, video AI, audio AI, code generation, and LLM-powered products.
+- **Technology Policy**: AI regulation, government policy, safety standards, and industry governance.
+- **Developer Intelligence**: API changes, platform updates, pricing shifts, and breaking changes.
+- **Technology Trends**: Emerging categories, market shifts, and what's next in tech.
 
 ## Key Public Pages
 
 1. Home (`https://vedlik.com/`)
-   - Product positioning and benefits.
-   - Core feature summaries.
-   - Download CTAs and brand context.
+   - Product positioning: AI updates, tech news, and startup intelligence.
+   - Core feature summaries including the dual-view "Signals" reading experience.
+   - Waitlist download CTAs for iOS and Android.
 
 2. Privacy Policy (`https://vedlik.com/privacy-policy`)
    - What data may be collected.
@@ -23,5 +34,20 @@ Vedlik is an AI and technology insights platform built to reduce information noi
    - In-app and email-based deletion process.
    - Processing timeline and verification expectations.
 
+## Key Features
+
+- **Concise Briefs**: Each story distilled to what changed, why it matters, and what to do next.
+- **Source Attribution**: Every brief links back to original reporting so you can verify.
+- **Signals View**: Flip any story to see structured technical signals, entity extraction, and deeper context.
+- **No Clickbait**: Facts before opinions, built for daily decisions.
+- **Free to Use**: Core experience is free — no subscription required.
+
+## Target Audience
+
+- Software developers and engineers tracking AI APIs, model changes, and developer tools
+- Startup founders and investors following funding rounds and market trends
+- Students and recent graduates learning AI concepts for interviews and projects
+- Tech professionals, operators, and product managers staying current
+
 ## Contact
-- support@mantravi.com
+- support@vedlik.com
