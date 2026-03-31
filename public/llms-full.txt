@@ -20,17 +20,23 @@ Vedlik is an AI and technology intelligence platform built to reduce information
    - Core feature summaries including the dual-view "Signals" reading experience.
    - Waitlist download CTAs for iOS and Android.
 
-2. Privacy Policy (`https://vedlik.com/privacy-policy`)
+2. Support (`https://vedlik.com/support`)
+   - Contact information and email support at support@vedlik.com.
+   - Troubleshooting guides for common issues.
+   - Account, login, waitlist, and data deletion help.
+   - Response time expectations.
+
+4. Privacy Policy (`https://vedlik.com/privacy-policy`)
    - What data may be collected.
    - Data usage, sharing, retention, and security controls.
    - User rights and deletion pathways.
 
-3. Terms and Conditions (`https://vedlik.com/terms-and-conditions`)
+5. Terms and Conditions (`https://vedlik.com/terms-and-conditions`)
    - Legal terms for app usage.
    - Intellectual property and user obligations.
    - Liability disclaimers and governing law.
 
-4. Data Deletion Request (`https://vedlik.com/data-deletion-request`)
+6. Data Deletion Request (`https://vedlik.com/data-deletion-request`)
    - In-app and email-based deletion process.
    - Processing timeline and verification expectations.
 

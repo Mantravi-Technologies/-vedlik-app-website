@@ -208,6 +208,79 @@ const DATA_DELETION_CONTENT = (
   </>
 )
 
+const SUPPORT_CONTENT = (
+  <>
+    <p><strong>Last Updated:</strong> March 2026</p>
+    <p>
+      Need help with Vedlik? We are here for you. Find answers to common questions below or reach out directly —
+      we aim to respond to all support requests within 2 business days.
+    </p>
+
+    <h2>Contact Us</h2>
+    <p>
+      Email us at <a href="mailto:support@vedlik.com">support@vedlik.com</a> for any of the following:
+    </p>
+    <ul>
+      <li>Account issues or login problems</li>
+      <li>Bug reports and technical issues</li>
+      <li>Feedback and feature requests</li>
+      <li>Data deletion or privacy questions</li>
+      <li>General enquiries about Vedlik</li>
+    </ul>
+
+    <h2>Common Issues</h2>
+
+    <h3>App not loading or showing errors</h3>
+    <p>
+      Try force-closing and reopening the app. If the issue persists, check your internet connection and ensure
+      your app is updated to the latest version from the App Store or Google Play.
+    </p>
+
+    <h3>Account and login issues</h3>
+    <p>
+      If you cannot log in, try resetting your password from the login screen. If you no longer have access to
+      your registered email, contact us at <a href="mailto:support@vedlik.com">support@vedlik.com</a> with your
+      account details.
+    </p>
+
+    <h3>How to delete your account</h3>
+    <p>
+      You can delete your account directly in the app via <strong>Settings &gt; Account &gt; Delete Account</strong>,
+      or submit a request via our <a href="/data-deletion-request">Data Deletion Request</a> page.
+    </p>
+
+    <h3>Waitlist and early access</h3>
+    <p>
+      Vedlik is currently available via waitlist. If you joined the waitlist and have not received an invite,
+      please email <a href="mailto:support@vedlik.com">support@vedlik.com</a> with the email address you used to sign up.
+    </p>
+
+    <h3>Reporting incorrect or missing information</h3>
+    <p>
+      If you spot a factual error, an incorrect source link, or content that seems out of place, please email
+      us with the story title and a brief description of the issue. We review all reports and improve accordingly.
+    </p>
+
+    <h2>Response Times</h2>
+    <ul>
+      <li><strong>General support:</strong> Within 2 business days</li>
+      <li><strong>Data deletion requests:</strong> Within 14 business days</li>
+      <li><strong>Bug reports:</strong> Acknowledged within 2 business days; fixes depend on severity</li>
+    </ul>
+
+    <h2>More Resources</h2>
+    <ul>
+      <li><a href="/privacy-policy">Privacy Policy</a> — How we handle your data</li>
+      <li><a href="/terms-and-conditions">Terms and Conditions</a> — Legal terms for using Vedlik</li>
+      <li><a href="/data-deletion-request">Data Deletion Request</a> — Request account and data removal</li>
+    </ul>
+
+    <h2>Contact Details</h2>
+    <p>Entity: The Vedlik Team</p>
+    <p>Email: <a href="mailto:support@vedlik.com">support@vedlik.com</a></p>
+  </>
+)
+
 const ROUTES: Record<string, RouteConfig> = {
   '/privacy-policy': {
     title: 'Privacy Policy',
@@ -223,6 +296,11 @@ const ROUTES: Record<string, RouteConfig> = {
     title: 'Data Deletion Request',
     description: 'How to request deletion of your Vedlik account and associated data.',
     content: DATA_DELETION_CONTENT,
+  },
+  '/support': {
+    title: 'Support',
+    description: 'Get help with Vedlik — contact us, troubleshoot common issues, and find answers.',
+    content: SUPPORT_CONTENT,
   },
 }
 

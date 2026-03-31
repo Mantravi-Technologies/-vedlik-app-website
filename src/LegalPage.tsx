@@ -24,6 +24,7 @@ export default function LegalPage({ title, description, children }: LegalPagePro
             <SpaLink href="/privacy-policy" className="text-white/70 hover:text-white transition-colors">Privacy</SpaLink>
             <SpaLink href="/terms-and-conditions" className="text-white/70 hover:text-white transition-colors">Terms</SpaLink>
             <SpaLink href="/data-deletion-request" className="text-white/70 hover:text-white transition-colors">Data Deletion</SpaLink>
+            <SpaLink href="/support" className="text-white/70 hover:text-white transition-colors">Support</SpaLink>
           </nav>
         </div>
       </header>
