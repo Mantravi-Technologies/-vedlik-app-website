@@ -221,10 +221,10 @@ const SUPPORT_CONTENT = (
       Email us at <a href="mailto:support@vedlik.com">support@vedlik.com</a> for any of the following:
     </p>
     <ul>
-      <li>Account issues or login problems</li>
       <li>Bug reports and technical issues</li>
       <li>Feedback and feature requests</li>
       <li>Data deletion or privacy questions</li>
+      <li>Waitlist and early access enquiries</li>
       <li>General enquiries about Vedlik</li>
     </ul>
 
@@ -234,19 +234,6 @@ const SUPPORT_CONTENT = (
     <p>
       Try force-closing and reopening the app. If the issue persists, check your internet connection and ensure
       your app is updated to the latest version from the App Store or Google Play.
-    </p>
-
-    <h3>Account and login issues</h3>
-    <p>
-      If you cannot log in, try resetting your password from the login screen. If you no longer have access to
-      your registered email, contact us at <a href="mailto:support@vedlik.com">support@vedlik.com</a> with your
-      account details.
-    </p>
-
-    <h3>How to delete your account</h3>
-    <p>
-      You can delete your account directly in the app via <strong>Settings &gt; Account &gt; Delete Account</strong>,
-      or submit a request via our <a href="/data-deletion-request">Data Deletion Request</a> page.
     </p>
 
     <h3>Waitlist and early access</h3>
