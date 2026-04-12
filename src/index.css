@@ -55,6 +55,12 @@ body {
     /* Footer is in-document; keep only home-indicator breathing room */
     padding-bottom: max(0.5rem, env(safe-area-inset-bottom, 0px));
   }
+
+  /* Sections that scroll their own content on mobile get min-height instead of fixed height */
+  .vedlik-mobile-section.overflow-y-auto {
+    height: auto;
+    min-height: 100dvh;
+  }
 }
 
 @layer utilities {

@@ -367,7 +367,7 @@ export default function VedlikShowcase() {
             article2Ref={article2Ref}
             onJoinWaitlist={openWaitlistModal}
           />
-          <section className="vedlik-mobile-section relative flex items-center border-t border-white/[0.08] bg-[#000] px-4 sm:px-6 md:px-10 lg:px-12 md:pt-0 md:pb-0 md:h-[100dvh] md:min-h-[100dvh] overflow-hidden">
+          <section className="vedlik-mobile-section relative flex flex-col justify-center border-t border-white/[0.08] bg-[#000] overflow-y-auto overscroll-y-contain md:overflow-hidden md:h-[100dvh] md:min-h-[100dvh]">
             <picture>
               <source media="(max-width: 768px)" srcSet="/images/hero_gradient_34-960.webp" type="image/webp" />
               <source media="(min-width: 769px)" srcSet="/images/hero_gradient_34-1600.webp" type="image/webp" />
@@ -380,38 +380,40 @@ export default function VedlikShowcase() {
               />
             </picture>
             <div className="absolute inset-0 bg-black/28 md:bg-black/45 pointer-events-none" />
-            <div className="relative z-10 max-w-6xl w-full grid grid-cols-1 md:grid-cols-[1.25fr_1fr] gap-4 sm:gap-8 md:gap-14 items-start">
-              <div>
-                <p className="text-[#2DD4BF] text-xs sm:text-sm tracking-[0.14em] uppercase">Why Vedlik</p>
-                <h2 className="mt-2 sm:mt-3 text-[1.9rem] sm:text-4xl md:text-5xl lg:text-6xl font-semibold tracking-tight text-white leading-[0.95]">
-                  Less noise. Faster insight.
-                </h2>
-                <p className="mt-2.5 sm:mt-5 text-white/70 text-[0.98rem] sm:text-lg md:text-xl leading-relaxed max-w-2xl">
-                  Most tech coverage buries the important part. Vedlik is built for people who need to understand what changed,
-                  why it matters, and what to do next.
-                </p>
-              </div>
-              <div className="border-l border-white/[0.12] pl-4 sm:pl-6 md:pl-8">
-                <p className="text-[#2DD4BF] text-[11px] tracking-[0.14em] uppercase">Designed For</p>
-                <div className="mt-2.5 sm:mt-4 space-y-2.5 sm:space-y-5">
-                  <div>
-                    <p className="text-white text-sm font-semibold">Developers & Engineers</p>
-                    <p className="mt-1 text-white/60 text-xs sm:text-sm leading-relaxed">Breaking changes, API pricing, and source links without marketing filler.</p>
-                  </div>
-                  <div>
-                    <p className="text-white text-sm font-semibold">Founders & Investors</p>
-                    <p className="mt-1 text-white/60 text-xs sm:text-sm leading-relaxed">Funding, M&amp;A, and startup category shifts that change strategy.</p>
-                  </div>
-                  <div>
-                    <p className="text-white text-sm font-semibold">Students & Tech Grads</p>
-                    <p className="mt-1 text-white/60 text-xs sm:text-sm leading-relaxed">Clear explanations of AI concepts that actually help in interviews and projects.</p>
+            <div className="relative z-10 px-4 py-4 sm:px-6 sm:py-6 md:px-10 lg:px-12 md:py-0 w-full">
+              <div className="max-w-6xl w-full mx-auto grid grid-cols-1 md:grid-cols-[1.25fr_1fr] gap-5 sm:gap-8 md:gap-14 items-start">
+                <div>
+                  <p className="text-[#2DD4BF] text-xs sm:text-sm tracking-[0.14em] uppercase">Why Vedlik</p>
+                  <h2 className="mt-2 sm:mt-3 text-[1.75rem] sm:text-4xl md:text-5xl lg:text-6xl font-semibold tracking-tight text-white leading-[0.95]">
+                    Less noise. Faster insight.
+                  </h2>
+                  <p className="mt-2.5 sm:mt-5 text-white/70 text-[0.9rem] sm:text-lg md:text-xl leading-relaxed max-w-2xl">
+                    Most tech coverage buries the important part. Vedlik is built for people who need to understand what changed,
+                    why it matters, and what to do next.
+                  </p>
+                </div>
+                <div className="border-l border-white/[0.12] pl-4 sm:pl-6 md:pl-8">
+                  <p className="text-[#2DD4BF] text-[11px] tracking-[0.14em] uppercase">Designed For</p>
+                  <div className="mt-2.5 sm:mt-4 space-y-2.5 sm:space-y-5">
+                    <div>
+                      <p className="text-white text-sm font-semibold">Developers & Engineers</p>
+                      <p className="mt-1 text-white/60 text-xs sm:text-sm leading-relaxed">Breaking changes, API pricing, and source links without marketing filler.</p>
+                    </div>
+                    <div>
+                      <p className="text-white text-sm font-semibold">Founders & Investors</p>
+                      <p className="mt-1 text-white/60 text-xs sm:text-sm leading-relaxed">Funding, M&amp;A, and startup category shifts that change strategy.</p>
+                    </div>
+                    <div>
+                      <p className="text-white text-sm font-semibold">Students & Tech Grads</p>
+                      <p className="mt-1 text-white/60 text-xs sm:text-sm leading-relaxed">Clear explanations of AI concepts that actually help in interviews and projects.</p>
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
           </section>
           <CoreFeaturesSection />
-          <section className="vedlik-mobile-section relative flex min-h-0 flex-col border-t border-white/[0.08] bg-[#000] md:h-[100dvh] md:min-h-[100dvh] overflow-hidden">
+          <section className="vedlik-mobile-section relative flex min-h-0 flex-col border-t border-white/[0.08] bg-[#000] overflow-y-auto overscroll-y-contain md:overflow-hidden md:h-[100dvh] md:min-h-[100dvh]">
             <img
               src="/images/section_4_bg.png"
               alt=""
@@ -427,22 +429,34 @@ export default function VedlikShowcase() {
                   <h2 className="mt-2 sm:mt-3 text-[1.9rem] sm:text-4xl md:text-5xl lg:text-6xl font-semibold tracking-tight text-white leading-[0.95] max-w-4xl">
                     Clarity you can trust.
                   </h2>
-                  <div className="mt-4 sm:mt-8 grid grid-cols-1 md:grid-cols-3 gap-2.5 sm:gap-6 md:gap-8">
-                    <div>
-                      <p className="text-white text-sm font-semibold">No clickbait, no fluff</p>
-                      <p className="mt-2 text-white/60 text-xs sm:text-sm leading-relaxed">You get the point in seconds with concise, useful summaries instead of endless noise.</p>
-                    </div>
-                    <div>
-                      <p className="text-white text-sm font-semibold">Facts before opinions</p>
-                      <p className="mt-2 text-white/60 text-xs sm:text-sm leading-relaxed">Every story is broken into key facts and takeaways so you can understand impact quickly.</p>
-                    </div>
-                    <div>
-                      <p className="text-white text-sm font-semibold">Built for daily decisions</p>
-                      <p className="mt-2 text-white/60 text-xs sm:text-sm leading-relaxed">From developers to founders, Vedlik helps you stay informed and act with confidence.</p>
-                    </div>
-                  </div>
+                  <ul className="mt-4 sm:mt-8 space-y-2.5 sm:space-y-3">
+                    <li className="flex items-start gap-3">
+                      <span className="mt-0.5 shrink-0 text-[#2DD4BF]">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" className="h-4 w-4 sm:h-5 sm:w-5"><path fillRule="evenodd" d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z" clipRule="evenodd" /></svg>
+                      </span>
+                      <p className="text-white/75 text-xs sm:text-sm leading-relaxed"><span className="text-white font-semibold">No clickbait, no fluff</span> — every story leads with the key fact, not the hook.</p>
+                    </li>
+                    <li className="flex items-start gap-3">
+                      <span className="mt-0.5 shrink-0 text-[#2DD4BF]">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" className="h-4 w-4 sm:h-5 sm:w-5"><path fillRule="evenodd" d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z" clipRule="evenodd" /></svg>
+                      </span>
+                      <p className="text-white/75 text-xs sm:text-sm leading-relaxed"><span className="text-white font-semibold">Facts before opinions</span> — key data points and takeaways, clearly separated from commentary.</p>
+                    </li>
+                    <li className="flex items-start gap-3">
+                      <span className="mt-0.5 shrink-0 text-[#2DD4BF]">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" className="h-4 w-4 sm:h-5 sm:w-5"><path fillRule="evenodd" d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z" clipRule="evenodd" /></svg>
+                      </span>
+                      <p className="text-white/75 text-xs sm:text-sm leading-relaxed"><span className="text-white font-semibold">Source-backed every time</span> — tap through to the original article so you always know where it came from.</p>
+                    </li>
+                    <li className="flex items-start gap-3">
+                      <span className="mt-0.5 shrink-0 text-[#2DD4BF]">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" className="h-4 w-4 sm:h-5 sm:w-5"><path fillRule="evenodd" d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z" clipRule="evenodd" /></svg>
+                      </span>
+                      <p className="text-white/75 text-xs sm:text-sm leading-relaxed"><span className="text-white font-semibold">Built for daily decisions</span> — from developers to founders, stay informed and act with confidence.</p>
+                    </li>
+                  </ul>
                   <div className="mt-4 sm:mt-9 flex flex-row items-center gap-3 sm:gap-5">
-                    <button type="button" onClick={openWaitlistModal} className="inline-flex w-[44%] sm:w-auto">
+                    <a href="https://apps.apple.com/app/vedlik/id6746496192" target="_blank" rel="noreferrer" className="inline-flex w-[44%] sm:w-auto">
                       <img
                         src="/images/app_store_badge.png"
                         alt="Download on the App Store"
@@ -451,8 +465,8 @@ export default function VedlikShowcase() {
                         loading="lazy"
                         decoding="async"
                       />
-                    </button>
-                    <button type="button" onClick={openWaitlistModal} className="inline-flex w-[44%] sm:w-auto">
+                    </a>
+                    <a href="https://play.google.com/store/apps/details?id=com.mantravi.ai.briefing" target="_blank" rel="noreferrer" className="inline-flex w-[44%] sm:w-auto">
                       <img
                         src="/images/google_play_badge.png"
                         alt="Get it on Google Play"
@@ -461,7 +475,7 @@ export default function VedlikShowcase() {
                         loading="lazy"
                         decoding="async"
                       />
-                    </button>
+                    </a>
                   </div>
                 </div>
               </div>
@@ -471,10 +485,10 @@ export default function VedlikShowcase() {
             <div className="absolute inset-0 bg-gradient-to-b from-[#0a1214]/90 to-[#000] pointer-events-none" aria-hidden />
             <div className="relative z-10 flex min-h-0 flex-1 flex-col">
               <div
-                className="flex min-h-0 flex-1 flex-col px-4 py-5 sm:px-6 sm:py-6 md:px-10 lg:px-12 md:pt-[calc(4rem+2rem)] lg:pt-[calc(4rem+2.5rem)] md:pb-3 overflow-y-auto overscroll-y-contain touch-pan-y [scrollbar-gutter:stable]"
+                className="flex min-h-0 flex-1 flex-col px-4 pt-3 pb-0 sm:px-6 sm:pt-4 md:px-10 lg:px-12 md:pt-[calc(4rem+2rem)] lg:pt-[calc(4rem+2.5rem)] md:pb-3 overflow-y-auto overscroll-y-contain touch-pan-y"
                 data-vedlik-scrollable
               >
-                <div className="max-w-6xl w-full mx-auto pb-3 md:pb-4">
+                <div className="max-w-6xl w-full mx-auto pb-20 md:pb-4">
                   <FaqAccordion />
                 </div>
               </div>

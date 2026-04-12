@@ -2,6 +2,9 @@ import type { RefObject } from 'react'
 import HeroKeywordRotate from './HeroKeywordRotate'
 import PhoneMockup from './PhoneMockup'
 
+const APP_STORE_URL = 'https://apps.apple.com/app/vedlik/id6746496192'
+const PLAY_STORE_URL = 'https://play.google.com/store/apps/details?id=com.mantravi.ai.briefing'
+
 const HERO_KEYWORDS_1 = ['Funding', 'Models', 'Startups', 'Policy'] as const
 const HERO_KEYWORDS_2 = ['Clarity', 'Signal', 'Depth', 'Truth'] as const
 const HERO_KEYWORDS_3 = ['Entities', 'Scores', 'Claims', 'Proof'] as const
@@ -20,6 +23,33 @@ interface ScrollSectionProps {
   onJoinWaitlist: () => void
 }
 
+function StoreBadges({ className = '' }: { className?: string }) {
+  return (
+    <div className={`flex flex-row items-center gap-2 sm:gap-3 ${className}`}>
+      <a href={APP_STORE_URL} target="_blank" rel="noreferrer" className="inline-flex w-[44%] sm:w-auto">
+        <img
+          src="/images/app_store_badge.png"
+          alt="Download on the App Store"
+          className="h-auto w-full sm:w-auto sm:h-11 md:h-12 lg:h-[54px] object-contain"
+          draggable={false}
+          loading="eager"
+          decoding="async"
+        />
+      </a>
+      <a href={PLAY_STORE_URL} target="_blank" rel="noreferrer" className="inline-flex w-[44%] sm:w-auto">
+        <img
+          src="/images/google_play_badge.png"
+          alt="Get it on Google Play"
+          className="h-auto w-full sm:w-auto sm:h-11 md:h-12 lg:h-[54px] object-contain"
+          draggable={false}
+          loading="eager"
+          decoding="async"
+        />
+      </a>
+    </div>
+  )
+}
+
 export default function ScrollSection({
   sectionRef,
   text1Ref,
@@ -31,7 +61,7 @@ export default function ScrollSection({
   backFaceRef,
   article1Ref,
   article2Ref,
-  onJoinWaitlist,
+  onJoinWaitlist: _onJoinWaitlist,
 }: ScrollSectionProps) {
   return (
     <section
@@ -43,7 +73,7 @@ export default function ScrollSection({
       </div>
 
       {/* Text: on mobile first (order-1), on desktop left (md:order-1) */}
-      <div className="relative order-1 md:order-1 z-10 flex flex-col justify-center pt-1.5 sm:pt-5 md:pt-0 md:w-[46%] lg:max-w-xl shrink-0 min-h-[16vh] sm:min-h-[24vh] md:min-h-[240px] max-md:pb-2">
+      <div className="relative order-1 md:order-1 z-10 flex flex-col justify-center pt-0 sm:pt-5 md:pt-0 md:w-[46%] lg:max-w-xl shrink-0 min-h-[22vh] sm:min-h-[26vh] md:min-h-[240px] max-md:pb-1">
         <div ref={text1Ref} className="absolute inset-0 flex flex-col justify-start pt-0 sm:pt-3 md:justify-center md:pt-0 items-center md:items-start text-center md:text-left opacity-100 md:translate-x-10 lg:translate-x-14 translate-y-0 sm:translate-y-3 md:translate-y-0">
           <h1 className="max-w-none text-[1.72rem] leading-[1.02] sm:text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight text-white">
             AI &amp; Tech, Decoded.
@@ -53,15 +83,7 @@ export default function ScrollSection({
             <span className="hidden sm:inline">Artificial intelligence, startups, and technology intelligence one clear feed.</span>
           </p>
           <HeroKeywordRotate words={HERO_KEYWORDS_1} />
-          <div className="mt-2.5 sm:mt-6 w-full flex justify-center md:justify-start -translate-x-1 sm:translate-x-0 md:translate-x-0">
-            <button
-              type="button"
-              onClick={onJoinWaitlist}
-              className="inline-flex items-center justify-center rounded-xl border border-[#2DD4BF]/60 bg-gradient-to-r from-[#0A1114] via-[#102B2F] to-[#0A1114] shadow-[0_8px_26px_rgba(45,212,191,0.2)] px-5 py-2 text-sm font-semibold tracking-[0.01em] text-white hover:from-[#102125] hover:via-[#15383d] hover:to-[#102125] transition-colors sm:rounded-2xl sm:px-12 sm:py-4.5 sm:text-2xl sm:shadow-[0_12px_36px_rgba(45,212,191,0.22)]"
-            >
-              Join Waitlist
-            </button>
-          </div>
+          <StoreBadges className="mt-2.5 sm:mt-5 w-full justify-center md:justify-start" />
         </div>
         <div ref={text2Ref} className="absolute inset-0 flex flex-col justify-start pt-0 sm:pt-3 md:justify-center md:pt-0 items-center md:items-start text-center md:text-left opacity-0 md:translate-x-10 lg:translate-x-14 translate-y-0 sm:translate-y-3 md:translate-y-0">
           <h1 className="max-w-none text-[1.72rem] leading-[1.02] sm:text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight text-white">
@@ -72,15 +94,7 @@ export default function ScrollSection({
             <span className="hidden sm:inline">AI-powered clarity on every story.</span>
           </p>
           <HeroKeywordRotate words={HERO_KEYWORDS_2} />
-          <div className="mt-2.5 sm:mt-6 w-full flex justify-center md:justify-start -translate-x-1 sm:translate-x-0 md:translate-x-0">
-            <button
-              type="button"
-              onClick={onJoinWaitlist}
-              className="inline-flex items-center justify-center rounded-xl border border-[#2DD4BF]/60 bg-gradient-to-r from-[#0A1114] via-[#102B2F] to-[#0A1114] shadow-[0_8px_26px_rgba(45,212,191,0.2)] px-5 py-2 text-sm font-semibold tracking-[0.01em] text-white hover:from-[#102125] hover:via-[#15383d] hover:to-[#102125] transition-colors sm:rounded-2xl sm:px-12 sm:py-4.5 sm:text-2xl sm:shadow-[0_12px_36px_rgba(45,212,191,0.22)]"
-            >
-              Join Waitlist
-            </button>
-          </div>
+          <StoreBadges className="mt-2.5 sm:mt-5 w-full justify-center md:justify-start" />
         </div>
         <div ref={text3Ref} className="absolute inset-0 flex flex-col justify-start pt-0 sm:pt-3 md:justify-center md:pt-0 items-center md:items-start text-center md:text-left opacity-0 md:translate-x-10 lg:translate-x-14 translate-y-0 sm:translate-y-3 md:translate-y-0">
           <h1 className="max-w-none text-[1.72rem] leading-[1.02] sm:text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight text-white">
@@ -91,20 +105,12 @@ export default function ScrollSection({
             <span className="hidden sm:inline">Credibility, context, and entities built for tech and startup funding intelligence.</span>
           </p>
           <HeroKeywordRotate words={HERO_KEYWORDS_3} />
-          <div className="mt-2.5 sm:mt-6 w-full flex justify-center md:justify-start -translate-x-1 sm:translate-x-0 md:translate-x-0">
-            <button
-              type="button"
-              onClick={onJoinWaitlist}
-              className="inline-flex items-center justify-center rounded-xl border border-[#2DD4BF]/60 bg-gradient-to-r from-[#0A1114] via-[#102B2F] to-[#0A1114] shadow-[0_8px_26px_rgba(45,212,191,0.2)] px-5 py-2 text-sm font-semibold tracking-[0.01em] text-white hover:from-[#102125] hover:via-[#15383d] hover:to-[#102125] transition-colors sm:rounded-2xl sm:px-12 sm:py-4.5 sm:text-2xl sm:shadow-[0_12px_36px_rgba(45,212,191,0.22)]"
-            >
-              Join Waitlist
-            </button>
-          </div>
+          <StoreBadges className="mt-2.5 sm:mt-5 w-full justify-center md:justify-start" />
         </div>
       </div>
 
       {/* Phone: tighter top margin on mobile so mockup sits higher under the smaller CTA */}
-      <div className="order-2 md:order-2 z-10 flex min-h-0 flex-1 flex-col items-center justify-center max-md:mt-6 sm:max-md:mt-8 md:mt-10 md:w-[58%] min-h-[38vh] sm:min-h-[50vh] md:min-h-0 lg:mt-12">
+      <div className="order-2 md:order-2 z-10 flex min-h-0 flex-1 flex-col items-center justify-center max-md:mt-2 sm:max-md:mt-4 md:mt-10 md:w-[58%] min-h-[34vh] sm:min-h-[46vh] md:min-h-0 lg:mt-12">
         <div className="flex max-h-full min-h-0 min-w-0 w-full max-w-full flex-1 items-center justify-center max-md:overflow-x-hidden overflow-visible md:overflow-hidden px-0 sm:px-1 md:pt-2 lg:pt-3">
           <PhoneMockup
             phoneRef={phoneRef}
