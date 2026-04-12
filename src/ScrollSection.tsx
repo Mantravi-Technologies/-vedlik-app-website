@@ -2,7 +2,7 @@ import type { RefObject } from 'react'
 import HeroKeywordRotate from './HeroKeywordRotate'
 import PhoneMockup from './PhoneMockup'
 
-const APP_STORE_URL = 'https://apps.apple.com/app/vedlik/id6746496192'
+const APP_STORE_URL = 'https://apps.apple.com/in/app/vedlik-ai-tech-insights/id6761024663'
 const PLAY_STORE_URL = 'https://play.google.com/store/apps/details?id=com.mantravi.ai.briefing'
 
 const HERO_KEYWORDS_1 = ['Funding', 'Models', 'Startups', 'Policy'] as const

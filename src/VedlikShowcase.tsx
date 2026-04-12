@@ -429,34 +429,22 @@ export default function VedlikShowcase() {
                   <h2 className="mt-2 sm:mt-3 text-[1.9rem] sm:text-4xl md:text-5xl lg:text-6xl font-semibold tracking-tight text-white leading-[0.95] max-w-4xl">
                     Clarity you can trust.
                   </h2>
-                  <ul className="mt-4 sm:mt-8 space-y-2.5 sm:space-y-3">
-                    <li className="flex items-start gap-3">
-                      <span className="mt-0.5 shrink-0 text-[#2DD4BF]">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" className="h-4 w-4 sm:h-5 sm:w-5"><path fillRule="evenodd" d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z" clipRule="evenodd" /></svg>
-                      </span>
-                      <p className="text-white/75 text-xs sm:text-sm leading-relaxed"><span className="text-white font-semibold">No clickbait, no fluff</span> — every story leads with the key fact, not the hook.</p>
-                    </li>
-                    <li className="flex items-start gap-3">
-                      <span className="mt-0.5 shrink-0 text-[#2DD4BF]">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" className="h-4 w-4 sm:h-5 sm:w-5"><path fillRule="evenodd" d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z" clipRule="evenodd" /></svg>
-                      </span>
-                      <p className="text-white/75 text-xs sm:text-sm leading-relaxed"><span className="text-white font-semibold">Facts before opinions</span> — key data points and takeaways, clearly separated from commentary.</p>
-                    </li>
-                    <li className="flex items-start gap-3">
-                      <span className="mt-0.5 shrink-0 text-[#2DD4BF]">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" className="h-4 w-4 sm:h-5 sm:w-5"><path fillRule="evenodd" d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z" clipRule="evenodd" /></svg>
-                      </span>
-                      <p className="text-white/75 text-xs sm:text-sm leading-relaxed"><span className="text-white font-semibold">Source-backed every time</span> — tap through to the original article so you always know where it came from.</p>
-                    </li>
-                    <li className="flex items-start gap-3">
-                      <span className="mt-0.5 shrink-0 text-[#2DD4BF]">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" className="h-4 w-4 sm:h-5 sm:w-5"><path fillRule="evenodd" d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z" clipRule="evenodd" /></svg>
-                      </span>
-                      <p className="text-white/75 text-xs sm:text-sm leading-relaxed"><span className="text-white font-semibold">Built for daily decisions</span> — from developers to founders, stay informed and act with confidence.</p>
-                    </li>
-                  </ul>
+                  <div className="mt-4 sm:mt-8 grid grid-cols-1 md:grid-cols-3 gap-2.5 sm:gap-6 md:gap-8">
+                    <div>
+                      <p className="text-white text-sm font-semibold">No clickbait, no fluff</p>
+                      <p className="mt-2 text-white/60 text-xs sm:text-sm leading-relaxed">You get the point in seconds with concise, bullet-point briefs instead of endless noise.</p>
+                    </div>
+                    <div>
+                      <p className="text-white text-sm font-semibold">Facts before opinions</p>
+                      <p className="mt-2 text-white/60 text-xs sm:text-sm leading-relaxed">Every story is broken into key facts and takeaways so you can understand impact quickly.</p>
+                    </div>
+                    <div>
+                      <p className="text-white text-sm font-semibold">Built for daily decisions</p>
+                      <p className="mt-2 text-white/60 text-xs sm:text-sm leading-relaxed">From developers to founders, Vedlik helps you stay informed and act with confidence.</p>
+                    </div>
+                  </div>
                   <div className="mt-4 sm:mt-9 flex flex-row items-center gap-3 sm:gap-5">
-                    <a href="https://apps.apple.com/app/vedlik/id6746496192" target="_blank" rel="noreferrer" className="inline-flex w-[44%] sm:w-auto">
+                    <a href="https://apps.apple.com/in/app/vedlik-ai-tech-insights/id6761024663" target="_blank" rel="noreferrer" className="inline-flex w-[44%] sm:w-auto">
                       <img
                         src="/images/app_store_badge.png"
                         alt="Download on the App Store"
