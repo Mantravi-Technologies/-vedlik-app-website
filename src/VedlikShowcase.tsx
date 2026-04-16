@@ -291,7 +291,6 @@ export default function VedlikShowcase() {
         tolerance: 16,
         preventDefault: true,
         lockAxis: true,
-        // Carousel: always ignore so native swipe works inside it.
         ignore: '[data-vedlik-carousel], [data-vedlik-carousel] *',
         ignoreCheck: (event) => {
           const target = event.target
@@ -316,17 +315,62 @@ export default function VedlikShowcase() {
             return false
           }
 
-          // Touch / pointer inside scrollable area: always pass through so
-          // the native scroll works. Section navigation won't trigger because
-          // the Observer won't get onUp/onDown for these events.
+          // Touch/pointer: pass through to let native scroll work.
+          // Edge-based section navigation for touch is handled by the
+          // separate touchstart/touchend listener below.
           if (event instanceof TouchEvent || event instanceof PointerEvent) {
-            if (canScrollY) return true
+            return true
           }
 
           return false
         },
         onDown: goPrev,
         onUp: goNext,
+      })
+
+      // Touch handler for [data-vedlik-scrollable]: let content scroll freely,
+      // but fire section navigation when swiping past the top or bottom edge.
+      const scrollables = container.querySelectorAll<HTMLElement>('[data-vedlik-scrollable]')
+      let touchStartY = 0
+      let touchStartScrollTop = 0
+      let activeTouchScrollRoot: HTMLElement | null = null
+
+      const onTouchStart = (e: TouchEvent) => {
+        const target = e.target
+        if (!(target instanceof Element)) return
+        const root = target.closest<HTMLElement>('[data-vedlik-scrollable]')
+        if (!root) return
+        activeTouchScrollRoot = root
+        touchStartY = e.touches[0].clientY
+        touchStartScrollTop = root.scrollTop
+      }
+
+      const onTouchEnd = (e: TouchEvent) => {
+        if (!activeTouchScrollRoot) return
+        const root = activeTouchScrollRoot
+        activeTouchScrollRoot = null
+
+        const endY = e.changedTouches[0].clientY
+        const dy = touchStartY - endY          // positive = swipe up (next), negative = swipe down (prev)
+        const SWIPE_THRESHOLD = 40             // minimum px to count as intentional swipe
+
+        if (Math.abs(dy) < SWIPE_THRESHOLD) return
+
+        const { scrollHeight, clientHeight } = root
+        const edge = 4
+        const atTop = touchStartScrollTop <= edge
+        const atBottom = touchStartScrollTop + clientHeight >= scrollHeight - edge
+
+        if (dy > 0 && atBottom) {
+          goNext()
+        } else if (dy < 0 && atTop) {
+          goPrev()
+        }
+      }
+
+      scrollables.forEach((el) => {
+        el.addEventListener('touchstart', onTouchStart, { passive: true })
+        el.addEventListener('touchend', onTouchEnd, { passive: true })
       })
 
       const previousBodyOverflow = document.body.style.overflow
@@ -348,6 +392,10 @@ export default function VedlikShowcase() {
 
       return () => {
         observer.kill()
+        scrollables.forEach((el) => {
+          el.removeEventListener('touchstart', onTouchStart)
+          el.removeEventListener('touchend', onTouchEnd)
+        })
         window.removeEventListener('resize', handleResize)
         window.removeEventListener('vedlik:navigate', handleNavigate as EventListener)
         document.body.style.overflow = previousBodyOverflow
