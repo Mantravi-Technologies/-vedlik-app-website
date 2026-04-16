@@ -36,31 +36,63 @@ body {
 }
 
 :root {
-  --vedlik-mobile-header-h: 3rem;
+  --header-h: 3rem; /* matches StickyHeader h-12 */
 }
 
-/* Match StickyHeader: h-12 default, sm:h-14 up to md */
-@media (min-width: 640px) and (max-width: 767px) {
+@media (min-width: 640px) {
   :root {
-    --vedlik-mobile-header-h: 3.5rem;
+    --header-h: 3.5rem; /* sm:h-14 */
   }
 }
 
-@media (max-width: 767px) {
-  .vedlik-mobile-section {
-    height: 100dvh;
-    min-height: 100dvh;
-    /* Do not override this with Tailwind padding-top on the same element — it hides content under the fixed header */
-    padding-top: calc(var(--vedlik-mobile-header-h) + env(safe-area-inset-top, 0px) + 0.625rem);
-    /* Footer is in-document; keep only home-indicator breathing room */
-    padding-bottom: max(0.5rem, env(safe-area-inset-bottom, 0px));
+@media (min-width: 768px) {
+  :root {
+    --header-h: 4rem; /* md:h-16 */
   }
+}
 
-  /* Sections that scroll their own content on mobile get min-height instead of fixed height */
-  .vedlik-mobile-section.overflow-y-auto {
-    height: auto;
-    min-height: 100dvh;
-  }
+/*
+ * Non-hero sections (Why Vedlik, Features, Trust, FAQ).
+ * They are full-screen sections that scroll as pages on desktop
+ * and can scroll content internally on mobile.
+ */
+.vedlik-mobile-section {
+  height: 100dvh;
+  min-height: 100dvh;
+  padding-top: calc(var(--header-h) + env(safe-area-inset-top, 0px) + 0.5rem);
+  padding-bottom: max(0.5rem, env(safe-area-inset-bottom, 0px));
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+}
+
+/* Scrollable content sections (e.g. FAQ, Why Vedlik) */
+.vedlik-mobile-section.overflow-y-auto {
+  height: auto;
+  min-height: 100dvh;
+}
+
+/*
+ * Hero section — always fills full screen minus header.
+ * Uses clamp-based font sizes so text scales proportionally with viewport.
+ */
+.vedlik-hero-section {
+  height: 100dvh;
+  min-height: 100dvh;
+  padding-top: calc(var(--header-h) + env(safe-area-inset-top, 0px));
+  padding-bottom: max(0.5rem, env(safe-area-inset-bottom, 0px));
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+}
+
+/*
+ * Text+badges column: shrinks to content on both mobile and desktop.
+ * The parent row uses items-center so it is vertically centered on desktop.
+ */
+.hero-text-side {
+  flex: 0 0 auto;
+  height: auto;
 }
 
 @layer utilities {

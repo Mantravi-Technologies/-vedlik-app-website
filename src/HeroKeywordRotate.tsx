@@ -29,18 +29,19 @@ export default function HeroKeywordRotate({ words }: HeroKeywordRotateProps) {
   if (words.length === 0) return null
 
   const labelClass =
-    'mt-1.5 sm:mt-2 w-full max-w-lg font-medium uppercase tracking-[0.14em] text-[10px] leading-none sm:text-[11px] md:text-xs text-center md:text-left mx-auto md:mx-0'
+    'mt-[1vw] w-full font-medium uppercase tracking-[0.14em] leading-none'
+  const sizeStyle = { fontSize: 'clamp(9px, 1vw, 13px)' }
 
   if (prefersReduced) {
     return (
-      <p className={`${labelClass} whitespace-nowrap text-ellipsis overflow-hidden`} style={{ color: TEAL }}>
+      <p className={`${labelClass} whitespace-nowrap text-ellipsis overflow-hidden text-center md:text-left`} style={{ color: TEAL, ...sizeStyle }}>
         {words.join(' · ')}
       </p>
     )
   }
 
   return (
-    <div className={`${labelClass} flex h-[1.35em] min-h-[1.35em] flex-none justify-center md:justify-start`}>
+    <div className={`${labelClass} flex h-[1.35em] min-h-[1.35em] flex-none justify-center md:justify-start`} style={sizeStyle}>
       <span className="relative inline-block max-w-full">
         <span className="invisible block select-none whitespace-nowrap" aria-hidden>
           {widest}
@@ -48,7 +49,7 @@ export default function HeroKeywordRotate({ words }: HeroKeywordRotateProps) {
         {words.map((word, idx) => (
           <span
             key={word}
-            className={`absolute left-1/2 top-1/2 whitespace-nowrap -translate-x-1/2 -translate-y-1/2 transition-opacity duration-500 md:left-0 md:translate-x-0 ${
+            className={`absolute left-0 top-1/2 whitespace-nowrap -translate-y-1/2 transition-opacity duration-500 ${
               idx === index ? 'opacity-100' : 'pointer-events-none opacity-0'
             }`}
             style={{ color: TEAL }}

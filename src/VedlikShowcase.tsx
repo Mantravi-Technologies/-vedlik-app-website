@@ -286,7 +286,7 @@ export default function VedlikShowcase() {
 
       const observer = Observer.create({
         target: container,
-        type: 'wheel,touch',
+        type: 'wheel,touch,pointer',
         wheelSpeed: -1,
         tolerance: 16,
         preventDefault: true,
@@ -469,14 +469,16 @@ export default function VedlikShowcase() {
               </div>
             </div>
           </section>
-          <section className="vedlik-mobile-section relative flex min-h-0 flex-col border-t border-white/[0.08] bg-[#030708] md:h-[100dvh] md:min-h-[100dvh] overflow-hidden">
+          <section className="vedlik-mobile-section relative flex flex-col border-t border-white/[0.08] bg-[#030708] md:h-[100dvh] md:min-h-[100dvh] md:overflow-hidden">
             <div className="absolute inset-0 bg-gradient-to-b from-[#0a1214]/90 to-[#000] pointer-events-none" aria-hidden />
-            <div className="relative z-10 flex min-h-0 flex-1 flex-col">
+            {/* Flex column that fills the full section height so the scroll area can shrink-to-fit */}
+            <div className="relative z-10 flex flex-col" style={{ height: '100%' }}>
               <div
-                className="flex min-h-0 flex-1 flex-col px-4 pt-3 pb-0 sm:px-6 sm:pt-4 md:px-10 lg:px-12 md:pt-[calc(4rem+2rem)] lg:pt-[calc(4rem+2.5rem)] md:pb-3 overflow-y-auto overscroll-y-contain touch-pan-y"
+                className="flex-1 overflow-y-auto overscroll-y-contain touch-pan-y px-4 pt-3 pb-4 sm:px-6 sm:pt-4 md:px-10 lg:px-12 md:pt-[calc(4rem+2rem)] lg:pt-[calc(4rem+2.5rem)] md:pb-3"
                 data-vedlik-scrollable
+                style={{ WebkitOverflowScrolling: 'touch' }}
               >
-                <div className="max-w-6xl w-full mx-auto pb-20 md:pb-4">
+                <div className="max-w-6xl w-full mx-auto pb-4">
                   <FaqAccordion />
                 </div>
               </div>

@@ -1,39 +1,13 @@
 import { useEffect, type RefObject } from 'react'
-import { useMediaQuery } from './useMediaQuery'
 
 /**
- * Portal insets are **% of the full mockup `<img>` box** (`w-full h-auto`). If `mockup_frame.webp` has extra **transparent
- * padding** (common for shadows), that space is inside the box too—so the same % for top/bottom as for left/right can
- * misalign the “glass” vertically. **Left/right** can still look fine while **top/bottom** bleed or gap.
- *
- * **Fix (asset):** crop the frame so the bitmap hugs the hardware (best). **Fix (CSS):** bump **only** `top`/`bottom`
- * until the portal sits on the real bezel; keep `left`/`right` if they already match.
- *
- * Feed uses **background-size: cover** (no transform scale) + `overflow-hidden` on the frame stack.
- *
- * **Single coordinate system (portal + frame):** the portal’s `%` insets are relative to its offset parent. That parent
- * must be **exactly the same width × height as the frame `<img>` layout box**. Avoid `object-contain` on the frame
- * inside a **wider** wrapper (`inline-block` + child `w-full` was shrinking the bitmap to the center while the wrapper
- * stayed full column width → feed looked shifted right / empty left).
+ * Portal insets are % of the full mockup <img> box.
+ * The frame image has transparent padding (shadow), so top/bottom insets
+ * are slightly larger than left/right to align the glass portal with the bezel.
  */
-/** Desktop — larger top/bottom vs left/right to offset vertical transparent padding in the frame asset */
-const CONTENT_INSET_DESKTOP = {
-  top: '10.5%',
+const CONTENT_INSET = {
+  top: '10.6%',
   left: '13%',
-  right: '14.5%',
-  bottom: '13.5%',
-}
-
-const CONTENT_INSET_DESKTOP_TOUCH = {
-  top: '10.8%',
-  left: '13.1%',
-  right: '14.5%',
-  bottom: '13.5%',
-}
-
-const CONTENT_INSET_MOBILE = {
-  top: '10.7%',
-  left: '13.2%',
   right: '14.5%',
   bottom: '13.5%',
 }
@@ -55,141 +29,132 @@ export default function PhoneMockup({
   article1Ref,
   article2Ref,
 }: PhoneMockupProps) {
-  const isMobile = useMediaQuery('(max-width: 767px)')
-  const isCoarseTouchUi = useMediaQuery('(hover: none) and (pointer: coarse)')
-  const inset = isMobile
-    ? CONTENT_INSET_MOBILE
-    : isCoarseTouchUi
-      ? CONTENT_INSET_DESKTOP_TOUCH
-      : CONTENT_INSET_DESKTOP
-
   useEffect(() => {
     const urls = ['/images/front_1.webp', '/images/front_2.webp', '/images/back_signals.webp']
     urls.forEach((url) => {
       const img = new Image()
       img.src = url
-      if ('decode' in img) {
-        img.decode().catch(() => {})
-      }
+      if ('decode' in img) img.decode().catch(() => {})
     })
   }, [])
 
   return (
-    <div className="relative mx-auto w-[82%] max-w-[min(302px,100%)] min-w-0 shrink overflow-visible perspective-[1000px] md:overflow-hidden sm:max-w-[322px] md:max-w-[340px]">
-      <div ref={phoneRef} className="relative w-full min-w-0 overflow-visible md:overflow-hidden [transform-style:preserve-3d]">
-        <div className="flex w-full min-w-0 justify-center">
-          {/*
-            Mobile: full-width column; desktop: `md:w-fit` so this box matches the frame img’s used size exactly
-            (portal % insets stay locked to the bezel). `max-h` + `w-auto` on the img scales width/height together — no
-            `object-contain` letterboxing inside a wider box.
-          */}
-          <div className="relative w-full min-w-0 md:w-fit md:max-w-full">
-            <img
-              src="/images/mockup_frame.webp"
-              alt="Phone"
-              width={720}
-              height={1280}
-              className="relative z-0 block h-auto w-full min-w-0 select-none pointer-events-none md:w-auto md:max-w-full md:max-h-[min(76dvh,680px)]"
-              loading="eager"
-              fetchPriority="high"
-              decoding="async"
-              draggable={false}
-            />
+    /*
+     * The phone always renders at a height proportional to the viewport.
+     * Width is auto-derived from the image aspect ratio (720×1280 = 0.5625).
+     * This means at every screen size, the phone takes the same % of screen height.
+     *
+     * max-h keeps it from being too large on ultra-wide screens.
+     * The outer div is inline-flex so it shrinks to the image's natural width.
+     */
+    <div
+      className="relative inline-flex shrink-0 overflow-hidden perspective-[1200px]"
+      style={{ height: '100%', maxHeight: '88dvh' }}
+    >
+      <div
+        ref={phoneRef}
+        className="relative h-full overflow-hidden [transform-style:preserve-3d]"
+      >
+        {/* Frame image drives the layout — w-auto means width follows aspect ratio of height */}
+        <div className="relative h-full w-auto inline-flex">
+          <img
+            src="/images/mockup_frame.webp"
+            alt="Phone"
+            width={720}
+            height={1280}
+            className="relative z-0 block h-full w-auto select-none pointer-events-none"
+            loading="eager"
+            fetchPriority="high"
+            decoding="async"
+            draggable={false}
+          />
 
-            <div
-              className="absolute z-10 min-h-0 min-w-0 overflow-hidden rounded-none bg-black"
-              style={{
-                top: inset.top,
-                left: inset.left,
-                right: inset.right,
-                bottom: inset.bottom,
-                boxShadow: 'inset 0 0 0 1px rgba(255,255,255,0.04)',
-                clipPath: 'inset(0)',
-                WebkitClipPath: 'inset(0)',
-              }}
-            >
+          {/* Screen portal — % insets relative to the image box above */}
+          <div
+            className="absolute z-10 overflow-hidden bg-black"
+            style={{
+              top: CONTENT_INSET.top,
+              left: CONTENT_INSET.left,
+              right: CONTENT_INSET.right,
+              bottom: CONTENT_INSET.bottom,
+              boxShadow: 'inset 0 0 0 1px rgba(255,255,255,0.04)',
+              clipPath: 'inset(0)',
+              WebkitClipPath: 'inset(0)',
+            }}
+          >
+            <div className="h-full w-full overflow-hidden">
               <div
-                className="h-full min-h-0 min-w-0 w-full max-w-full overflow-hidden"
+                ref={screenContainerRef}
+                className="relative z-10 h-full w-full overflow-hidden"
                 style={{
-                  transform: 'scale(1)',
-                  WebkitTransform: 'scale(1)',
-                  transformOrigin: 'center center',
+                  transformStyle: 'preserve-3d',
+                  willChange: 'transform',
                 }}
               >
                 <div
-                  ref={screenContainerRef}
-                  className="relative z-10 h-full min-h-0 min-w-0 w-full max-w-full overflow-hidden"
+                  ref={frontFaceRef}
+                  className="absolute inset-0 overflow-hidden"
                   style={{
+                    backfaceVisibility: 'hidden',
+                    WebkitBackfaceVisibility: 'hidden',
+                    transform: 'rotateY(0deg)',
+                    WebkitTransform: 'rotateY(0deg)',
                     transformStyle: 'preserve-3d',
-                    position: 'relative',
-                    willChange: 'transform',
+                    willChange: 'opacity, transform',
                   }}
                 >
                   <div
-                    ref={frontFaceRef}
-                    className="absolute inset-0 min-h-0 min-w-0 max-w-full overflow-hidden"
+                    ref={article1Ref}
+                    role="img"
+                    aria-label="Article preview in Vedlik feed"
+                    className="absolute inset-0 overflow-hidden bg-black"
                     style={{
                       backfaceVisibility: 'hidden',
                       WebkitBackfaceVisibility: 'hidden',
-                      transform: 'rotateY(0deg)',
-                      WebkitTransform: 'rotateY(0deg)',
-                      transformStyle: 'preserve-3d',
-                      willChange: 'opacity, transform',
+                      backgroundImage: 'url(/images/front_1.webp)',
+                      backgroundSize: 'cover',
+                      backgroundPosition: 'center center',
                     }}
-                  >
-                    <div
-                      ref={article1Ref}
-                      role="img"
-                      aria-label="Article preview in Vedlik feed"
-                      className="absolute inset-0 min-h-0 min-w-0 max-w-full overflow-hidden bg-black bg-no-repeat"
-                      style={{
-                        backfaceVisibility: 'hidden',
-                        WebkitBackfaceVisibility: 'hidden',
-                        backgroundImage: 'url(/images/front_1.webp)',
-                        backgroundSize: 'cover',
-                        backgroundPosition: 'center center',
-                      }}
-                    />
-                    <div
-                      ref={article2Ref}
-                      role="img"
-                      aria-label="Second article preview in Vedlik feed"
-                      className="pointer-events-none absolute inset-0 min-h-0 min-w-0 max-w-full overflow-hidden bg-black bg-no-repeat opacity-0"
-                      style={{
-                        backfaceVisibility: 'hidden',
-                        WebkitBackfaceVisibility: 'hidden',
-                        backgroundImage: 'url(/images/front_2.webp)',
-                        backgroundSize: 'cover',
-                        backgroundPosition: 'center center',
-                      }}
-                    />
-                  </div>
-
+                  />
                   <div
-                    ref={backFaceRef}
-                    className="absolute inset-0 min-h-0 min-w-0 max-w-full overflow-hidden"
+                    ref={article2Ref}
+                    role="img"
+                    aria-label="Second article preview in Vedlik feed"
+                    className="pointer-events-none absolute inset-0 overflow-hidden bg-black opacity-0"
                     style={{
                       backfaceVisibility: 'hidden',
                       WebkitBackfaceVisibility: 'hidden',
-                      transform: 'rotateY(0deg)',
-                      WebkitTransform: 'rotateY(0deg)',
-                      transformStyle: 'preserve-3d',
-                      willChange: 'opacity, transform',
+                      backgroundImage: 'url(/images/front_2.webp)',
+                      backgroundSize: 'cover',
+                      backgroundPosition: 'center center',
                     }}
-                  >
-                    <div
-                      role="img"
-                      aria-label="Vedlik Signals screen"
-                      className="absolute inset-0 min-h-0 min-w-0 max-w-full overflow-hidden bg-black bg-no-repeat"
-                      style={{
-                        backfaceVisibility: 'hidden',
-                        WebkitBackfaceVisibility: 'hidden',
-                        backgroundImage: 'url(/images/back_signals.webp)',
-                        backgroundSize: 'cover',
-                        backgroundPosition: 'center top',
-                      }}
-                    />
-                  </div>
+                  />
+                </div>
+
+                <div
+                  ref={backFaceRef}
+                  className="absolute inset-0 overflow-hidden"
+                  style={{
+                    backfaceVisibility: 'hidden',
+                    WebkitBackfaceVisibility: 'hidden',
+                    transform: 'rotateY(0deg)',
+                    WebkitTransform: 'rotateY(0deg)',
+                    transformStyle: 'preserve-3d',
+                    willChange: 'opacity, transform',
+                  }}
+                >
+                  <div
+                    role="img"
+                    aria-label="Vedlik Signals screen"
+                    className="absolute inset-0 overflow-hidden bg-black"
+                    style={{
+                      backfaceVisibility: 'hidden',
+                      WebkitBackfaceVisibility: 'hidden',
+                      backgroundImage: 'url(/images/back_signals.webp)',
+                      backgroundSize: 'cover',
+                      backgroundPosition: 'center top',
+                    }}
+                  />
                 </div>
               </div>
             </div>
