@@ -291,8 +291,7 @@ export default function VedlikShowcase() {
         tolerance: 16,
         preventDefault: true,
         lockAxis: true,
-        // Carousel: always ignore Observer here (native swipe). FAQ scroll: do NOT list in `ignore` — that blocks
-        // section navigation entirely; use `ignoreCheck` only so wheel reaches prev/next section at scroll edges.
+        // Carousel: always ignore so native swipe works inside it.
         ignore: '[data-vedlik-carousel], [data-vedlik-carousel] *',
         ignoreCheck: (event) => {
           const target = event.target
@@ -302,19 +301,28 @@ export default function VedlikShowcase() {
           const scrollRoot = target.closest('[data-vedlik-scrollable]') as HTMLElement | null
           if (!scrollRoot) return false
 
-          // Wheel: only capture when the FAQ panel can still scroll in that direction.
-          if (event instanceof WheelEvent) {
-            const { scrollTop, scrollHeight, clientHeight } = scrollRoot
-            const edge = 4
-            const canScrollY = scrollHeight > clientHeight + 1
-            if (!canScrollY) return false
+          const { scrollTop, scrollHeight, clientHeight } = scrollRoot
+          const edge = 4
+          const canScrollY = scrollHeight > clientHeight + 1
 
+          // Wheel: pass through when FAQ can still scroll in that direction.
+          if (event instanceof WheelEvent) {
+            if (!canScrollY) return false
             const atTop = scrollTop <= edge
             const atBottom = scrollTop + clientHeight >= scrollHeight - edge
             const dy = event.deltaY
             if (dy > 0 && !atBottom) return true
             if (dy < 0 && !atTop) return true
+            return false
           }
+
+          // Touch / pointer inside scrollable area: always pass through so
+          // the native scroll works. Section navigation won't trigger because
+          // the Observer won't get onUp/onDown for these events.
+          if (event instanceof TouchEvent || event instanceof PointerEvent) {
+            if (canScrollY) return true
+          }
+
           return false
         },
         onDown: goPrev,
@@ -474,9 +482,9 @@ export default function VedlikShowcase() {
             {/* Flex column fills the section; scroll area gets flex-1 so it takes remaining height */}
             <div className="relative z-10 flex flex-col min-h-0 flex-1">
               <div
-                className="flex-1 min-h-0 overflow-y-auto overscroll-y-contain touch-pan-y px-4 pt-3 pb-4 sm:px-6 sm:pt-4 md:px-10 lg:px-12 md:pt-[calc(4rem+2rem)] lg:pt-[calc(4rem+2.5rem)] md:pb-3"
+                className="flex-1 min-h-0 overflow-y-auto overscroll-y-contain px-4 pt-3 pb-4 sm:px-6 sm:pt-4 md:px-10 lg:px-12 md:pt-[calc(4rem+2rem)] lg:pt-[calc(4rem+2.5rem)] md:pb-3"
                 data-vedlik-scrollable
-                style={{ WebkitOverflowScrolling: 'touch' }}
+                style={{ WebkitOverflowScrolling: 'touch', touchAction: 'pan-y' }}
               >
                 <div className="max-w-6xl w-full mx-auto pb-4">
                   <FaqAccordion />
