@@ -64,12 +64,7 @@ body {
   display: flex;
   flex-direction: column;
   box-sizing: border-box;
-}
-
-/* Scrollable content sections (e.g. FAQ, Why Vedlik) */
-.vedlik-mobile-section.overflow-y-auto {
-  height: auto;
-  min-height: 100dvh;
+  overflow: hidden;
 }
 
 /*

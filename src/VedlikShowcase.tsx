@@ -469,12 +469,12 @@ export default function VedlikShowcase() {
               </div>
             </div>
           </section>
-          <section className="vedlik-mobile-section relative flex flex-col border-t border-white/[0.08] bg-[#030708] md:h-[100dvh] md:min-h-[100dvh] md:overflow-hidden">
+          <section className="vedlik-mobile-section relative flex flex-col border-t border-white/[0.08] bg-[#030708] overflow-hidden">
             <div className="absolute inset-0 bg-gradient-to-b from-[#0a1214]/90 to-[#000] pointer-events-none" aria-hidden />
-            {/* Flex column that fills the full section height so the scroll area can shrink-to-fit */}
-            <div className="relative z-10 flex flex-col" style={{ height: '100%' }}>
+            {/* Flex column fills the section; scroll area gets flex-1 so it takes remaining height */}
+            <div className="relative z-10 flex flex-col min-h-0 flex-1">
               <div
-                className="flex-1 overflow-y-auto overscroll-y-contain touch-pan-y px-4 pt-3 pb-4 sm:px-6 sm:pt-4 md:px-10 lg:px-12 md:pt-[calc(4rem+2rem)] lg:pt-[calc(4rem+2.5rem)] md:pb-3"
+                className="flex-1 min-h-0 overflow-y-auto overscroll-y-contain touch-pan-y px-4 pt-3 pb-4 sm:px-6 sm:pt-4 md:px-10 lg:px-12 md:pt-[calc(4rem+2rem)] lg:pt-[calc(4rem+2.5rem)] md:pb-3"
                 data-vedlik-scrollable
                 style={{ WebkitOverflowScrolling: 'touch' }}
               >
