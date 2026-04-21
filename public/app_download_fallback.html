@@ -4,10 +4,14 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="robots" content="noindex, nofollow" />
-    <title>Open in Vedlik</title>
+    <title>Open Vedlik</title>
     <style>
-      :root { color-scheme: dark; }
-      * { box-sizing: border-box; }
+      :root {
+        color-scheme: dark;
+      }
+      * {
+        box-sizing: border-box;
+      }
       body {
         margin: 0;
         min-height: 100vh;
@@ -35,12 +39,6 @@
         margin: 12px 0 0;
         color: rgba(255, 255, 255, 0.72);
         line-height: 1.5;
-      }
-      .id {
-        margin-top: 10px;
-        font-size: 0.85rem;
-        color: rgba(45, 212, 191, 0.9);
-        word-break: break-all;
       }
       .row {
         margin-top: 18px;
@@ -73,42 +71,50 @@
   </head>
   <body>
     <main class="card">
-      <h1>Open this article in Vedlik</h1>
+      <h1>Open Vedlik</h1>
       <p>
-        If Vedlik is installed, opening this link from Messages/Notes/WhatsApp should launch the app.
+        If Vedlik is installed, this link should open the app automatically (Universal Links / App Links).
+        If you are still on this page, get the app from your store below.
       </p>
-      <p id="article-id" class="id" hidden></p>
       <div class="row">
-        <a id="store-link" class="button" href="https://play.google.com/store/apps" rel="noreferrer">Get the app</a>
+        <a id="store-link" class="button" href="#" rel="noreferrer">Get the app</a>
         <a class="link" href="/">Open website</a>
       </div>
     </main>
     <script>
       (function () {
-        var path = window.location.pathname || "";
-        var id = "";
-        var m = path.match(/^\/article\/(.+)$/);
-        if (m && m[1]) id = decodeURIComponent(m[1]);
-        var articleEl = document.getElementById("article-id");
-        if (id && articleEl) {
-          articleEl.hidden = false;
-          articleEl.textContent = "Article ID: " + id;
-        }
+        var APP_STORE =
+          "https://apps.apple.com/in/app/vedlik-ai-tech-insights/id6761024663";
+        var PLAY_STORE =
+          "https://play.google.com/store/apps/details?id=com.mantravi.ai.briefing";
 
         var ua = navigator.userAgent || "";
-        var isIOS = /iPad|iPhone|iPod/.test(ua) || (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1);
+        var isIOS =
+          /iPad|iPhone|iPod/.test(ua) ||
+          (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1);
+        var isAndroid = /Android/i.test(ua);
+
         var storeLink = document.getElementById("store-link");
         if (!storeLink) return;
 
+        var storeUrl = PLAY_STORE;
+        var label = "Get it on Google Play";
         if (isIOS) {
-          storeLink.href = "https://apps.apple.com/in/app/vedlik-ai-tech-insights/id6761024663";
-          storeLink.textContent = "Download on App Store";
-          return;
+          storeUrl = APP_STORE;
+          label = "Download on App Store";
         }
+        storeLink.href = storeUrl;
+        storeLink.textContent = label;
 
-        storeLink.href =
-          "https://play.google.com/store/apps/details?id=com.mantravi.ai.briefing";
-        storeLink.textContent = "Get it on Google Play";
+        // After a short delay, send phones to the store if the app did not take over
+        // (skip while tab is hidden — e.g. app opened in foreground).
+        if (isIOS || isAndroid) {
+          var delayMs = 1800;
+          window.setTimeout(function () {
+            if (document.visibilityState !== "visible") return;
+            window.location.replace(storeUrl);
+          }, delayMs);
+        }
       })();
     </script>
   </body>

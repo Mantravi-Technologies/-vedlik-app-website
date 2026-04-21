@@ -21,6 +21,14 @@
       "destination": "/deep_link_fallback.html"
     },
     {
+      "source": "/app",
+      "destination": "/app_download_fallback.html"
+    },
+    {
+      "source": "/app/",
+      "destination": "/app_download_fallback.html"
+    },
+    {
       "source": "/((?!\\.well-known/).*)",
       "destination": "/index.html"
     }
