@@ -1,9 +1,11 @@
 /** Routes handled by client-side AppRouter (static hosts must still rewrite unknown paths to index.html). */
 export const SPA_ROUTE_PATHS = new Set([
   '/',
+  '/app',
   '/privacy-policy',
   '/terms-and-conditions',
   '/data-deletion-request',
+  '/support',
 ])
 
 export function normalizePathname(path: string): string {

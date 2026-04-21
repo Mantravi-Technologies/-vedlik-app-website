@@ -1,5 +1,6 @@
 import VedlikShowcase from './VedlikShowcase'
 import LegalPage from './LegalPage'
+import AppDownloadRedirect from './AppDownloadRedirect'
 import { useEffect, useState } from 'react'
 import type { ReactNode } from 'react'
 import { getPathname } from './spaNavigation'
@@ -330,8 +331,17 @@ export default function AppRouter() {
   const route = ROUTES[pathname]
 
   useEffect(() => {
-    const title = route ? `${route.title} | Vedlik` : HOME_TITLE
-    const description = route ? route.description : HOME_DESCRIPTION
+    const isAppPath = pathname === '/app'
+    const title = isAppPath
+      ? 'Download Vedlik — App Store & Google Play'
+      : route
+        ? `${route.title} | Vedlik`
+        : HOME_TITLE
+    const description = isAppPath
+      ? 'Download Vedlik for iOS or Android — AI, tech, and startup briefs in one app.'
+      : route
+        ? route.description
+        : HOME_DESCRIPTION
     const url = `${SITE_URL}${pathname === '/' ? '' : pathname}`
 
     document.title = title
@@ -343,6 +353,10 @@ export default function AppRouter() {
     setMetaTag('meta[name="twitter:title"]', 'name', 'twitter:title', title)
     setMetaTag('meta[name="twitter:description"]', 'name', 'twitter:description', description)
   }, [pathname, route])
+
+  if (pathname === '/app') {
+    return <AppDownloadRedirect />
+  }
 
   if (!route) {
     return <VedlikShowcase />
