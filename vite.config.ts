@@ -6,17 +6,27 @@ import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url))
-const appDownloadFallback = path.join(__dirname, 'public', 'app_download_fallback.html')
+const deepLinkFallback = path.join(__dirname, 'public', 'deep_link_fallback.html')
 
-function serveAppDownloadHtml(): Connect.NextHandleFunction {
-  return (req, res, next) => {
+/** Match Vercel: /article/* → static deep link HTML; /app → /article/download */
+function deepLinkDevPlugin() {
+  const handler: Connect.NextHandleFunction = (req, res, next) => {
     const pathname = req.url?.split('?')[0] ?? ''
-    if (pathname !== '/app' && pathname !== '/app/') {
+
+    if (pathname === '/app' || pathname === '/app/') {
+      res.statusCode = 307
+      res.setHeader('Location', '/article/download')
+      res.end()
+      return
+    }
+
+    if (!/^\/article\//.test(pathname)) {
       next()
       return
     }
+
     try {
-      const html = fs.readFileSync(appDownloadFallback, 'utf-8')
+      const html = fs.readFileSync(deepLinkFallback, 'utf-8')
       res.setHeader('Content-Type', 'text/html; charset=utf-8')
       res.statusCode = 200
       res.end(html)
@@ -24,21 +34,18 @@ function serveAppDownloadHtml(): Connect.NextHandleFunction {
       next()
     }
   }
-}
 
-/** Match production (Vercel): /app is static HTML so Universal / App Links work. */
-function appDownloadPlugin() {
   return {
-    name: 'serve-app-download-fallback',
+    name: 'deep-link-fallback-dev',
     configureServer(server: { middlewares: Connect.Server }) {
-      server.middlewares.use(serveAppDownloadHtml())
+      server.middlewares.use(handler)
     },
     configurePreviewServer(server: { middlewares: Connect.Server }) {
-      server.middlewares.use(serveAppDownloadHtml())
+      server.middlewares.use(handler)
     },
   }
 }
 
 export default defineConfig({
-  plugins: [appDownloadPlugin(), react()],
+  plugins: [deepLinkDevPlugin(), react()],
 })

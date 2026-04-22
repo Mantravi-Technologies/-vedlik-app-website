@@ -1,6 +1,6 @@
 import VedlikShowcase from './VedlikShowcase'
 import LegalPage from './LegalPage'
-import AppDownloadRedirect from './AppDownloadRedirect'
+import DeepLinkDocumentReload from './DeepLinkDocumentReload'
 import { useEffect, useState } from 'react'
 import type { ReactNode } from 'react'
 import { getPathname } from './spaNavigation'
@@ -342,7 +342,9 @@ export default function AppRouter() {
       : route
         ? route.description
         : HOME_DESCRIPTION
-    const url = `${SITE_URL}${pathname === '/' ? '' : pathname}`
+    const url = isAppPath
+      ? `${SITE_URL}/article/download`
+      : `${SITE_URL}${pathname === '/' ? '' : pathname}`
 
     document.title = title
     setCanonical(url)
@@ -355,7 +357,12 @@ export default function AppRouter() {
   }, [pathname, route])
 
   if (pathname === '/app') {
-    return <AppDownloadRedirect />
+    return <DeepLinkDocumentReload target="/article/download" />
+  }
+
+  // Deep links are static HTML on the server; force full load if reached via SPA.
+  if (pathname.startsWith('/article/')) {
+    return <DeepLinkDocumentReload target={pathname} />
   }
 
   if (!route) {
