@@ -15,22 +15,18 @@
       ]
     }
   ],
-  "redirects": [
-    {
-      "source": "/app",
-      "destination": "/article/download",
-      "permanent": false
-    },
-    {
-      "source": "/app/",
-      "destination": "/article/download",
-      "permanent": false
-    }
-  ],
   "rewrites": [
     {
       "source": "/article/(.*)",
       "destination": "/deep_link_fallback.html"
+    },
+    {
+      "source": "/app",
+      "destination": "/app_universal_link.html"
+    },
+    {
+      "source": "/app/",
+      "destination": "/app_universal_link.html"
     },
     {
       "source": "/((?!\\.well-known/).*)",

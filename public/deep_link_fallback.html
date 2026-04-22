@@ -73,8 +73,8 @@
   </head>
   <body>
     <main class="card">
-      <h1 id="headline">Open this article in Vedlik</h1>
-      <p id="lede">
+      <h1>Open this article in Vedlik</h1>
+      <p>
         If Vedlik is installed, opening this link from Messages/Notes/WhatsApp should launch the app.
       </p>
       <p id="article-id" class="id" hidden></p>
@@ -85,59 +85,30 @@
     </main>
     <script>
       (function () {
-        var APP_STORE =
-          "https://apps.apple.com/in/app/vedlik-ai-tech-insights/id6761024663";
-        var PLAY_STORE =
-          "https://play.google.com/store/apps/details?id=com.mantravi.ai.briefing";
-
         var path = window.location.pathname || "";
         var id = "";
         var m = path.match(/^\/article\/(.+)$/);
         if (m && m[1]) id = decodeURIComponent(m[1]);
-
-        var isAppDownload =
-          id === "download" || id === "app" || id === "get";
-
-        var headline = document.getElementById("headline");
-        var lede = document.getElementById("lede");
-        if (isAppDownload && headline && lede) {
-          headline.textContent = "Open Vedlik";
-          lede.textContent =
-            "If Vedlik is installed, this link should open the app (same as other vedlik.com/article links). If you stay in the browser, use your store below.";
-          document.title = "Open Vedlik";
-        }
-
         var articleEl = document.getElementById("article-id");
-        if (id && articleEl && !isAppDownload) {
+        if (id && articleEl) {
           articleEl.hidden = false;
           articleEl.textContent = "Article ID: " + id;
         }
 
         var ua = navigator.userAgent || "";
-        var isIOS =
-          /iPad|iPhone|iPod/.test(ua) ||
-          (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1);
-        var isAndroid = /Android/i.test(ua);
+        var isIOS = /iPad|iPhone|iPod/.test(ua) || (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1);
         var storeLink = document.getElementById("store-link");
         if (!storeLink) return;
 
         if (isIOS) {
-          storeLink.href = APP_STORE;
+          storeLink.href = "https://apps.apple.com/in/app/vedlik-ai-tech-insights/id6761024663";
           storeLink.textContent = "Download on App Store";
-        } else {
-          storeLink.href = PLAY_STORE;
-          storeLink.textContent = "Get it on Google Play";
+          return;
         }
 
-        // If the app did not open, send phones to the store after a short delay
-        // (only for app-download slugs — article pages stay manual).
-        if (isAppDownload && (isIOS || isAndroid)) {
-          var target = isIOS ? APP_STORE : PLAY_STORE;
-          window.setTimeout(function () {
-            if (document.visibilityState !== "visible") return;
-            window.location.replace(target);
-          }, 1800);
-        }
+        storeLink.href =
+          "https://play.google.com/store/apps/details?id=com.mantravi.ai.briefing";
+        storeLink.textContent = "Get it on Google Play";
       })();
     </script>
   </body>

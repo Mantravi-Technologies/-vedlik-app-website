@@ -342,9 +342,7 @@ export default function AppRouter() {
       : route
         ? route.description
         : HOME_DESCRIPTION
-    const url = isAppPath
-      ? `${SITE_URL}/article/download`
-      : `${SITE_URL}${pathname === '/' ? '' : pathname}`
+    const url = `${SITE_URL}${pathname === '/' ? '' : pathname}`
 
     document.title = title
     setCanonical(url)
@@ -357,7 +355,7 @@ export default function AppRouter() {
   }, [pathname, route])
 
   if (pathname === '/app') {
-    return <DeepLinkDocumentReload target="/article/download" />
+    return <DeepLinkDocumentReload target="/app" />
   }
 
   // Deep links are static HTML on the server; force full load if reached via SPA.

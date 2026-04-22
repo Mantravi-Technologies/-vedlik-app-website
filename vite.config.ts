@@ -7,16 +7,22 @@ import react from '@vitejs/plugin-react'
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url))
 const deepLinkFallback = path.join(__dirname, 'public', 'deep_link_fallback.html')
+const appUniversalLink = path.join(__dirname, 'public', 'app_universal_link.html')
 
-/** Match Vercel: /article/* → static deep link HTML; /app → /article/download */
-function deepLinkDevPlugin() {
+/** Match Vercel: /app and /article/* serve static universal-link fallbacks. */
+function universalLinkDevPlugin() {
   const handler: Connect.NextHandleFunction = (req, res, next) => {
     const pathname = req.url?.split('?')[0] ?? ''
 
     if (pathname === '/app' || pathname === '/app/') {
-      res.statusCode = 307
-      res.setHeader('Location', '/article/download')
-      res.end()
+      try {
+        const html = fs.readFileSync(appUniversalLink, 'utf-8')
+        res.setHeader('Content-Type', 'text/html; charset=utf-8')
+        res.statusCode = 200
+        res.end(html)
+      } catch {
+        next()
+      }
       return
     }
 
@@ -36,7 +42,7 @@ function deepLinkDevPlugin() {
   }
 
   return {
-    name: 'deep-link-fallback-dev',
+    name: 'universal-link-fallback-dev',
     configureServer(server: { middlewares: Connect.Server }) {
       server.middlewares.use(handler)
     },
@@ -47,5 +53,5 @@ function deepLinkDevPlugin() {
 }
 
 export default defineConfig({
-  plugins: [deepLinkDevPlugin(), react()],
+  plugins: [universalLinkDevPlugin(), react()],
 })
