@@ -24,50 +24,91 @@
       }
       .card {
         width: min(560px, 100%);
-        border: 1px solid rgba(255,255,255,.12);
+        border: 1px solid rgba(255, 255, 255, 0.12);
         border-radius: 16px;
-        background: rgba(0,0,0,.35);
+        background: rgba(0, 0, 0, 0.35);
         backdrop-filter: blur(8px);
         padding: 22px;
       }
       h1 { margin: 0; font-size: clamp(1.25rem, 2.2vw, 1.8rem); line-height: 1.12; }
-      p { margin: 12px 0 0; color: rgba(255,255,255,.72); line-height: 1.5; }
+      p { margin: 12px 0 0; color: rgba(255, 255, 255, 0.75); line-height: 1.5; }
+      .callout {
+        margin-top: 14px;
+        padding: 12px 14px;
+        border-radius: 10px;
+        border: 1px solid rgba(45, 212, 191, 0.22);
+        background: rgba(10, 18, 20, 0.55);
+        font-size: 0.9rem;
+        line-height: 1.5;
+        color: rgba(255, 255, 255, 0.8);
+      }
+      .callout kbd { font-family: inherit; background: rgba(255, 255, 255, 0.1); padding: 0.1em 0.4em; border-radius: 4px; font-size: 0.88em; }
       .actions { margin-top: 16px; display: flex; flex-wrap: wrap; gap: 10px; align-items: center; }
       .open-btn {
         display: inline-flex;
         align-items: center;
         justify-content: center;
         border-radius: 10px;
-        border: 1px solid rgba(45,212,191,.75);
+        border: 1px solid rgba(45, 212, 191, 0.75);
         color: #fff;
         text-decoration: none;
         padding: 11px 14px;
         background: linear-gradient(90deg, #0a1114, #102b2f, #0a1114);
         font-weight: 600;
       }
+      .btn-row { margin-top: 8px; display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+      .btn-ghost {
+        display: inline-flex;
+        align-items: center;
+        border-radius: 8px;
+        border: 1px solid rgba(255, 255, 255, 0.15);
+        color: rgba(255, 255, 255, 0.9);
+        text-decoration: none;
+        padding: 8px 12px;
+        font-size: 0.86rem;
+        background: rgba(255, 255, 255, 0.05);
+        cursor: pointer;
+        font: inherit;
+      }
       .badge-row { margin-top: 14px; display: flex; flex-wrap: wrap; gap: 10px; align-items: center; }
       .badge-link { display: inline-flex; }
       .badge-link img { height: 44px; width: auto; object-fit: contain; display: block; }
-      .hint { margin-top: 14px; font-size: .84rem; color: rgba(255,255,255,.6); }
-      .sub-link { color: #2dd4bf; text-decoration: none; font-size: .86rem; }
+      .hint { margin-top: 12px; font-size: 0.82rem; color: rgba(255, 255, 255, 0.55); line-height: 1.45; }
+      .sub-link { color: #2dd4bf; text-decoration: none; font-size: 0.86rem; }
+      #in-app-extras[hidden] { display: none !important; }
     </style>
   </head>
   <body>
     <main class="card">
       <h1>Open Vedlik</h1>
-      <p id="intro">
-        We are trying to open the Vedlik app. If it does not open, install/update from the store below.
-      </p>
+      <p id="intro">Install or open Vedlik on your device.</p>
+
+      <div class="callout" id="in-app-extras" hidden>
+        <strong>Using Instagram, Facebook, or an in-app browser?</strong><br />
+        They often <strong>block</strong> “open in app” and custom Android intents — that is why you may see
+        <em>Unable to open</em> or stay in a webview. What works in production apps:
+        use the menu <kbd>⋮</kbd> / <kbd>⋯</kbd> (top) → <strong>Open in browser</strong> / <strong>Open in Chrome</strong> / <strong>Open in Safari</strong>,
+        then use <strong>Open Vedlik</strong> again from there.
+        <br /><br />
+        <button type="button" class="btn-ghost" id="copy-link">Copy link to paste in Chrome/Safari</button>
+      </div>
+
       <div class="actions">
-        <a id="open-app" class="open-btn" href="https://vedlik.com/app" rel="noreferrer">Open in app</a>
-        <a class="sub-link" href="/">Open website</a>
+        <a id="open-app" class="open-btn" href="https://vedlik.com/app" rel="noreferrer" target="_top"
+          >Open Vedlik (https)</a
+        >
+        <a class="sub-link" href="/" target="_top">Vedlik.com home</a>
+      </div>
+      <div class="btn-row" id="android-extras" hidden>
+        <span style="color: rgba(255, 255, 255, 0.45); font-size: 0.8rem;">Outside social webviews, Android can also resolve:</span>
+        <a id="android-intent" class="btn-ghost" href="#" rel="noreferrer" hidden>Hand off to app</a>
       </div>
 
       <div class="badge-row">
-        <a id="app-store" class="badge-link" href="https://apps.apple.com/in/app/vedlik-ai-tech-insights/id6761024663" rel="noreferrer">
+        <a class="badge-link" href="https://apps.apple.com/in/app/vedlik-ai-tech-insights/id6761024663" target="_top" rel="noreferrer">
           <img src="/images/app_store_badge.png" alt="Download on the App Store" />
         </a>
-        <a id="play-store" class="badge-link" href="https://play.google.com/store/apps/details?id=com.mantravi.ai.briefing" rel="noreferrer">
+        <a class="badge-link" href="https://play.google.com/store/apps/details?id=com.mantravi.ai.briefing" target="_top" rel="noreferrer">
           <img src="/images/google_play_badge.png" alt="Get it on Google Play" />
         </a>
       </div>
@@ -76,45 +117,80 @@
     </main>
     <script>
       (function () {
-        var APP_LINK = "https://vedlik.com/app";
-        var APP_STORE = "https://apps.apple.com/in/app/vedlik-ai-tech-insights/id6761024663";
+        var APP_HTTPS = "https://vedlik.com/app";
         var PLAY_STORE = "https://play.google.com/store/apps/details?id=com.mantravi.ai.briefing";
         var PACKAGE = "com.mantravi.ai.briefing";
+        var playEnc = encodeURIComponent(PLAY_STORE);
+        var androidIntent =
+          "intent://vedlik.com/app#Intent;scheme=https;package=" + PACKAGE + ";S.browser_fallback_url=" + playEnc + ";end";
 
         var ua = navigator.userAgent || "";
-        var isIOS = /iPad|iPhone|iPod/.test(ua) || (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1);
         var isAndroid = /Android/i.test(ua);
+
+        function isEmbeddedInApp() {
+          if (/Instagram/i.test(ua)) return true;
+          if (/(FBAN|FBAV|FB_IAB|FBIOS|FB4A|FBBV)/i.test(ua)) return true;
+          if (/Twitter/i.test(ua)) return true;
+          if (/LinkedInApp/i.test(ua)) return true;
+          if (/Line\//i.test(ua)) return true;
+          if (/TikTok/i.test(ua) || /Snapchat/i.test(ua)) return true;
+          if (/; wv\)/i.test(ua) && isAndroid) return true;
+          return false;
+        }
+
+        var embedded = isEmbeddedInApp();
+        var inAppBlock = document.getElementById("in-app-extras");
+        if (inAppBlock && embedded) inAppBlock.hidden = false;
 
         var openApp = document.getElementById("open-app");
         var hint = document.getElementById("platform-hint");
         if (!openApp || !hint) return;
 
-        var playEncoded = encodeURIComponent(PLAY_STORE);
-        var androidIntent =
-          "intent://vedlik.com/app#Intent;scheme=https;package=" +
-          PACKAGE +
-          ";S.browser_fallback_url=" +
-          playEncoded +
-          ";end";
+        /* Primary action is always a normal https URL. In-app webviews do NOT support intent: URLs reliably
+           and they produce “Unable to open” — the OS blocks them. */
+        openApp.setAttribute("href", APP_HTTPS);
+        if (window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1") {
+          openApp.setAttribute("href", "/app");
+        }
+
+        if (embedded) {
+          hint.textContent =
+            "Vedlik cannot override Instagram’s browser. Open in Chrome or Safari, then the system can use App Links / Universal Links.";
+
+          return;
+        }
 
         if (isAndroid) {
-          openApp.setAttribute("href", androidIntent);
-          hint.textContent = "Android: app opens if installed; otherwise Google Play opens.";
-          window.setTimeout(function () {
-            if (document.visibilityState !== "visible") return;
-            window.location.href = androidIntent;
-          }, 220);
-          return;
+          var ax = document.getElementById("android-extras");
+          var it = document.getElementById("android-intent");
+          if (ax) ax.hidden = false;
+          if (it) {
+            it.hidden = false;
+            it.setAttribute("href", androidIntent);
+          }
+          hint.textContent = "“Open Vedlik (https)” uses App Links. “Hand off to app” uses the Android app intent. Do not use hand-off from Instagram in-app; use https only there.";
+        } else {
+          hint.textContent = "iOS: Universal Links work best from Safari, Notes, or Messages, not from most in-app browsers.";
         }
 
-        if (isIOS) {
-          openApp.setAttribute("href", APP_LINK);
-          hint.textContent = "iOS: open from Safari/Notes/Messages for best Universal Link handoff.";
-          return;
+        var copyBtn = document.getElementById("copy-link");
+        if (copyBtn && navigator.clipboard && navigator.clipboard.writeText) {
+          copyBtn.addEventListener("click", function () {
+            var t = "https://vedlik.com/app";
+            if (window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1") {
+              t = window.location.origin + "/app";
+            }
+            navigator.clipboard.writeText(t).then(
+              function () {
+                copyBtn.textContent = "Copied";
+                setTimeout(function () { copyBtn.textContent = "Copy link to paste in Chrome/Safari"; }, 2000);
+              },
+              function () {}
+            );
+          });
+        } else if (copyBtn) {
+          copyBtn.style.display = "none";
         }
-
-        openApp.setAttribute("href", APP_LINK);
-        hint.textContent = "Open this link from your mobile device to launch the app.";
       })();
     </script>
   </body>
