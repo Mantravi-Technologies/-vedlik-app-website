@@ -4,19 +4,14 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="robots" content="noindex, nofollow" />
-    <title>Vedlik — Open the app</title>
-    <!-- Safari: optional banner to open in the native app. -->
+    <title>Vedlik — Open app</title>
     <meta
       name="apple-itunes-app"
       content="app-id=6761024663, app-argument=https://vedlik.com/app"
     />
     <style>
-      :root {
-        color-scheme: dark;
-      }
-      * {
-        box-sizing: border-box;
-      }
+      :root { color-scheme: dark; }
+      * { box-sizing: border-box; }
       body {
         margin: 0;
         min-height: 100vh;
@@ -25,124 +20,101 @@
         background: radial-gradient(circle at 20% 20%, #112025 0%, #040607 56%, #000 100%);
         display: grid;
         place-items: center;
-        padding: 24px;
+        padding: 24px 16px;
       }
       .card {
-        width: min(520px, 100%);
-        border: 1px solid rgba(255, 255, 255, 0.12);
-        background: rgba(0, 0, 0, 0.35);
-        backdrop-filter: blur(8px);
+        width: min(560px, 100%);
+        border: 1px solid rgba(255,255,255,.12);
         border-radius: 16px;
-        padding: 24px;
+        background: rgba(0,0,0,.35);
+        backdrop-filter: blur(8px);
+        padding: 22px;
       }
-      h1 {
-        margin: 0;
-        font-size: clamp(1.35rem, 2.2vw, 1.85rem);
-        line-height: 1.12;
-      }
-      p {
-        margin: 12px 0 0;
-        color: rgba(255, 255, 255, 0.72);
-        line-height: 1.55;
-      }
-      .row {
-        margin-top: 20px;
-        display: flex;
-        flex-wrap: wrap;
-        gap: 10px;
-        align-items: center;
-      }
-      a.button {
+      h1 { margin: 0; font-size: clamp(1.25rem, 2.2vw, 1.8rem); line-height: 1.12; }
+      p { margin: 12px 0 0; color: rgba(255,255,255,.72); line-height: 1.5; }
+      .actions { margin-top: 16px; display: flex; flex-wrap: wrap; gap: 10px; align-items: center; }
+      .open-btn {
         display: inline-flex;
         align-items: center;
         justify-content: center;
         border-radius: 10px;
-        border: 1px solid rgba(45, 212, 191, 0.5);
+        border: 1px solid rgba(45,212,191,.75);
         color: #fff;
         text-decoration: none;
-        padding: 10px 14px;
+        padding: 11px 14px;
         background: linear-gradient(90deg, #0a1114, #102b2f, #0a1114);
         font-weight: 600;
-        font-size: 0.9rem;
       }
-      a.button-primary {
-        border-color: rgba(45, 212, 191, 0.75);
-        box-shadow: 0 0 0 1px rgba(45, 212, 191, 0.12);
-      }
-      a.link {
-        display: inline-flex;
-        align-items: center;
-        color: #2dd4bf;
-        text-decoration: none;
-        font-size: 0.88rem;
-        padding: 10px 8px;
-      }
-      .muted {
-        margin-top: 16px;
-        font-size: 0.8rem;
-        color: rgba(255, 255, 255, 0.5);
-        line-height: 1.45;
-      }
+      .badge-row { margin-top: 14px; display: flex; flex-wrap: wrap; gap: 10px; align-items: center; }
+      .badge-link { display: inline-flex; }
+      .badge-link img { height: 44px; width: auto; object-fit: contain; display: block; }
+      .hint { margin-top: 14px; font-size: .84rem; color: rgba(255,255,255,.6); }
+      .sub-link { color: #2dd4bf; text-decoration: none; font-size: .86rem; }
     </style>
   </head>
   <body>
     <main class="card">
       <h1>Open Vedlik</h1>
-      <p>
-        If Vedlik is already installed, your phone may open it from this link (Universal Links / App Links).
-        <strong>We do not send you to the store automatically</strong> so that behavior is never mistaken for
-        the app opening.
+      <p id="intro">
+        We are trying to open the Vedlik app. If it does not open, install/update from the store below.
       </p>
-      <p>
-        If you stay in the browser, tap <strong>Open in app</strong> below, or open this same link from
-        Messages, Mail, or Notes so the OS can hand off to Vedlik.
-      </p>
-      <div class="row">
-        <a
-          id="open-app-link"
-          class="button button-primary"
-          href="https://vedlik.com/app"
-          rel="noreferrer"
-          >Open in app</a
-        >
-        <a id="store-link" class="button" href="#" rel="noreferrer">Install from store</a>
-        <a class="link" href="/">Vedlik.com</a>
+      <div class="actions">
+        <a id="open-app" class="open-btn" href="https://vedlik.com/app" rel="noreferrer">Open in app</a>
+        <a class="sub-link" href="/">Open website</a>
       </div>
-      <p class="muted">
-        Use “Install from store” only if you do not have Vedlik yet. If the app is installed but never opens,
-        check App Links / Associated Domains in your Android or iOS project for <code>vedlik.com</code>.
-      </p>
+
+      <div class="badge-row">
+        <a id="app-store" class="badge-link" href="https://apps.apple.com/in/app/vedlik-ai-tech-insights/id6761024663" rel="noreferrer">
+          <img src="/images/app_store_badge.png" alt="Download on the App Store" />
+        </a>
+        <a id="play-store" class="badge-link" href="https://play.google.com/store/apps/details?id=com.mantravi.ai.briefing" rel="noreferrer">
+          <img src="/images/google_play_badge.png" alt="Get it on Google Play" />
+        </a>
+      </div>
+
+      <p class="hint" id="platform-hint"></p>
     </main>
     <script>
       (function () {
-        var APP_STORE =
-          "https://apps.apple.com/in/app/vedlik-ai-tech-insights/id6761024663";
-        var PLAY_STORE =
-          "https://play.google.com/store/apps/details?id=com.mantravi.ai.briefing";
+        var APP_LINK = "https://vedlik.com/app";
+        var APP_STORE = "https://apps.apple.com/in/app/vedlik-ai-tech-insights/id6761024663";
+        var PLAY_STORE = "https://play.google.com/store/apps/details?id=com.mantravi.ai.briefing";
+        var PACKAGE = "com.mantravi.ai.briefing";
 
         var ua = navigator.userAgent || "";
-        var isIOS =
-          /iPad|iPhone|iPod/.test(ua) ||
-          (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1);
+        var isIOS = /iPad|iPhone|iPod/.test(ua) || (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1);
+        var isAndroid = /Android/i.test(ua);
 
-        var storeLink = document.getElementById("store-link");
-        var openAppLink = document.getElementById("open-app-link");
-        if (!storeLink) return;
+        var openApp = document.getElementById("open-app");
+        var hint = document.getElementById("platform-hint");
+        if (!openApp || !hint) return;
+
+        var playEncoded = encodeURIComponent(PLAY_STORE);
+        var androidIntent =
+          "intent://vedlik.com/app#Intent;scheme=https;package=" +
+          PACKAGE +
+          ";S.browser_fallback_url=" +
+          playEncoded +
+          ";end";
+
+        if (isAndroid) {
+          openApp.setAttribute("href", androidIntent);
+          hint.textContent = "Android: app opens if installed; otherwise Google Play opens.";
+          window.setTimeout(function () {
+            if (document.visibilityState !== "visible") return;
+            window.location.href = androidIntent;
+          }, 220);
+          return;
+        }
 
         if (isIOS) {
-          storeLink.href = APP_STORE;
-          storeLink.textContent = "App Store";
-        } else {
-          storeLink.href = PLAY_STORE;
-          storeLink.textContent = "Google Play";
+          openApp.setAttribute("href", APP_LINK);
+          hint.textContent = "iOS: open from Safari/Notes/Messages for best Universal Link handoff.";
+          return;
         }
 
-        // Keep “Open in app” as the same https URL (App Links / Universal Links). Local dev: relative /app.
-        if (openAppLink && typeof window !== "undefined") {
-          if (window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1") {
-            openAppLink.href = "/app";
-          }
-        }
+        openApp.setAttribute("href", APP_LINK);
+        hint.textContent = "Open this link from your mobile device to launch the app.";
       })();
     </script>
   </body>
