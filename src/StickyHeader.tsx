@@ -4,6 +4,14 @@ import { useState, useRef, useLayoutEffect, useEffect } from 'react'
 import gsap from 'gsap'
 
 const TEAL = '#2DD4BF'
+const PRODUCT_HUNT_URL =
+  'https://www.producthunt.com/products/vedlik-ai-tech-startup-intelligence?embed=true&utm_source=badge-featured&utm_medium=badge&utm_campaign=badge-vedlik-ai-tech-startup-intelligence'
+const PRODUCT_HUNT_IMG =
+  'https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=1123775&theme=light&t=1777047553818'
+
+const PRODUCT_HUNT_IMG_ALT =
+  'Vedlik - AI, Tech & Startup Intelligence - The pulse of AI & startups — 4 bullets, flip for signals | Product Hunt'
+
 const TABS = ['Overview', 'Why Vedlik', 'Features', 'Under The Hood', 'FAQ']
 /** Tab index → full-page section index (0 = hero … 4 = FAQ + footer) */
 const SECTION_MAP = [0, 1, 2, 3, 4]
@@ -76,29 +84,17 @@ export default function StickyHeader() {
       className="fixed top-0 left-0 right-0 z-50 border-b border-white/[0.08] bg-[#000]"
       style={{ backgroundColor: '#000000' }}
     >
-      <div className="flex items-center justify-between gap-2 sm:gap-4 px-3 sm:px-4 md:px-8 h-12 sm:h-14 md:h-16 min-h-0">
-        <a href="/" className="flex items-center gap-2 shrink-0">
+      <div className="flex items-center gap-1.5 sm:gap-3 px-3 sm:px-4 md:px-8 h-12 sm:h-14 md:h-16 min-h-0 w-full">
+        <a href="/" className="flex items-center shrink-0 py-0.5">
           <img
             src="/images/vedlik_logo_header.png"
             alt="Vedlik"
-            className="h-7 sm:h-8 md:h-10 w-auto object-contain"
+            className="h-6 w-auto sm:h-7 md:h-8 object-contain"
             draggable={false}
           />
         </a>
-        <button
-          type="button"
-          onClick={() => setIsMobileMenuOpen(true)}
-          className="md:hidden h-9 w-9 inline-flex items-center justify-center text-white/85 hover:text-white transition-colors"
-          aria-label="Open menu"
-        >
-          <span className="flex flex-col items-center gap-1.5">
-            <span className="h-[1.5px] w-4 rounded-full bg-current" />
-            <span className="h-[1.5px] w-4 rounded-full bg-current" />
-            <span className="h-[1.5px] w-4 rounded-full bg-current" />
-          </span>
-        </button>
-        <nav className="hidden md:flex flex-1 min-w-0 justify-end sm:justify-center md:justify-end overflow-hidden py-2">
-          <div className="relative w-full flex items-center justify-end sm:justify-center md:justify-end gap-2 sm:gap-4 md:gap-8 px-1 sm:px-2 md:min-w-max">
+        <nav className="hidden md:flex flex-1 min-w-0 justify-end overflow-hidden py-2">
+          <div className="relative w-full flex items-center justify-end gap-2 sm:gap-4 md:gap-8 px-1 sm:px-2 md:min-w-max">
             {TABS.map((label, i) => (
               <button
                 key={label}
@@ -120,6 +116,37 @@ export default function StickyHeader() {
             />
           </div>
         </nav>
+        <div className="flex-1 flex justify-center items-center min-w-0 md:flex-none md:shrink-0 md:pl-2 py-0.5">
+          <a
+            href={PRODUCT_HUNT_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex max-w-full shrink focus:outline-none focus-visible:ring-2 focus-visible:ring-[#2DD4BF]/50 rounded"
+          >
+            <img
+              src={PRODUCT_HUNT_IMG}
+              alt={PRODUCT_HUNT_IMG_ALT}
+              width={250}
+              height={54}
+              className="block h-auto w-auto max-h-[22px] max-w-[min(38vw,118px)] sm:max-h-[26px] sm:max-w-[138px] md:max-h-[28px] md:max-w-[158px] object-contain object-center"
+              loading="lazy"
+              decoding="async"
+              draggable={false}
+            />
+          </a>
+        </div>
+        <button
+          type="button"
+          onClick={() => setIsMobileMenuOpen(true)}
+          className="md:hidden h-9 w-9 shrink-0 inline-flex items-center justify-center text-white/85 hover:text-white transition-colors"
+          aria-label="Open menu"
+        >
+          <span className="flex flex-col items-center gap-1.5">
+            <span className="h-[1.5px] w-4 rounded-full bg-current" />
+            <span className="h-[1.5px] w-4 rounded-full bg-current" />
+            <span className="h-[1.5px] w-4 rounded-full bg-current" />
+          </span>
+        </button>
       </div>
 
       {isMobileMenuOpen && (
