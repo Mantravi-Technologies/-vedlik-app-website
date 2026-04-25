@@ -12,11 +12,13 @@ import WaitlistModal from './WaitlistModal'
 gsap.registerPlugin(Observer)
 
 const ANIM_DURATION = 0.68
-const SECTION_DURATION = 1.12
+const SECTION_DURATION = 0.98
 const FLIP_SWAP_POINT = 0.45
 const SECTION_EASE = 'power4.inOut'
-const CONTENT_SCROLL_DURATION = 0.88
+const CONTENT_SCROLL_DURATION = 0.72
 const CONTENT_SCROLL_EASE = 'power3.inOut'
+const GESTURE_COOLDOWN_MS = 120
+const POST_ANIM_LOCK_MS = 110
 
 export default function VedlikShowcase() {
   const containerRef = useRef<HTMLDivElement>(null)
@@ -187,7 +189,7 @@ export default function VedlikShowcase() {
           onComplete: () => {
             isAnimating.current = false
             contentScrollTween.current = null
-            lockUntil.current = performance.now() + 200
+            lockUntil.current = performance.now() + POST_ANIM_LOCK_MS
             window.dispatchEvent(
               new CustomEvent('vedlik:section-change', { detail: { sectionIndex: tabIndex1Based } })
             )
@@ -209,7 +211,7 @@ export default function VedlikShowcase() {
             defaults: { duration: ANIM_DURATION, ease },
             onComplete: () => {
               isAnimating.current = false
-              lockUntil.current = performance.now() + 180
+              lockUntil.current = performance.now() + POST_ANIM_LOCK_MS
             },
           })
             .to(text1, { opacity: 0, y: -8, filter: 'blur(2px)', duration: ANIM_DURATION * 0.42 }, 0)
@@ -229,7 +231,7 @@ export default function VedlikShowcase() {
             defaults: { duration: ANIM_DURATION, ease },
             onComplete: () => {
               isAnimating.current = false
-              lockUntil.current = performance.now() + 180
+              lockUntil.current = performance.now() + POST_ANIM_LOCK_MS
             },
           })
             .to(text2, { opacity: 0, y: -8, filter: 'blur(2px)', duration: ANIM_DURATION * 0.42 }, 0)
@@ -257,7 +259,7 @@ export default function VedlikShowcase() {
             defaults: { duration: ANIM_DURATION, ease },
             onComplete: () => {
               isAnimating.current = false
-              lockUntil.current = performance.now() + 180
+              lockUntil.current = performance.now() + POST_ANIM_LOCK_MS
             },
           })
             .to(text3, { opacity: 0, y: -8, filter: 'blur(2px)', duration: ANIM_DURATION * 0.42 }, 0)
@@ -283,7 +285,7 @@ export default function VedlikShowcase() {
             defaults: { duration: ANIM_DURATION, ease },
             onComplete: () => {
               isAnimating.current = false
-              lockUntil.current = performance.now() + 180
+              lockUntil.current = performance.now() + POST_ANIM_LOCK_MS
             },
           })
             .to(text2, { opacity: 0, y: -8, filter: 'blur(2px)', duration: ANIM_DURATION * 0.42 }, 0)
@@ -323,7 +325,7 @@ export default function VedlikShowcase() {
           force3D: true,
           onComplete: () => {
             isAnimating.current = false
-            lockUntil.current = performance.now() + 220
+            lockUntil.current = performance.now() + POST_ANIM_LOCK_MS
             if (index === 1 && fromIndex === 0) {
               contentScrollTween.current?.kill()
               gsap.set(contentScroll, { scrollTop: 0 })
@@ -411,7 +413,7 @@ export default function VedlikShowcase() {
 
       const goNext = () => {
         const now = performance.now()
-        if (now - lastGestureAt.current < 205) return
+        if (now - lastGestureAt.current < GESTURE_COOLDOWN_MS) return
         if (now < lockUntil.current) return
         if (isAnimating.current) return
         lastGestureAt.current = now
@@ -431,7 +433,7 @@ export default function VedlikShowcase() {
 
       const goPrev = () => {
         const now = performance.now()
-        if (now - lastGestureAt.current < 205) return
+        if (now - lastGestureAt.current < GESTURE_COOLDOWN_MS) return
         if (now < lockUntil.current) return
         if (isAnimating.current) return
         lastGestureAt.current = now
@@ -451,7 +453,7 @@ export default function VedlikShowcase() {
         target: container,
         type: 'wheel,touch,pointer',
         wheelSpeed: -1,
-        tolerance: 16,
+        tolerance: 8,
         preventDefault: true,
         lockAxis: true,
         ignore: '[data-vedlik-carousel], [data-vedlik-carousel] *',
