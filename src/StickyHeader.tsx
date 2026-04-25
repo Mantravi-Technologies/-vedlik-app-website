@@ -4,13 +4,6 @@ import { useState, useRef, useLayoutEffect, useEffect } from 'react'
 import gsap from 'gsap'
 
 const TEAL = '#2DD4BF'
-const PRODUCT_HUNT_URL =
-  'https://www.producthunt.com/products/vedlik-ai-tech-startup-intelligence?embed=true&utm_source=badge-featured&utm_medium=badge&utm_campaign=badge-vedlik-ai-tech-startup-intelligence'
-const PRODUCT_HUNT_IMG =
-  'https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=1123775&theme=light&t=1777047553818'
-
-const PRODUCT_HUNT_IMG_ALT =
-  'Vedlik - AI, Tech & Startup Intelligence - The pulse of AI & startups — 4 bullets, flip for signals | Product Hunt'
 
 const TABS = ['Overview', 'Why Vedlik', 'Features', 'Under The Hood', 'FAQ']
 /** Tab index → full-page section index (0 = hero … 4 = FAQ + footer) */
@@ -116,25 +109,7 @@ export default function StickyHeader() {
             />
           </div>
         </nav>
-        <div className="flex-1 flex justify-center items-center min-w-0 md:flex-none md:shrink-0 md:pl-2 py-0.5">
-          <a
-            href={PRODUCT_HUNT_URL}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex max-w-full shrink focus:outline-none focus-visible:ring-2 focus-visible:ring-[#2DD4BF]/50 rounded"
-          >
-            <img
-              src={PRODUCT_HUNT_IMG}
-              alt={PRODUCT_HUNT_IMG_ALT}
-              width={250}
-              height={54}
-              className="block h-auto w-auto max-h-[22px] max-w-[min(38vw,118px)] sm:max-h-[26px] sm:max-w-[138px] md:max-h-[28px] md:max-w-[158px] object-contain object-center"
-              loading="lazy"
-              decoding="async"
-              draggable={false}
-            />
-          </a>
-        </div>
+        <div className="flex-1 min-w-0 md:hidden" aria-hidden />
         <button
           type="button"
           onClick={() => setIsMobileMenuOpen(true)}
