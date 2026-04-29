@@ -11,7 +11,7 @@ export default {
           black: '#000000',
           charcoal: '#111111',
           border: 'rgba(255,255,255,0.08)',
-          accent: '#14b8a6',
+          accent: '#20b2aa',
           accentIndigo: '#6366f1',
         },
       },

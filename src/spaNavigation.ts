@@ -1,12 +1,15 @@
 /** Routes handled by client-side AppRouter (static hosts must still rewrite unknown paths to index.html). */
 export const SPA_ROUTE_PATHS = new Set([
   '/',
+  '/web',
   '/app',
   '/privacy-policy',
   '/terms-and-conditions',
   '/data-deletion-request',
   '/support',
 ])
+
+const SPA_ROUTE_PREFIXES = ['/article/', '/signal/', '/topic/']
 
 export function normalizePathname(path: string): string {
   const p = path.replace(/\/+$/, '') || '/'
@@ -21,7 +24,8 @@ export function isSpaInternalHref(href: string): boolean {
   try {
     const u = new URL(href, window.location.origin)
     if (u.origin !== window.location.origin) return false
-    return SPA_ROUTE_PATHS.has(normalizePathname(u.pathname))
+    const path = normalizePathname(u.pathname)
+    return SPA_ROUTE_PATHS.has(path) || SPA_ROUTE_PREFIXES.some((prefix) => path.startsWith(prefix))
   } catch {
     return false
   }

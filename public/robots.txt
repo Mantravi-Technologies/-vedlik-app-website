@@ -13,5 +13,5 @@ Allow: /
 User-agent: PerplexityBot
 Allow: /
 
-Sitemap: https://vedlik.com/sitemap.xml
+Sitemap: https://vedlik.com/sitemap_index.xml
 Host: vedlik.com

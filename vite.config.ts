@@ -52,6 +52,19 @@ function universalLinkDevPlugin() {
   }
 }
 
+const WEB_API_UPSTREAM =
+  process.env.VITE_WEB_API_UPSTREAM ??
+  'https://us-central1-gen-lang-client-0290483815.cloudfunctions.net'
+
 export default defineConfig({
   plugins: [universalLinkDevPlugin(), react()],
+  server: {
+    proxy: {
+      '/api': {
+        target: WEB_API_UPSTREAM,
+        changeOrigin: true,
+        rewrite: (p) => p.replace(/^\/api\/v1/, '/webApi/v1/web'),
+      },
+    },
+  },
 })

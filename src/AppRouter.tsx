@@ -1,6 +1,7 @@
 import VedlikShowcase from './VedlikShowcase'
 import LegalPage from './LegalPage'
 import DeepLinkDocumentReload from './DeepLinkDocumentReload'
+import WebHomePage from './web/WebHomePage'
 import { useEffect, useState } from 'react'
 import type { ReactNode } from 'react'
 import { getPathname } from './spaNavigation'
@@ -319,6 +320,10 @@ function setCanonical(url: string) {
 
 export default function AppRouter() {
   const [pathname, setPathname] = useState(getPathname)
+  const articleMatch = pathname.match(/^\/(?:article|signal)\/([^/]+)$/)
+  const topicMatch = pathname.match(/^\/topic\/([^/]+)$/)
+  const signalIdOrSlug = articleMatch?.[1]
+  const topicSlug = topicMatch?.[1]
   useEffect(() => {
     const sync = () => setPathname(getPathname())
     window.addEventListener('popstate', sync)
@@ -332,13 +337,28 @@ export default function AppRouter() {
 
   useEffect(() => {
     const isAppPath = pathname === '/app'
+    const isWebPreviewPath = pathname === '/web'
+    const isSignalPath = Boolean(signalIdOrSlug)
+    const isTopicPath = Boolean(topicSlug)
     const title = isAppPath
       ? 'Download Vedlik — App Store & Google Play'
+      : isWebPreviewPath
+        ? 'Vedlik Web — mSite + Desktop Preview'
+      : isSignalPath
+        ? 'Vedlik Signal | Vedlik'
+      : isTopicPath
+        ? 'Vedlik Topic | Vedlik'
       : route
         ? `${route.title} | Vedlik`
         : HOME_TITLE
     const description = isAppPath
       ? 'Download Vedlik for iOS or Android — AI, tech, and startup briefs in one app.'
+      : isWebPreviewPath
+        ? 'Vedlik web experience preview for mobile web and desktop with why-it-matters first cards.'
+      : isSignalPath
+        ? 'Read the latest Vedlik signal with why-it-matters context.'
+      : isTopicPath
+        ? 'Read stories by topic on Vedlik.'
       : route
         ? route.description
         : HOME_DESCRIPTION
@@ -352,15 +372,22 @@ export default function AppRouter() {
     setMetaTag('meta[property="og:url"]', 'property', 'og:url', url)
     setMetaTag('meta[name="twitter:title"]', 'name', 'twitter:title', title)
     setMetaTag('meta[name="twitter:description"]', 'name', 'twitter:description', description)
-  }, [pathname, route])
+  }, [pathname, route, signalIdOrSlug, topicSlug])
 
   if (pathname === '/app') {
     return <DeepLinkDocumentReload target="/app" />
   }
 
-  // Deep links are static HTML on the server; force full load if reached via SPA.
-  if (pathname.startsWith('/article/')) {
-    return <DeepLinkDocumentReload target={pathname} />
+  if (pathname === '/web') {
+    return <WebHomePage />
+  }
+
+  if (signalIdOrSlug) {
+    return <WebHomePage initialSignalIdOrSlug={decodeURIComponent(signalIdOrSlug)} />
+  }
+
+  if (topicSlug) {
+    return <WebHomePage topicSlug={decodeURIComponent(topicSlug)} />
   }
 
   if (!route) {

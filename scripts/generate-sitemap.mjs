@@ -1,0 +1,183 @@
+import { mkdir, writeFile } from 'node:fs/promises'
+import path from 'node:path'
+import { fileURLToPath } from 'node:url'
+
+const SITE_URL = process.env.SITE_URL ?? 'https://vedlik.com'
+/** Prefer direct upstream (CI/local); vedlik.com SSR need not proxy sitemap builds. */
+const API_BASE =
+  process.env.WEB_API_UPSTREAM ??
+  process.env.WEB_API_BASE ??
+  'https://us-central1-gen-lang-client-0290483815.cloudfunctions.net/webApi'
+const API_LIMIT = Number(process.env.SITEMAP_API_LIMIT ?? 1000)
+const URLS_PER_FILE = Number(process.env.SITEMAP_URLS_PER_FILE ?? 5000)
+const LATEST_WINDOW_DAYS = Number(process.env.SITEMAP_LATEST_DAYS ?? 2)
+const LATEST_MAX_URLS = Number(process.env.SITEMAP_LATEST_MAX_URLS ?? 1000)
+
+const STATIC_PATHS = [
+  '/',
+  '/web',
+  '/app',
+  '/privacy-policy',
+  '/terms-and-conditions',
+  '/data-deletion-request',
+  '/support',
+]
+
+const __filename = fileURLToPath(import.meta.url)
+const __dirname = path.dirname(__filename)
+const publicDir = path.resolve(__dirname, '..', 'public')
+const sitemapsDir = path.join(publicDir, 'sitemaps')
+
+function escapeXml(value) {
+  return String(value)
+    .replaceAll('&', '&amp;')
+    .replaceAll('<', '&lt;')
+    .replaceAll('>', '&gt;')
+    .replaceAll('"', '&quot;')
+    .replaceAll("'", '&apos;')
+}
+
+function normalizeSitemapLoc(rawLoc) {
+  if (typeof rawLoc !== 'string' || rawLoc.length === 0) return null
+  try {
+    const url = new URL(rawLoc)
+    if (url.origin === SITE_URL && url.pathname.startsWith('/article/')) {
+      url.pathname = url.pathname.replace(/^\/article\//, '/signal/')
+    }
+    return url.toString()
+  } catch {
+    return null
+  }
+}
+
+function buildUrlsetXml(urls) {
+  const body = urls
+    .map((url) => {
+      const lastmodTag = url.lastmod ? `\n    <lastmod>${escapeXml(url.lastmod)}</lastmod>` : ''
+      const changefreq = url.changefreq ?? 'always'
+      const priority = typeof url.priority === 'number' ? url.priority : 0.9
+      return `  <url>\n    <loc>${escapeXml(url.loc)}</loc>${lastmodTag}\n    <changefreq>${escapeXml(changefreq)}</changefreq>\n    <priority>${escapeXml(priority.toFixed(1))}</priority>\n  </url>`
+    })
+    .join('\n')
+  return `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${body}\n</urlset>\n`
+}
+
+function buildSitemapIndexXml(sitemaps) {
+  const body = sitemaps
+    .map((item) => {
+      const lastmodTag = item.lastmod ? `\n    <lastmod>${escapeXml(item.lastmod)}</lastmod>` : ''
+      return `  <sitemap>\n    <loc>${escapeXml(item.loc)}</loc>${lastmodTag}\n  </sitemap>`
+    })
+    .join('\n')
+  return `<?xml version="1.0" encoding="UTF-8"?>\n<sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${body}\n</sitemapindex>\n`
+}
+
+async function fetchArticleSitemapEntries() {
+  const unique = new Map()
+  let cursor = null
+  let page = 0
+  while (true) {
+    const qs = new URLSearchParams()
+    qs.set('limit', String(API_LIMIT))
+    if (cursor) qs.set('cursor', cursor)
+    const url = `${API_BASE}/v1/web/sitemap/articles?${qs.toString()}`
+    const response = await fetch(url)
+    if (!response.ok) {
+      throw new Error(`Sitemap API failed (${response.status}) for ${url}`)
+    }
+    const payload = await response.json()
+    const items = Array.isArray(payload.items) ? payload.items : []
+    for (const item of items) {
+      const loc = normalizeSitemapLoc(item?.loc)
+      if (!loc) continue
+      const existing = unique.get(loc)
+      const candidate = {
+        loc,
+        lastmod: item.updatedAt ?? item.publishedAt ?? null,
+        changefreq: 'always',
+        priority: 0.9,
+      }
+      if (!existing) {
+        unique.set(loc, candidate)
+      } else {
+        const existingDate = existing.lastmod ? Date.parse(existing.lastmod) : 0
+        const candidateDate = candidate.lastmod ? Date.parse(candidate.lastmod) : 0
+        if (candidateDate > existingDate) unique.set(item.loc, candidate)
+      }
+    }
+    page += 1
+    const nextCursor = payload.nextCursor ?? null
+    const hasMore = Boolean(payload.hasMore && nextCursor)
+    console.log(`Fetched sitemap page ${page}: ${items.length} items`)
+    if (!hasMore) break
+    cursor = nextCursor
+  }
+  return Array.from(unique.values()).sort((a, b) => {
+    const aTime = a.lastmod ? Date.parse(a.lastmod) : 0
+    const bTime = b.lastmod ? Date.parse(b.lastmod) : 0
+    return bTime - aTime
+  })
+}
+
+async function main() {
+  await mkdir(sitemapsDir, { recursive: true })
+
+  const nowIso = new Date().toISOString()
+  const staticUrls = STATIC_PATHS.map((routePath) => ({
+    loc: `${SITE_URL}${routePath === '/' ? '' : routePath}`,
+    lastmod: nowIso,
+    changefreq: 'daily',
+    priority: routePath === '/' ? 1.0 : 0.7,
+  }))
+  const staticSitemapXml = buildUrlsetXml(staticUrls)
+  await writeFile(path.join(publicDir, 'sitemap-static.xml'), staticSitemapXml, 'utf8')
+
+  const articleEntries = await fetchArticleSitemapEntries()
+  const latestCutoffMs = Date.now() - LATEST_WINDOW_DAYS * 24 * 60 * 60 * 1000
+  const latestEntries = articleEntries
+    .filter((item) => (item.lastmod ? Date.parse(item.lastmod) >= latestCutoffMs : false))
+    .slice(0, LATEST_MAX_URLS)
+  const sitemapIndexEntries = [
+    {
+      loc: `${SITE_URL}/sitemap-static.xml`,
+      lastmod: nowIso,
+    },
+  ]
+
+  const latestSitemapXml = buildUrlsetXml(latestEntries)
+  await writeFile(path.join(sitemapsDir, 'sitemap-latest.xml'), latestSitemapXml, 'utf8')
+  sitemapIndexEntries.push({
+    loc: `${SITE_URL}/sitemaps/sitemap-latest.xml`,
+    lastmod: latestEntries[0]?.lastmod ?? nowIso,
+  })
+
+  let fileCount = 0
+  for (let i = 0; i < articleEntries.length; i += URLS_PER_FILE) {
+    const chunk = articleEntries.slice(i, i + URLS_PER_FILE)
+    fileCount += 1
+    const fileName = `sitemap-articles-${fileCount}.xml`
+    const filePath = path.join(sitemapsDir, fileName)
+    const xml = buildUrlsetXml(chunk)
+    await writeFile(filePath, xml, 'utf8')
+    sitemapIndexEntries.push({
+      loc: `${SITE_URL}/sitemaps/${fileName}`,
+      lastmod: chunk[0]?.lastmod ?? nowIso,
+    })
+  }
+
+  const sitemapIndexXml = buildSitemapIndexXml(sitemapIndexEntries)
+  await writeFile(path.join(publicDir, 'sitemap_index.xml'), sitemapIndexXml, 'utf8')
+  await mkdir(path.join(publicDir, 'sitemap'), { recursive: true })
+  await writeFile(path.join(publicDir, 'sitemap', 'sitemap.xml'), sitemapIndexXml, 'utf8')
+  // Keep a compatibility alias for crawlers/tools still checking /sitemap.xml.
+  await writeFile(path.join(publicDir, 'sitemap.xml'), sitemapIndexXml, 'utf8')
+
+  console.log(
+    `Generated sitemap_index.xml (+ sitemap.xml alias), sitemap-latest.xml (${latestEntries.length} URLs), and ${fileCount} article sitemap file(s) with ${articleEntries.length} deduplicated article URLs.`
+  )
+}
+
+main().catch((error) => {
+  console.error(error)
+  process.exitCode = 1
+})
