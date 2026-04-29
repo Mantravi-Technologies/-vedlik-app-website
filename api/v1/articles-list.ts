@@ -1,5 +1,6 @@
 /**
- * GET /api/v1/articles → upstream …/webApi/v1/web/articles
+ * GET /api/v1/articles-list → upstream …/webApi/v1/web/articles (+ query).
+ * Public URL is /api/v1/articles — see vercel.json rewrites.
  */
 import type { VercelRequest, VercelResponse } from '@vercel/node'
 
@@ -82,7 +83,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse): 
     res.setHeader('cache-control', 'public, s-maxage=30, stale-while-revalidate=60')
     res.status(r.status).send(body)
   } catch (err) {
-    console.error('[api/v1/articles] upstream:', err)
+    console.error('[api/v1/articles-list] upstream:', err)
     res.setHeader('content-type', 'application/json; charset=utf-8')
     res.status(502).json({ error: 'Bad gateway' })
   }

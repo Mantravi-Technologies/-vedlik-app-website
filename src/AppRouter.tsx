@@ -337,12 +337,12 @@ export default function AppRouter() {
 
   useEffect(() => {
     const isAppPath = pathname === '/app'
-    const isWebPreviewPath = pathname === '/web'
+    const isWebFeedPath = pathname === '/web' || pathname === '/signal'
     const isSignalPath = Boolean(signalIdOrSlug)
     const isTopicPath = Boolean(topicSlug)
     const title = isAppPath
       ? 'Download Vedlik — App Store & Google Play'
-      : isWebPreviewPath
+      : isWebFeedPath
         ? 'Vedlik Web — mSite + Desktop Preview'
       : isSignalPath
         ? 'Vedlik Signal | Vedlik'
@@ -353,7 +353,7 @@ export default function AppRouter() {
         : HOME_TITLE
     const description = isAppPath
       ? 'Download Vedlik for iOS or Android — AI, tech, and startup briefs in one app.'
-      : isWebPreviewPath
+      : isWebFeedPath
         ? 'Vedlik web experience preview for mobile web and desktop with why-it-matters first cards.'
       : isSignalPath
         ? 'Read the latest Vedlik signal with why-it-matters context.'
@@ -378,7 +378,8 @@ export default function AppRouter() {
     return <DeepLinkDocumentReload target="/app" />
   }
 
-  if (pathname === '/web') {
+  /** `/signal` (no slug): same Signals feed as `/web`; `/signal/<slug>` matched below */
+  if (pathname === '/web' || pathname === '/signal') {
     return <WebHomePage />
   }
 

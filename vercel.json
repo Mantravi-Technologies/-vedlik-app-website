@@ -17,6 +17,14 @@
   ],
   "rewrites": [
     {
+      "source": "/api/v1/articles",
+      "destination": "/api/v1/articles-list"
+    },
+    {
+      "source": "/api/v1/articles/",
+      "destination": "/api/v1/articles-list"
+    },
+    {
       "source": "/article/(.*)",
       "destination": "/deep_link_fallback.html"
     },

@@ -2,6 +2,7 @@
 export const SPA_ROUTE_PATHS = new Set([
   '/',
   '/web',
+  '/signal',
   '/app',
   '/privacy-policy',
   '/terms-and-conditions',

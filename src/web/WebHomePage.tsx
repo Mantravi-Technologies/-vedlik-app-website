@@ -15,6 +15,7 @@ import {
   parseDisruptionScore,
   sanitizeWhyItMatters,
 } from './formatters'
+import { getPathname } from '../spaNavigation'
 
 const BRAND = '#20b2aa'
 /** Text on primary teal (matches “Install App” pill). */
@@ -1069,7 +1070,12 @@ export default function WebHomePage({
     const description = topicSlug
       ? `Latest stories for topic ${topicSlug} on Vedlik.`
       : 'Read AI, tech, and startup stories with why-it-matters context on Vedlik web.'
-    const canonicalUrl = topicSlug ? `${SITE_URL}/topic/${topicSlug}` : `${SITE_URL}/web`
+    const path = getPathname()
+    const canonicalUrl = topicSlug
+      ? `${SITE_URL}/topic/${topicSlug}`
+      : path === '/signal' || path === '/web'
+        ? `${SITE_URL}${path}`
+        : `${SITE_URL}/web`
     applyPageSeo({ title, description, canonicalUrl })
   }, [topicSlug])
 
