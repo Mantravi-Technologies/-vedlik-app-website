@@ -1,41 +1,78 @@
 /**
  * GET /api/v1/articles/:slug → upstream …/webApi/v1/web/articles/:slug
  */
-import { webApiUpstreamRoot } from '../../lib/upstreamRoot'
+import type { VercelRequest, VercelResponse } from '@vercel/node'
 
-export default async function handler(request: Request): Promise<Response> {
-  if (request.method !== 'GET') {
-    return new Response('Method Not Allowed', { status: 405 })
+function webApiUpstreamRoot(raw: string): string {
+  const b = raw.replace(/\/$/, '')
+  return b.endsWith('/webApi') ? b : `${b}/webApi`
+}
+
+function readUpstreamRaw(): string | null {
+  const raw = process.env.WEB_API_UPSTREAM
+  if (!raw || typeof raw !== 'string') return null
+  let s = raw.trim().replace(/^[\uFEFF\s]+/, '')
+  if (
+    (s.startsWith('"') && s.endsWith('"')) ||
+    (s.startsWith("'") && s.endsWith("'"))
+  ) {
+    s = s.slice(1, -1).trim()
+  }
+  if (!s) return null
+  return s.replace(/\/+$/, '')
+}
+
+export default async function handler(req: VercelRequest, res: VercelResponse): Promise<void> {
+  if (req.method !== 'GET') {
+    res.status(405).send('Method Not Allowed')
+    return
   }
 
-  const upstreamBase = process.env.WEB_API_UPSTREAM
-  if (!upstreamBase || typeof upstreamBase !== 'string') {
-    return new Response(JSON.stringify({ error: 'WEB_API_UPSTREAM is not configured' }), {
-      status: 500,
-      headers: { 'content-type': 'application/json; charset=utf-8' },
-    })
+  const rawBase = readUpstreamRaw()
+  if (!rawBase) {
+    res.setHeader('content-type', 'application/json; charset=utf-8')
+    res.status(500).json({ error: 'WEB_API_UPSTREAM is not configured' })
+    return
   }
 
-  const url = new URL(request.url)
-  const match = url.pathname.match(/\/api\/v1\/articles\/([^/]+)\/?$/)
-  const slug = match?.[1]
+  const q = req.query.slug
+  const slug = typeof q === 'string' ? q : Array.isArray(q) ? q[0] : undefined
   if (!slug) {
-    return new Response(JSON.stringify({ error: 'Missing slug' }), {
-      status: 400,
-      headers: { 'content-type': 'application/json; charset=utf-8' },
-    })
+    res.setHeader('content-type', 'application/json; charset=utf-8')
+    res.status(400).json({ error: 'Missing slug' })
+    return
   }
 
-  const target = `${webApiUpstreamRoot(upstreamBase)}/v1/web/articles/${encodeURIComponent(slug)}`
-  const headers: Record<string, string> = {}
-  const secret = process.env.WEB_API_SECRET
-  if (secret) headers['x-web-api-secret'] = secret
+  let target: string
+  try {
+    const root = webApiUpstreamRoot(rawBase)
+    target = `${root}/v1/web/articles/${encodeURIComponent(slug)}`
+    new URL(target)
+  } catch {
+    res.setHeader('content-type', 'application/json; charset=utf-8')
+    res.status(500).json({
+      error: 'WEB_API_UPSTREAM is invalid',
+      hint: 'Use a full HTTPS origin, e.g. https://us-central1-….cloudfunctions.net (no trailing spaces or quotes)',
+    })
+    return
+  }
 
-  const r = await fetch(target, { headers, cache: 'no-store' })
-  const body = await r.text()
-  const out = new Response(body, { status: r.status })
-  const ct = r.headers.get('content-type')
-  if (ct) out.headers.set('content-type', ct)
-  out.headers.set('cache-control', 'public, s-maxage=60, stale-while-revalidate=120')
-  return out
+  const fwd: Record<string, string> = {}
+  const secret = process.env.WEB_API_SECRET
+  if (typeof secret === 'string' && secret.trim()) {
+    fwd['x-web-api-secret'] = secret.trim()
+  }
+
+  try {
+    const r = await fetch(target, { headers: fwd, cache: 'no-store' })
+    const body = await r.text()
+    const ct = r.headers.get('content-type')
+    if (ct) res.setHeader('content-type', ct)
+    res.setHeader('cache-control', 'public, s-maxage=60, stale-while-revalidate=120')
+    res.status(r.status).send(body)
+  } catch (err) {
+    console.error('[api/v1/articles/slug] upstream:', err)
+    res.setHeader('content-type', 'application/json; charset=utf-8')
+    res.status(502).json({ error: 'Bad gateway' })
+  }
 }
