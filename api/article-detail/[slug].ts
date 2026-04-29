@@ -1,9 +1,4 @@
-/**
- * GET /api/v1/categories → upstream …/webApi/v1/web/categories
- *
- * Upstream helpers are inlined — Vercel’s serverless bundler often omits separate `api/lib/*`
- * files (`ERR_MODULE_NOT_FOUND` at /var/task/...).
- */
+/** GET /api/article-detail/:slug — client + vercel.json legacy rewrite from /api/v1/articles/:slug. */
 import type { VercelRequest, VercelResponse } from '@vercel/node'
 
 function webApiUpstreamRoot(raw: string): string {
@@ -11,7 +6,6 @@ function webApiUpstreamRoot(raw: string): string {
   return b.endsWith('/webApi') ? b : `${b}/webApi`
 }
 
-/** Trim + strip quotes users paste from dashboards. */
 function readUpstreamRaw(): string | null {
   const raw = process.env.WEB_API_UPSTREAM
   if (!raw || typeof raw !== 'string') return null
@@ -39,10 +33,18 @@ export default async function handler(req: VercelRequest, res: VercelResponse): 
     return
   }
 
+  const q = req.query.slug
+  const slug = typeof q === 'string' ? q : Array.isArray(q) ? q[0] : undefined
+  if (!slug) {
+    res.setHeader('content-type', 'application/json; charset=utf-8')
+    res.status(400).json({ error: 'Missing slug' })
+    return
+  }
+
   let target: string
   try {
     const root = webApiUpstreamRoot(rawBase)
-    target = `${root}/v1/web/categories`
+    target = `${root}/v1/web/articles/${encodeURIComponent(slug)}`
     new URL(target)
   } catch {
     res.setHeader('content-type', 'application/json; charset=utf-8')
@@ -64,10 +66,10 @@ export default async function handler(req: VercelRequest, res: VercelResponse): 
     const body = await r.text()
     const ct = r.headers.get('content-type')
     if (ct) res.setHeader('content-type', ct)
-    res.setHeader('cache-control', 'public, s-maxage=300, stale-while-revalidate=600')
+    res.setHeader('cache-control', 'public, s-maxage=60, stale-while-revalidate=120')
     res.status(r.status).send(body)
   } catch (err) {
-    console.error('[api/v1/categories] upstream:', err)
+    console.error('[api/article-detail] upstream:', err)
     res.setHeader('content-type', 'application/json; charset=utf-8')
     res.status(502).json({ error: 'Bad gateway' })
   }

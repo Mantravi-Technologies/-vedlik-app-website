@@ -1,6 +1,4 @@
-/**
- * GET /api/v1/articles/:slug → upstream …/webApi/v1/web/articles/:slug
- */
+/** GET /api/articles-list — client + vercel.json legacy rewrite from /api/v1/articles. */
 import type { VercelRequest, VercelResponse } from '@vercel/node'
 
 function webApiUpstreamRoot(raw: string): string {
@@ -22,6 +20,22 @@ function readUpstreamRaw(): string | null {
   return s.replace(/\/+$/, '')
 }
 
+function searchFromReq(req: VercelRequest): string {
+  const rawUrl = typeof req.url === 'string' ? req.url : ''
+  const qi = rawUrl.indexOf('?')
+  if (qi >= 0) return rawUrl.slice(qi)
+  const params = new URLSearchParams()
+  for (const [k, v] of Object.entries(req.query ?? {})) {
+    if (Array.isArray(v)) {
+      v.forEach((item) => params.append(k, item))
+    } else if (v !== undefined) {
+      params.append(k, v)
+    }
+  }
+  const s = params.toString()
+  return s ? `?${s}` : ''
+}
+
 export default async function handler(req: VercelRequest, res: VercelResponse): Promise<void> {
   if (req.method !== 'GET') {
     res.status(405).send('Method Not Allowed')
@@ -35,18 +49,12 @@ export default async function handler(req: VercelRequest, res: VercelResponse): 
     return
   }
 
-  const q = req.query.slug
-  const slug = typeof q === 'string' ? q : Array.isArray(q) ? q[0] : undefined
-  if (!slug) {
-    res.setHeader('content-type', 'application/json; charset=utf-8')
-    res.status(400).json({ error: 'Missing slug' })
-    return
-  }
+  const search = searchFromReq(req)
 
   let target: string
   try {
     const root = webApiUpstreamRoot(rawBase)
-    target = `${root}/v1/web/articles/${encodeURIComponent(slug)}`
+    target = `${root}/v1/web/articles${search}`
     new URL(target)
   } catch {
     res.setHeader('content-type', 'application/json; charset=utf-8')
@@ -68,10 +76,10 @@ export default async function handler(req: VercelRequest, res: VercelResponse): 
     const body = await r.text()
     const ct = r.headers.get('content-type')
     if (ct) res.setHeader('content-type', ct)
-    res.setHeader('cache-control', 'public, s-maxage=60, stale-while-revalidate=120')
+    res.setHeader('cache-control', 'public, s-maxage=30, stale-while-revalidate=60')
     res.status(r.status).send(body)
   } catch (err) {
-    console.error('[api/v1/articles/slug] upstream:', err)
+    console.error('[api/articles-list] upstream:', err)
     res.setHeader('content-type', 'application/json; charset=utf-8')
     res.status(502).json({ error: 'Bad gateway' })
   }

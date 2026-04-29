@@ -1,7 +1,4 @@
-/**
- * GET /api/v1/articles-list → upstream …/webApi/v1/web/articles (+ query).
- * Public URL is /api/v1/articles — see vercel.json rewrites.
- */
+/** GET /api/categories — client + vercel.json legacy rewrite from /api/v1/categories. */
 import type { VercelRequest, VercelResponse } from '@vercel/node'
 
 function webApiUpstreamRoot(raw: string): string {
@@ -23,23 +20,6 @@ function readUpstreamRaw(): string | null {
   return s.replace(/\/+$/, '')
 }
 
-/** Preserve client query string for passthrough. */
-function searchFromReq(req: VercelRequest): string {
-  const rawUrl = typeof req.url === 'string' ? req.url : ''
-  const qi = rawUrl.indexOf('?')
-  if (qi >= 0) return rawUrl.slice(qi)
-  const params = new URLSearchParams()
-  for (const [k, v] of Object.entries(req.query ?? {})) {
-    if (Array.isArray(v)) {
-      v.forEach((item) => params.append(k, item))
-    } else if (v !== undefined) {
-      params.append(k, v)
-    }
-  }
-  const s = params.toString()
-  return s ? `?${s}` : ''
-}
-
 export default async function handler(req: VercelRequest, res: VercelResponse): Promise<void> {
   if (req.method !== 'GET') {
     res.status(405).send('Method Not Allowed')
@@ -53,12 +33,10 @@ export default async function handler(req: VercelRequest, res: VercelResponse): 
     return
   }
 
-  const search = searchFromReq(req)
-
   let target: string
   try {
     const root = webApiUpstreamRoot(rawBase)
-    target = `${root}/v1/web/articles${search}`
+    target = `${root}/v1/web/categories`
     new URL(target)
   } catch {
     res.setHeader('content-type', 'application/json; charset=utf-8')
@@ -80,10 +58,10 @@ export default async function handler(req: VercelRequest, res: VercelResponse): 
     const body = await r.text()
     const ct = r.headers.get('content-type')
     if (ct) res.setHeader('content-type', ct)
-    res.setHeader('cache-control', 'public, s-maxage=30, stale-while-revalidate=60')
+    res.setHeader('cache-control', 'public, s-maxage=300, stale-while-revalidate=600')
     res.status(r.status).send(body)
   } catch (err) {
-    console.error('[api/v1/articles-list] upstream:', err)
+    console.error('[api/categories] upstream:', err)
     res.setHeader('content-type', 'application/json; charset=utf-8')
     res.status(502).json({ error: 'Bad gateway' })
   }

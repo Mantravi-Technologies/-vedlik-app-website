@@ -63,7 +63,26 @@ export default defineConfig({
       '/api': {
         target: WEB_API_UPSTREAM,
         changeOrigin: true,
-        rewrite: (p) => p.replace(/^\/api\/v1/, '/webApi/v1/web'),
+        rewrite: (path) => {
+          const qi = path.indexOf('?')
+          const pathname = qi >= 0 ? path.slice(0, qi) : path
+          const search = qi >= 0 ? path.slice(qi) : ''
+          const p =
+            pathname.length > 1 && pathname.endsWith('/')
+              ? pathname.slice(0, -1)
+              : pathname
+          if (p === '/api/categories') return `/webApi/v1/web/categories${search}`
+          if (p === '/api/articles-list') return `/webApi/v1/web/articles${search}`
+          const m = p.match(/^\/api\/article-detail\/(.+)$/)
+          if (m) {
+            const slug = encodeURIComponent(decodeURIComponent(m[1]))
+            return `/webApi/v1/web/articles/${slug}${search}`
+          }
+          if (path.startsWith('/api/v1')) {
+            return path.replace(/^\/api\/v1/, '/webApi/v1/web')
+          }
+          return path
+        },
       },
     },
   },

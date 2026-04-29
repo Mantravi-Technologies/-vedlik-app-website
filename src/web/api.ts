@@ -1,8 +1,9 @@
 /**
- * Browser calls same-origin /api/v1/* (Vercel proxies to Cloud Function).
- * Local dev: vite.config proxy rewrites /api/v1 → …/webApi/v1/web
+ * Browser calls same-origin paths that match `api/*.ts` on Vercel (no rewrite required).
+ * Override with VITE_PUBLIC_API_BASE if needed (e.g. absolute URL).
+ * Local dev: vite.config maps these `/api/*` paths to the Cloud Function.
  */
-const API_BASE = import.meta.env.VITE_PUBLIC_API_BASE ?? '/api/v1'
+const API_BASE = import.meta.env.VITE_PUBLIC_API_BASE ?? '/api'
 
 export const WEB_FALLBACK_IMAGE = 'https://vedlik.com/assets/images/logo.png'
 
@@ -93,7 +94,7 @@ export async function listArticles(params: {
   if (params.uiCategory) query.set('uiCategory', params.uiCategory)
   if (params.sort) query.set('sort', params.sort)
   if (params.topic) query.set('topic', params.topic)
-  const response = await fetch(`${API_BASE}/articles?${query.toString()}`)
+  const response = await fetch(`${API_BASE}/articles-list?${query.toString()}`)
   if (!response.ok) throw new Error('Unable to load articles')
   if (!jsonContentType(response)) throw new Error('Unable to load articles')
   const data = (await response.json()) as Record<string, unknown>
@@ -106,7 +107,9 @@ export async function listArticles(params: {
 }
 
 export async function getArticleByIdOrSlug(idOrSlug: string): Promise<WebArticleDetail> {
-  const response = await fetch(`${API_BASE}/articles/${encodeURIComponent(idOrSlug)}`)
+  const response = await fetch(
+    `${API_BASE}/article-detail/${encodeURIComponent(idOrSlug)}`,
+  )
   if (!response.ok) {
     if (response.status === 404) throw new Error('not_found')
     throw new Error('Unable to load article')

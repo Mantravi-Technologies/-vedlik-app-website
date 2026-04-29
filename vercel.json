@@ -1,6 +1,15 @@
 {
   "headers": [
     {
+      "source": "/api/(.*)",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "private, no-store, max-age=0, must-revalidate"
+        }
+      ]
+    },
+    {
       "source": "/.well-known/apple-app-site-association",
       "headers": [
         { "key": "Content-Type", "value": "application/json" },
@@ -17,12 +26,20 @@
   ],
   "rewrites": [
     {
+      "source": "/api/v1/categories",
+      "destination": "/api/categories"
+    },
+    {
+      "source": "/api/v1/articles/:slug",
+      "destination": "/api/article-detail/:slug"
+    },
+    {
       "source": "/api/v1/articles",
-      "destination": "/api/v1/articles-list"
+      "destination": "/api/articles-list"
     },
     {
       "source": "/api/v1/articles/",
-      "destination": "/api/v1/articles-list"
+      "destination": "/api/articles-list"
     },
     {
       "source": "/article/(.*)",
