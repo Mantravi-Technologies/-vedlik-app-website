@@ -1,9 +1,10 @@
 /**
  * GET /api/v1/articles → upstream …/webApi/v1/web/articles
  *
- * Env (Vercel / local preview): WEB_API_UPSTREAM=https://….cloudfunctions.net/webApi
+ * Env (Vercel): WEB_API_UPSTREAM=https://….cloudfunctions.net (or …/webApi — both work)
  * Optional: WEB_API_SECRET → forwarded as header x-web-api-secret
  */
+import { webApiUpstreamRoot } from '../../_lib/upstreamBase'
 
 export default async function handler(request: Request): Promise<Response> {
   if (request.method !== 'GET') {
@@ -19,7 +20,7 @@ export default async function handler(request: Request): Promise<Response> {
   }
 
   const url = new URL(request.url)
-  const target = `${upstreamBase.replace(/\/$/, '')}/v1/web/articles${url.search}`
+  const target = `${webApiUpstreamRoot(upstreamBase)}/v1/web/articles${url.search}`
 
   const headers: Record<string, string> = {}
   const secret = process.env.WEB_API_SECRET

@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useRef, useLayoutEffect, useEffect } from 'react'
+import { useState, useRef, useLayoutEffect, useEffect, useCallback } from 'react'
 import gsap from 'gsap'
 
 const TEAL = '#2DD4BF'
@@ -17,35 +17,72 @@ export default function StickyHeader() {
   const activeIndexRef = useRef(activeIndex)
   activeIndexRef.current = activeIndex
   const underlineRef = useRef<HTMLDivElement>(null)
+  const navTrackRef = useRef<HTMLDivElement>(null)
   const tabsRef = useRef<(HTMLButtonElement | null)[]>([])
+  const underlineAnimatedOnce = useRef(false)
 
-  const isFirstMount = useRef(true)
-  useLayoutEffect(() => {
+  /** `offsetLeft` drifts vs painted flex layout after font swap / subpixel layout; use track‑relative geometry. */
+  const measureUnderline = useCallback((): { left: number; width: number } | null => {
     const idx = activeIndexRef.current
-    const activeEl = tabsRef.current[idx]
+    const btn = tabsRef.current[idx]
+    const track = navTrackRef.current
+    if (!btn || !track) return null
+    const trackRect = track.getBoundingClientRect()
+    const btnRect = btn.getBoundingClientRect()
+    return {
+      left: btnRect.left - trackRect.left + track.scrollLeft,
+      width: btnRect.width,
+    }
+  }, [])
+
+  const setUnderlineInstant = useCallback(() => {
     const underline = underlineRef.current
-    if (!activeEl || !underline) return
-    if (isFirstMount.current) {
-      underline.style.left = `${activeEl.offsetLeft}px`
-      underline.style.width = `${activeEl.offsetWidth}px`
-      isFirstMount.current = false
-      const onResize = () => {
-        const el = tabsRef.current[activeIndexRef.current]
-        if (el && underlineRef.current) {
-          underlineRef.current.style.left = `${el.offsetLeft}px`
-          underlineRef.current.style.width = `${el.offsetWidth}px`
-        }
-      }
-      window.addEventListener('resize', onResize)
-      return () => window.removeEventListener('resize', onResize)
+    const m = measureUnderline()
+    if (!underline || !m) return
+    gsap.set(underline, { left: m.left, width: m.width })
+  }, [measureUnderline])
+
+  const animateUnderline = useCallback(() => {
+    const underline = underlineRef.current
+    const m = measureUnderline()
+    if (!underline || !m) return
+    if (!underlineAnimatedOnce.current) {
+      gsap.set(underline, { left: m.left, width: m.width })
+      underlineAnimatedOnce.current = true
+      return
     }
     gsap.to(underline, {
-      left: activeEl.offsetLeft,
-      width: activeEl.offsetWidth,
+      left: m.left,
+      width: m.width,
       duration: 0.3,
       ease: 'power2.out',
     })
-  }, [activeIndex])
+  }, [measureUnderline])
+
+  useLayoutEffect(() => {
+    animateUnderline()
+  }, [activeIndex, animateUnderline])
+
+  useEffect(() => {
+    const onLayout = () => setUnderlineInstant()
+    const ro = new ResizeObserver(onLayout)
+    const track = navTrackRef.current
+    if (track) ro.observe(track)
+    // Tab intrinsic widths can change without the flex track’s box resizing (e.g. font swap).
+    tabsRef.current.forEach((btn) => {
+      if (btn) ro.observe(btn)
+    })
+    const mq = window.matchMedia('(min-width: 768px)')
+    const onBp = () => requestAnimationFrame(onLayout)
+    mq.addEventListener('change', onBp)
+    window.addEventListener('resize', onLayout)
+    void document.fonts?.ready?.then(onLayout)
+    return () => {
+      ro.disconnect()
+      mq.removeEventListener('change', onBp)
+      window.removeEventListener('resize', onLayout)
+    }
+  }, [setUnderlineInstant])
 
 
 
@@ -87,7 +124,10 @@ export default function StickyHeader() {
           />
         </a>
         <nav className="hidden md:flex flex-1 min-w-0 justify-end overflow-hidden py-2">
-          <div className="relative w-full flex items-center justify-end gap-2 sm:gap-4 md:gap-8 px-1 sm:px-2 md:min-w-max">
+          <div
+            ref={navTrackRef}
+            className="relative w-full flex items-center justify-end gap-2 sm:gap-4 md:gap-8 px-1 sm:px-2 md:min-w-max"
+          >
             {TABS.map((label, i) => (
               <button
                 key={label}

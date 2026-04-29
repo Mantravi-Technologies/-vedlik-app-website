@@ -57,15 +57,27 @@ export type ListArticlesResponse = {
   hasMore: boolean
 }
 
-type CategoriesResponse = {
-  items: WebCategory[]
+function jsonContentType(response: Response): boolean {
+  const ct = response.headers.get('content-type') ?? ''
+  return ct.includes('application/json') || ct.includes('application/problem+json')
+}
+
+function normalizeCategoryRows(payload: unknown): WebCategory[] {
+  if (Array.isArray(payload)) return payload as WebCategory[]
+  if (payload && typeof payload === 'object') {
+    const o = payload as Record<string, unknown>
+    const raw = o.items ?? o.categories ?? o.data
+    if (Array.isArray(raw)) return raw as WebCategory[]
+  }
+  return []
 }
 
 export async function listCategories(): Promise<WebCategory[]> {
   const response = await fetch(`${API_BASE}/categories`)
   if (!response.ok) throw new Error('Unable to load categories')
-  const payload = (await response.json()) as CategoriesResponse
-  return payload.items ?? []
+  if (!jsonContentType(response)) throw new Error('Unable to load categories')
+  const payload = await response.json()
+  return normalizeCategoryRows(payload)
 }
 
 export async function listArticles(params: {
@@ -83,7 +95,14 @@ export async function listArticles(params: {
   if (params.topic) query.set('topic', params.topic)
   const response = await fetch(`${API_BASE}/articles?${query.toString()}`)
   if (!response.ok) throw new Error('Unable to load articles')
-  return (await response.json()) as ListArticlesResponse
+  if (!jsonContentType(response)) throw new Error('Unable to load articles')
+  const data = (await response.json()) as Record<string, unknown>
+  const items = Array.isArray(data.items) ? (data.items as WebArticleSummary[]) : []
+  return {
+    items,
+    nextCursor: typeof data.nextCursor === 'string' ? data.nextCursor : null,
+    hasMore: Boolean(data.hasMore),
+  }
 }
 
 export async function getArticleByIdOrSlug(idOrSlug: string): Promise<WebArticleDetail> {
@@ -92,5 +111,6 @@ export async function getArticleByIdOrSlug(idOrSlug: string): Promise<WebArticle
     if (response.status === 404) throw new Error('not_found')
     throw new Error('Unable to load article')
   }
+  if (!jsonContentType(response)) throw new Error('Unable to load article')
   return (await response.json()) as WebArticleDetail
 }

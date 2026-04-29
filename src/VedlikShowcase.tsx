@@ -133,10 +133,10 @@ export default function VedlikShowcase() {
       const getBlockTops = () => contentBlocks.map((el) => el.offsetTop)
 
       /** 0=Why … 3=FAQ — which "page" the viewport is in (for wheel / nav). */
-      const getActiveContentIndex = () => {
+      const getActiveContentIndex = (scrollTopOverride?: number) => {
         const tops = getBlockTops()
         if (tops.length < 4) return 0
-        const st = contentScroll.scrollTop
+        const st = scrollTopOverride ?? contentScroll.scrollTop
         const bias = contentScroll.clientHeight * 0.12
         let idx = 0
         for (let i = 0; i < 4; i += 1) {
@@ -385,17 +385,22 @@ export default function VedlikShowcase() {
         })
       }
 
-      const goContentNext = () => {
-        const idx = getActiveContentIndex()
+      /**
+       * `anchorScrollTop` = scroll position at gesture start (touch). Without it, native
+       * momentum updates `scrollTop` before `touchend`, so `getActiveContentIndex()` can
+       * already point at the *next* block and one swipe advances two sections.
+       */
+      const goContentNext = (anchorScrollTop?: number) => {
+        const idx = getActiveContentIndex(anchorScrollTop)
         if (idx < 3) {
           const next = contentBlocks[idx + 1]
           animateContentToOffset(next.offsetTop, idx + 2)
         }
       }
 
-      const goContentPrev = () => {
-        const idx = getActiveContentIndex()
-        const st = contentScroll.scrollTop
+      const goContentPrev = (anchorScrollTop?: number) => {
+        const idx = getActiveContentIndex(anchorScrollTop)
+        const st = anchorScrollTop ?? contentScroll.scrollTop
         if (idx === 0 && st <= 8) {
           setHeroStepInstant(2)
           gotoSection(0)
@@ -411,7 +416,9 @@ export default function VedlikShowcase() {
         }
       }
 
-      const goNext = () => {
+      type PaginateOpts = { anchorScrollTop?: number }
+
+      const goNext = (opts?: PaginateOpts) => {
         const now = performance.now()
         if (now - lastGestureAt.current < GESTURE_COOLDOWN_MS) return
         if (now < lockUntil.current) return
@@ -427,11 +434,11 @@ export default function VedlikShowcase() {
           return
         }
         if (currentSection.current === 1) {
-          goContentNext()
+          goContentNext(opts?.anchorScrollTop)
         }
       }
 
-      const goPrev = () => {
+      const goPrev = (opts?: PaginateOpts) => {
         const now = performance.now()
         if (now - lastGestureAt.current < GESTURE_COOLDOWN_MS) return
         if (now < lockUntil.current) return
@@ -445,7 +452,7 @@ export default function VedlikShowcase() {
           return
         }
         if (currentSection.current === 1) {
-          goContentPrev()
+          goContentPrev(opts?.anchorScrollTop)
         }
       }
 
@@ -502,8 +509,12 @@ export default function VedlikShowcase() {
 
           return false
         },
-        onDown: goPrev,
-        onUp: goNext,
+        onDown: () => {
+          goPrev()
+        },
+        onUp: () => {
+          goNext()
+        },
       })
 
       // Touch handler for [data-vedlik-scrollable]: let content scroll freely,
@@ -535,10 +546,26 @@ export default function VedlikShowcase() {
         if (Math.abs(dy) < SWIPE_THRESHOLD) return
 
         if (root.hasAttribute('data-vedlik-main-scroll')) {
-          if (dy > 0) {
-            goNext()
-          } else {
-            goPrev()
+          // Match discrete wheel UX: only paginate at the current section’s edges; otherwise
+          // keep native vertical scroll (avoids “scroll a bit, then jump” after touchend).
+          // Use touchStartScrollTop for edges + pagination anchor — end-of-gesture scrollTop
+          // may already sit in the next block after native inertia.
+          const st0 = touchStartScrollTop
+          const tops = getBlockTops()
+          if (tops.length < 4) return
+          const idx0 = getActiveContentIndex(st0)
+          const blockTop = tops[idx0]
+          const blockBottom = blockTop + contentBlocks[idx0].offsetHeight
+          const edge = 8
+          const viewTop = st0
+          const viewBottom = st0 + root.clientHeight
+          const atBlockTop = viewTop <= blockTop + edge
+          const atBlockBottom = viewBottom >= blockBottom - edge
+
+          if (dy > 0 && atBlockBottom) {
+            goNext({ anchorScrollTop: st0 })
+          } else if (dy < 0 && atBlockTop) {
+            goPrev({ anchorScrollTop: st0 })
           }
           return
         }
@@ -549,9 +576,9 @@ export default function VedlikShowcase() {
         const atBottom = touchStartScrollTop + clientHeight >= scrollHeight - edge
 
         if (dy > 0 && atBottom) {
-          goNext()
+          goNext({ anchorScrollTop: touchStartScrollTop })
         } else if (dy < 0 && atTop) {
-          goPrev()
+          goPrev({ anchorScrollTop: touchStartScrollTop })
         }
       }
 

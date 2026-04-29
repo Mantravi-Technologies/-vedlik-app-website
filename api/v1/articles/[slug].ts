@@ -1,6 +1,7 @@
 /**
  * GET /api/v1/articles/:slug → upstream …/webApi/v1/web/articles/:slug
  */
+import { webApiUpstreamRoot } from '../../_lib/upstreamBase'
 
 export default async function handler(request: Request): Promise<Response> {
   if (request.method !== 'GET') {
@@ -25,7 +26,7 @@ export default async function handler(request: Request): Promise<Response> {
     })
   }
 
-  const target = `${upstreamBase.replace(/\/$/, '')}/v1/web/articles/${encodeURIComponent(slug)}`
+  const target = `${webApiUpstreamRoot(upstreamBase)}/v1/web/articles/${encodeURIComponent(slug)}`
   const headers: Record<string, string> = {}
   const secret = process.env.WEB_API_SECRET
   if (secret) headers['x-web-api-secret'] = secret
