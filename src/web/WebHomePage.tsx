@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import {
   WEB_FALLBACK_IMAGE,
+  getArticleByIdOrSlug,
   listArticles,
   listCategories,
   type WebArticleSummary,
@@ -177,6 +178,8 @@ function SignalAppDownloadBanner() {
 type WebArticle = {
   id: string
   slug?: string
+  /** API / Firestore canonical slug — compare to URL segment exactly when present. */
+  canonicalSlug?: string
   title: string
   imageUrl: string
   articleUrl?: string
@@ -789,12 +792,24 @@ function ArticleCard({
   )
 }
 
+/** Exact match for shared `/signal/:slug` URLs vs API `slug` / `canonicalSlug` / `id`. */
+function articleRowMatchesSignalUrl(
+  item: Pick<WebArticle, 'id' | 'slug' | 'canonicalSlug'>,
+  urlSignal: string,
+): boolean {
+  if (item.id === urlSignal) return true
+  if (item.slug != null && item.slug !== '' && item.slug === urlSignal) return true
+  if (item.canonicalSlug != null && item.canonicalSlug !== '' && item.canonicalSlug === urlSignal) return true
+  return false
+}
+
 function mapArticle(item: WebArticleSummary): WebArticle {
   const extra = item as WebArticleSummary & { disruption_score?: number | string }
   const disrupted = parseDisruptionScore(item.disruptionScore ?? extra.disruption_score)
   return {
     id: item.id,
     slug: item.slug,
+    canonicalSlug: item.canonicalSlug,
     title: item.title,
     imageUrl: item.imageUrl ?? WEB_FALLBACK_IMAGE,
     articleUrl: item.articleUrl,
@@ -833,6 +848,8 @@ export default function WebHomePage({
   const cardElementsRef = useRef<Map<string, HTMLElement>>(new Map())
   const currentSignalPathRef = useRef<string | null>(null)
   const categoryScrollReadyRef = useRef(false)
+  /** Avoid re-running deep-link scroll on every append (e.g. Load more). */
+  const didScrollToDeepLinkRef = useRef<string | null>(null)
 
   const hasArticles = useMemo(() => articles.length > 0, [articles.length])
   const awaitingCategoriesForFeed = !topicSlug && categories.length === 0
@@ -874,6 +891,12 @@ export default function WebHomePage({
   useEffect(() => {
     closeCategoryDrawer()
   }, [topicSlug, activeCategory, closeCategoryDrawer])
+
+  /** Reset deep-link scroll when the shared slug in the URL changes or is cleared. */
+  useEffect(() => {
+    didScrollToDeepLinkRef.current = null
+    setInitialSeekDone(false)
+  }, [initialSignalIdOrSlug])
 
   /** After choosing a homepage category, ease the viewport back to the feed start. */
   useEffect(() => {
@@ -918,14 +941,68 @@ export default function WebHomePage({
       setFeedReady(false)
       setFeedError(null)
       try {
-        const payload = await listArticles({
-          limit: 20,
-          ...articleListParamsFromCategorySelection(topicSlug, categories, activeCategory),
-        })
-        if (cancelled) return
-        const mapped = payload.items.map(mapArticle)
-        setArticles(mapped)
-        setNextCursor(payload.nextCursor)
+        const params = articleListParamsFromCategorySelection(
+          topicSlug,
+          categories,
+          activeCategory,
+        )
+
+        if (initialSignalIdOrSlug && !topicSlug && activeCategory === 'all') {
+          const urlSlug = initialSignalIdOrSlug
+          const listPayload = await listArticles({
+            limit: 20,
+            uiCategory: 'All',
+            sort: 'feedRank',
+            anchorSlug: urlSlug,
+          })
+          if (cancelled) return
+
+          let fromList = listPayload.items.map(mapArticle)
+
+          const firstMatches = fromList.length > 0 && articleRowMatchesSignalUrl(fromList[0], urlSlug)
+          const matchIdx = fromList.findIndex((a) => articleRowMatchesSignalUrl(a, urlSlug))
+
+          if (firstMatches) {
+            setArticles(fromList)
+            setNextCursor(listPayload.nextCursor)
+            setInitialSeekDone(true)
+          } else if (matchIdx >= 0) {
+            const hit = fromList[matchIdx]
+            const rest = fromList.filter((_, i) => i !== matchIdx)
+            setArticles([hit, ...rest])
+            setNextCursor(listPayload.nextCursor)
+            setInitialSeekDone(true)
+          } else {
+            try {
+              const detail = await getArticleByIdOrSlug(urlSlug)
+              if (cancelled) return
+              const pin = mapArticle(detail as WebArticleSummary)
+              const pinId = pin.id
+              const deduped = fromList.filter(
+                (a) => a.id !== pinId && !articleRowMatchesSignalUrl(a, urlSlug),
+              )
+              setArticles([pin, ...deduped])
+              setNextCursor(listPayload.nextCursor)
+              setInitialSeekDone(true)
+            } catch {
+              setArticles(fromList)
+              setNextCursor(listPayload.nextCursor)
+              setInitialSeekDone(false)
+            }
+          }
+        } else {
+          const payload = await listArticles({
+            limit: 20,
+            ...params,
+          })
+          if (cancelled) return
+          const mapped = payload.items.map(mapArticle)
+          setArticles(mapped)
+          setNextCursor(payload.nextCursor)
+          if (initialSignalIdOrSlug && !topicSlug) {
+            setInitialSeekDone(false)
+          }
+        }
       } catch {
         if (!cancelled) {
           setFeedError({
@@ -948,7 +1025,7 @@ export default function WebHomePage({
     return () => {
       cancelled = true
     }
-  }, [activeCategory, topicSlug, categories, feedReloadKey])
+  }, [activeCategory, topicSlug, categories, feedReloadKey, initialSignalIdOrSlug])
 
   const loadMore = async () => {
     if (!nextCursor || loading) return
@@ -989,10 +1066,8 @@ export default function WebHomePage({
 
   useEffect(() => {
     if (topicSlug || !initialSignalIdOrSlug || initialSeekDone || loading) return
-    const normalized = initialSignalIdOrSlug.toLowerCase()
-    const found = articles.some(
-      (item) => item.id.toLowerCase() === normalized || (item.slug ?? '').toLowerCase() === normalized
-    )
+    const urlSlug = initialSignalIdOrSlug
+    const found = articles.some((item) => articleRowMatchesSignalUrl(item, urlSlug))
     if (found) {
       setInitialSeekDone(true)
       return
@@ -1006,16 +1081,15 @@ export default function WebHomePage({
 
   useEffect(() => {
     if (!initialSignalIdOrSlug || !initialSeekDone) return
-    const normalized = initialSignalIdOrSlug.toLowerCase()
-    const target = articles.find(
-      (item) => item.id.toLowerCase() === normalized || (item.slug ?? '').toLowerCase() === normalized
-    )
+    if (didScrollToDeepLinkRef.current === initialSignalIdOrSlug) return
+    const urlSlug = initialSignalIdOrSlug
+    const target = articles.find((item) => articleRowMatchesSignalUrl(item, urlSlug))
     if (!target) return
     const key = target.slug ?? target.id
-    const el = cardElementsRef.current.get(key)
-    if (!el) return
-    el.scrollIntoView({ behavior: 'smooth', block: 'center' })
+    if (!cardElementsRef.current.get(key)) return
+    window.scrollTo({ top: 0, behavior: 'auto' })
     setPathIfChanged(`/signal/${key}`)
+    didScrollToDeepLinkRef.current = initialSignalIdOrSlug
   }, [articles, initialSeekDone, initialSignalIdOrSlug])
 
   useEffect(() => {

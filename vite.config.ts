@@ -14,6 +14,13 @@ function universalLinkDevPlugin() {
   const handler: Connect.NextHandleFunction = (req, res, next) => {
     const pathname = req.url?.split('?')[0] ?? ''
 
+    if (pathname === '/api/health') {
+      res.setHeader('Content-Type', 'application/json; charset=utf-8')
+      res.statusCode = 200
+      res.end(JSON.stringify({ ok: true, service: 'vedlik-showcase-api', dev: true }))
+      return
+    }
+
     if (pathname === '/app' || pathname === '/app/') {
       try {
         const html = fs.readFileSync(appUniversalLink, 'utf-8')
@@ -73,6 +80,11 @@ export default defineConfig({
               : pathname
           if (p === '/api/categories') return `/webApi/v1/web/categories${search}`
           if (p === '/api/articles-list') return `/webApi/v1/web/articles${search}`
+          if (p === '/api/article-detail') {
+            const u = new URL(path, 'http://localhost')
+            const slug = u.searchParams.get('slug')
+            if (slug) return `/webApi/v1/web/articles/${encodeURIComponent(slug)}`
+          }
           const m = p.match(/^\/api\/article-detail\/(.+)$/)
           if (m) {
             const slug = encodeURIComponent(decodeURIComponent(m[1]))

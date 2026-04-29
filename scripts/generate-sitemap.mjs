@@ -3,10 +3,18 @@ import path from 'node:path'
 import { fileURLToPath } from 'node:url'
 
 const SITE_URL = process.env.SITE_URL ?? 'https://vedlik.com'
+
+function pickEnv(...keys) {
+  for (const key of keys) {
+    const v = process.env[key]
+    if (typeof v === 'string' && v.trim()) return v.trim().replace(/\/+$/, '')
+  }
+  return null
+}
+
 /** Prefer direct upstream (CI/local); vedlik.com SSR need not proxy sitemap builds. */
 const API_BASE =
-  process.env.WEB_API_UPSTREAM ??
-  process.env.WEB_API_BASE ??
+  pickEnv('WEB_API_UPSTREAM', 'WEB_API_BASE') ??
   'https://us-central1-gen-lang-client-0290483815.cloudfunctions.net/webApi'
 const API_LIMIT = Number(process.env.SITEMAP_API_LIMIT ?? 1000)
 const URLS_PER_FILE = Number(process.env.SITEMAP_URLS_PER_FILE ?? 5000)
@@ -16,6 +24,7 @@ const LATEST_MAX_URLS = Number(process.env.SITEMAP_LATEST_MAX_URLS ?? 1000)
 const STATIC_PATHS = [
   '/',
   '/web',
+  '/signal',
   '/app',
   '/privacy-policy',
   '/terms-and-conditions',
@@ -40,8 +49,11 @@ function escapeXml(value) {
 function normalizeSitemapLoc(rawLoc) {
   if (typeof rawLoc !== 'string' || rawLoc.length === 0) return null
   try {
-    const url = new URL(rawLoc)
-    if (url.origin === SITE_URL && url.pathname.startsWith('/article/')) {
+    const url = rawLoc.startsWith('/')
+      ? new URL(rawLoc, SITE_URL)
+      : new URL(rawLoc)
+    if (url.origin !== new URL(SITE_URL).origin) return null
+    if (url.pathname.startsWith('/article/')) {
       url.pathname = url.pathname.replace(/^\/article\//, '/signal/')
     }
     return url.toString()
@@ -102,7 +114,7 @@ async function fetchArticleSitemapEntries() {
       } else {
         const existingDate = existing.lastmod ? Date.parse(existing.lastmod) : 0
         const candidateDate = candidate.lastmod ? Date.parse(candidate.lastmod) : 0
-        if (candidateDate > existingDate) unique.set(item.loc, candidate)
+        if (candidateDate > existingDate) unique.set(loc, candidate)
       }
     }
     page += 1

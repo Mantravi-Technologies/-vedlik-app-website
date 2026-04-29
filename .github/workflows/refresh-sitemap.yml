@@ -1,0 +1,46 @@
+# Regenerates public/sitemap*.xml from the live sitemap API and opens a PR when URLs change.
+# Runs once per day (evening UTC). Set repo secret WEB_API_UPSTREAM if the default origin is wrong.
+name: Refresh sitemaps
+
+on:
+  schedule:
+    - cron: '30 20 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  sitemap:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+
+      - run: npm ci
+
+      - name: Generate sitemaps from API
+        env:
+          SITE_URL: https://vedlik.com
+          WEB_API_UPSTREAM: ${{ secrets.WEB_API_UPSTREAM }}
+          # “Latest” slice = last calendar day; full article index still refreshed in this single nightly run.
+          SITEMAP_LATEST_DAYS: '1'
+        run: npm run sitemap:generate
+
+      - name: Open PR if files changed
+        uses: peter-evans/create-pull-request@v6
+        with:
+          commit-message: 'chore: refresh sitemaps from API'
+          title: 'chore: refresh sitemaps (automated)'
+          body: |
+            Automated sitemap refresh from `scripts/generate-sitemap.mjs`.
+
+            - Merge to update what crawlers see on the next deploy.
+            - Ensure **Vercel** build includes `public/` or run `npm run build:production` so sitemaps are fresh at deploy time.
+          branch: automated/sitemap-refresh
+          delete-branch: true

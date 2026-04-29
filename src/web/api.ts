@@ -21,6 +21,8 @@ export type WebCategory = {
 export type WebArticleSummary = {
   id: string
   slug?: string
+  /** When set, must match the web URL slug exactly (Firestore / API parity). */
+  canonicalSlug?: string
   title: string
   imageUrl?: string
   articleUrl?: string
@@ -81,12 +83,18 @@ export async function listCategories(): Promise<WebCategory[]> {
   return normalizeCategoryRows(payload)
 }
 
+/**
+ * Feed list. Proxied as `GET /api/v1/articles?…` (Vite + Vercel) → upstream `GET …/webApi/v1/web/articles?…`.
+ * Send `anchorSlug` only on the first page (omit when `cursor` is set).
+ */
 export async function listArticles(params: {
   limit?: number
   cursor?: string
   uiCategory?: string
   sort?: string
   topic?: string
+  /** First page only: pins matching story for shared `/signal/:slug` opens. */
+  anchorSlug?: string
 }): Promise<ListArticlesResponse> {
   const query = new URLSearchParams()
   query.set('limit', String(params.limit ?? 20))
@@ -94,7 +102,10 @@ export async function listArticles(params: {
   if (params.uiCategory) query.set('uiCategory', params.uiCategory)
   if (params.sort) query.set('sort', params.sort)
   if (params.topic) query.set('topic', params.topic)
-  const response = await fetch(`${API_BASE}/articles-list?${query.toString()}`)
+  if (!params.cursor && params.anchorSlug) {
+    query.set('anchorSlug', params.anchorSlug)
+  }
+  const response = await fetch(`/api/v1/articles?${query.toString()}`)
   if (!response.ok) throw new Error('Unable to load articles')
   if (!jsonContentType(response)) throw new Error('Unable to load articles')
   const data = (await response.json()) as Record<string, unknown>
@@ -106,10 +117,9 @@ export async function listArticles(params: {
   }
 }
 
+/** Direct article lookup — use only as fallback when list + `anchorSlug` did not surface the row. */
 export async function getArticleByIdOrSlug(idOrSlug: string): Promise<WebArticleDetail> {
-  const response = await fetch(
-    `${API_BASE}/article-detail/${encodeURIComponent(idOrSlug)}`,
-  )
+  const response = await fetch(`/api/v1/articles/${encodeURIComponent(idOrSlug)}`)
   if (!response.ok) {
     if (response.status === 404) throw new Error('not_found')
     throw new Error('Unable to load article')

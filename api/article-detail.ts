@@ -1,4 +1,6 @@
-/** GET /api/article-detail/:slug — client + vercel.json legacy rewrite from /api/v1/articles/:slug. */
+/**
+ * GET /api/article-detail?slug=… (preferred) or GET /api/article-detail/:slug (legacy path).
+ */
 import type { VercelRequest, VercelResponse } from '@vercel/node'
 
 function webApiUpstreamRoot(raw: string): string {
@@ -20,6 +22,28 @@ function readUpstreamRaw(): string | null {
   return s.replace(/\/+$/, '')
 }
 
+function resolveSlug(req: VercelRequest): string | undefined {
+  const q = req.query.slug
+  if (typeof q === 'string' && q.length > 0) return q
+  if (Array.isArray(q) && q[0] && typeof q[0] === 'string') return q[0]
+
+  const rawUrl = typeof req.url === 'string' ? req.url : ''
+  try {
+    const u = new URL(rawUrl, 'http://internal')
+    const m = u.pathname.match(/^\/api\/article-detail\/(.+)$/)
+    if (m?.[1]) {
+      try {
+        return decodeURIComponent(m[1])
+      } catch {
+        return m[1]
+      }
+    }
+  } catch {
+    /* ignore */
+  }
+  return undefined
+}
+
 export default async function handler(req: VercelRequest, res: VercelResponse): Promise<void> {
   if (req.method !== 'GET') {
     res.status(405).send('Method Not Allowed')
@@ -33,8 +57,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse): 
     return
   }
 
-  const q = req.query.slug
-  const slug = typeof q === 'string' ? q : Array.isArray(q) ? q[0] : undefined
+  const slug = resolveSlug(req)
   if (!slug) {
     res.setHeader('content-type', 'application/json; charset=utf-8')
     res.status(400).json({ error: 'Missing slug' })

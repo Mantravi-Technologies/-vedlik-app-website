@@ -1,4 +1,7 @@
-/** GET /api/articles-list — client + vercel.json legacy rewrite from /api/v1/articles. */
+/**
+ * GET /api/articles-list (internal) — rewrites from `/api/v1/articles`.
+ * Forwards the full query string (e.g. `anchorSlug`, `cursor`, `uiCategory`, `sort`).
+ */
 import type { VercelRequest, VercelResponse } from '@vercel/node'
 
 function webApiUpstreamRoot(raw: string): string {

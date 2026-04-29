@@ -1,4 +1,7 @@
 {
+  "framework": "vite",
+  "buildCommand": "npm run build",
+  "outputDirectory": "dist",
   "headers": [
     {
       "source": "/api/(.*)",
@@ -31,7 +34,7 @@
     },
     {
       "source": "/api/v1/articles/:slug",
-      "destination": "/api/article-detail/:slug"
+      "destination": "/api/article-detail?slug=:slug"
     },
     {
       "source": "/api/v1/articles",
