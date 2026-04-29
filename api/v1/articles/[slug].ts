@@ -1,7 +1,7 @@
 /**
  * GET /api/v1/articles/:slug → upstream …/webApi/v1/web/articles/:slug
  */
-import { webApiUpstreamRoot } from '../../_lib/upstreamBase'
+import { webApiUpstreamRoot } from '../../lib/upstreamRoot'
 
 export default async function handler(request: Request): Promise<Response> {
   if (request.method !== 'GET') {

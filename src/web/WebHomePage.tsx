@@ -30,6 +30,63 @@ const TEXT_PRIMARY = 'var(--vedlik-text-primary)'
 const TEXT_SECONDARY = 'var(--vedlik-text-secondary)'
 const CARD_BODY = 'var(--vedlik-card-body)'
 
+/** User-facing feed errors (no internal/prod jargon). */
+type FeedUserError = {
+  scope: 'initial' | 'loadMore'
+  title: string
+  body: string
+}
+
+function FeedErrorPanel({
+  error,
+  onRetry,
+  compact,
+}: {
+  error: FeedUserError
+  onRetry: () => void
+  compact?: boolean
+}) {
+  return (
+    <div
+      role="alert"
+      className={
+        compact
+          ? 'rounded-2xl border px-4 py-4 text-left shadow-sm'
+          : 'mx-auto max-w-md rounded-2xl border px-5 py-6 text-center shadow-sm'
+      }
+      style={{ borderColor: BORDER, backgroundColor: SURFACE_ELEVATED }}
+    >
+      <div className={compact ? 'flex gap-3 sm:items-start' : 'flex flex-col items-center gap-3'}>
+        <div
+          className={`flex shrink-0 items-center justify-center rounded-full border ${compact ? 'h-10 w-10' : 'h-12 w-12'}`}
+          style={{ borderColor: BORDER, color: BRAND }}
+          aria-hidden
+        >
+          <svg viewBox="0 0 24 24" className="h-5 w-5" fill="none" stroke="currentColor" strokeWidth="1.8">
+            <path d="M12 9v4M12 17h.01M10.3 3.3h3.4L21 17.1a1 1 0 0 1-.9 1.4H3.8a1 1 0 0 1-.9-1.4L10.3 3.3z" />
+          </svg>
+        </div>
+        <div className={compact ? 'min-w-0 flex-1' : ''}>
+          <h2 className={`font-semibold leading-snug ${compact ? 'text-base' : 'text-lg'}`} style={{ color: TEXT_PRIMARY }}>
+            {error.title}
+          </h2>
+          <p className={`mt-1.5 text-sm leading-relaxed ${compact ? '' : 'max-w-sm mx-auto'}`} style={{ color: TEXT_SECONDARY }}>
+            {error.body}
+          </p>
+          <button
+            type="button"
+            onClick={onRetry}
+            className={`mt-4 inline-flex items-center justify-center rounded-full px-5 py-2.5 text-sm font-semibold transition-opacity hover:opacity-95 ${compact ? '' : 'w-full max-w-xs sm:w-auto'}`}
+            style={{ backgroundColor: BRAND, color: BRAND_ON }}
+          >
+            Try again
+          </button>
+        </div>
+      </div>
+    </div>
+  )
+}
+
 /** Cropped Vedlik wordmarks: dark → light text / icon block; light theme → dark text, same teal. */
 function VedlikWordmarkLink({ theme, className }: { theme: 'dark' | 'light'; className?: string }) {
   const src =
@@ -769,7 +826,8 @@ export default function WebHomePage({
   const [loading, setLoading] = useState(false)
   /** First feed request for the current filter has finished (success or handled error). */
   const [feedReady, setFeedReady] = useState(false)
-  const [error, setError] = useState<string | null>(null)
+  const [feedReloadKey, setFeedReloadKey] = useState(0)
+  const [feedError, setFeedError] = useState<FeedUserError | null>(null)
   const [initialSeekDone, setInitialSeekDone] = useState(false)
   const cardElementsRef = useRef<Map<string, HTMLElement>>(new Map())
   const currentSignalPathRef = useRef<string | null>(null)
@@ -780,9 +838,9 @@ export default function WebHomePage({
   const showFeedSkeleton = useMemo(
     () =>
       articles.length === 0 &&
-      !error &&
+      !feedError &&
       (awaitingCategoriesForFeed || loading || !feedReady),
-    [articles.length, error, awaitingCategoriesForFeed, loading, feedReady],
+    [articles.length, feedError, awaitingCategoriesForFeed, loading, feedReady],
   )
   /** Subtle fade while reloading the feed so category switches feel less abrupt. */
   const refreshingFeed = useMemo(
@@ -857,7 +915,7 @@ export default function WebHomePage({
     const loadArticles = async () => {
       setLoading(true)
       setFeedReady(false)
-      setError(null)
+      setFeedError(null)
       try {
         const payload = await listArticles({
           limit: 20,
@@ -869,7 +927,11 @@ export default function WebHomePage({
         setNextCursor(payload.nextCursor)
       } catch {
         if (!cancelled) {
-          setError('Could not load articles from production API.')
+          setFeedError({
+            scope: 'initial',
+            title: "We couldn't load the feed",
+            body: 'Check your connection and try again. Signals will appear here when the request succeeds.',
+          })
           setArticles([])
           setNextCursor(null)
         }
@@ -885,12 +947,12 @@ export default function WebHomePage({
     return () => {
       cancelled = true
     }
-  }, [activeCategory, topicSlug, categories])
+  }, [activeCategory, topicSlug, categories, feedReloadKey])
 
   const loadMore = async () => {
     if (!nextCursor || loading) return
     setLoading(true)
-    setError(null)
+    setFeedError(null)
     try {
       const payload = await listArticles({
         limit: 20,
@@ -901,11 +963,20 @@ export default function WebHomePage({
       setArticles((current) => [...current, ...mapped])
       setNextCursor(payload.nextCursor)
     } catch {
-      setError('Could not load more articles from production API.')
+      setFeedError({
+        scope: 'loadMore',
+        title: "Couldn't load more signals",
+        body: 'Something went wrong. Please try again in a moment.',
+      })
     } finally {
       setLoading(false)
     }
   }
+
+  const retryInitialFeed = useCallback(() => {
+    setFeedError(null)
+    setFeedReloadKey((k) => k + 1)
+  }, [])
 
   const setPathIfChanged = (path: string) => {
     if (currentSignalPathRef.current === path) return
@@ -986,13 +1057,6 @@ export default function WebHomePage({
       window.removeEventListener('resize', onScrollOrResize)
     }
   }, [articles])
-
-  useEffect(() => {
-    if (articles.length === 0) return
-    if (!initialSignalIdOrSlug) {
-      setPathIfChanged(`/signal/${articles[0].slug ?? articles[0].id}`)
-    }
-  }, [articles, initialSignalIdOrSlug, topicSlug, activeCategory])
 
   useEffect(() => {
     currentSignalPathRef.current = null
@@ -1147,17 +1211,31 @@ export default function WebHomePage({
                 </div>
               ))}
         </section>
-        {!showFeedSkeleton && !loading && !hasArticles && !error && (
+        {!showFeedSkeleton && !loading && !hasArticles && !feedError && (
           <p className="py-10 text-center text-sm" style={{ color: TEXT_SECONDARY }}>
             No signals available for this category.
           </p>
         )}
-        {error && <p className="py-6 text-center text-sm text-red-400">{error}</p>}
+        {!showFeedSkeleton && feedError?.scope === 'initial' ? (
+          <div className="py-12">
+            <FeedErrorPanel
+              error={feedError}
+              onRetry={() => {
+                retryInitialFeed()
+              }}
+            />
+          </div>
+        ) : null}
+        {!showFeedSkeleton && hasArticles && feedError?.scope === 'loadMore' ? (
+          <div className="pt-6">
+            <FeedErrorPanel error={feedError} onRetry={() => void loadMore()} compact />
+          </div>
+        ) : null}
         {nextCursor && (
           <div className="flex justify-center pt-6">
             <button
               type="button"
-              onClick={loadMore}
+              onClick={() => void loadMore()}
               disabled={loading}
               className="rounded-full px-5 py-2.5 text-sm font-semibold disabled:opacity-60"
               style={{ backgroundColor: BRAND, color: '#032a26' }}

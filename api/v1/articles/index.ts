@@ -4,7 +4,7 @@
  * Env (Vercel): WEB_API_UPSTREAM=https://….cloudfunctions.net (or …/webApi — both work)
  * Optional: WEB_API_SECRET → forwarded as header x-web-api-secret
  */
-import { webApiUpstreamRoot } from '../../_lib/upstreamBase'
+import { webApiUpstreamRoot } from '../../lib/upstreamRoot'
 
 export default async function handler(request: Request): Promise<Response> {
   if (request.method !== 'GET') {

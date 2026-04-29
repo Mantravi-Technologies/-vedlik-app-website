@@ -1,10 +1,10 @@
 /**
  * GET /api/v1/categories → upstream …/webApi/v1/web/categories
  */
-import { webApiUpstreamRoot } from '../_lib/upstreamBase'
+import { webApiUpstreamRoot } from '../lib/upstreamRoot'
 
-export default async function handler(req: { method?: string }): Promise<Response> {
-  if (req.method && req.method !== 'GET') {
+export default async function handler(request: Request): Promise<Response> {
+  if (request.method !== 'GET') {
     return new Response('Method Not Allowed', { status: 405 })
   }
 
