@@ -1,9 +1,6 @@
 /**
- * Browser calls **`/api/v1/*`** (rewritten on Vercel to `api/*.ts` handlers in `vercel.json`).
+ * Browser calls **`/api/v1/*`**. On Vercel, `vercel.json` rewrites those paths to **`/api/categories`**, **`/api/articles-list`**, **`/api/article-detail`** (flat `api/*.ts` routes).
  * Override origin/prefix with `VITE_PUBLIC_API_BASE` only when the SPA and API live on different hosts.
- *
- * Prefer **`/api/v1/...`** for every fetch so prod rewrites (`/api/v1/categories` → `/api/categories`, etc.)
- * stay consistent; plain `/api/categories` can 404 on static-only hosts that do not ship the `api/` folder.
  */
 function normalizedApiRoot(): string {
   let root = String(import.meta.env.VITE_PUBLIC_API_BASE ?? '/api').replace(/\/$/, '')
