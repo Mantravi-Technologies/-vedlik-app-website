@@ -62,20 +62,51 @@ function escapeXml(value) {
     .replaceAll("'", '&apos;')
 }
 
+function sameSiteHostname(url, siteBase) {
+  const a = url.hostname.replace(/^www\./i, '').toLowerCase()
+  const b = new URL(siteBase).hostname.replace(/^www\./i, '').toLowerCase()
+  return a === b
+}
+
+/** API rows may use `loc`, `url`, or `canonicalUrl`; hosts may use `www.` — output always uses SITE_URL origin. */
 function normalizeSitemapLoc(rawLoc) {
   if (typeof rawLoc !== 'string' || rawLoc.length === 0) return null
   try {
     const url = rawLoc.startsWith('/')
       ? new URL(rawLoc, SITE_URL)
       : new URL(rawLoc)
-    if (url.origin !== new URL(SITE_URL).origin) return null
-    if (url.pathname.startsWith('/article/')) {
-      url.pathname = url.pathname.replace(/^\/article\//, '/signal/')
+    if (!sameSiteHostname(url, SITE_URL)) return null
+    let path = url.pathname
+    if (path.startsWith('/article/')) {
+      path = path.replace(/^\/article\//, '/signal/')
     }
-    return url.toString()
+    const out = new URL(path + url.search + url.hash, SITE_URL)
+    return out.toString()
   } catch {
     return null
   }
+}
+
+function pickLocFromItem(item) {
+  if (!item || typeof item !== 'object') return null
+  const o = item
+  const a = o.loc
+  if (typeof a === 'string' && a.trim()) return a.trim()
+  const b = o.canonicalUrl ?? o.canonical_url
+  if (typeof b === 'string' && b.trim()) return b.trim()
+  const c = o.url
+  if (typeof c === 'string' && c.trim()) return c.trim()
+  return null
+}
+
+/** Sitemap API often puts the *source* URL in `loc`; crawlers need our on-site Signal URL. */
+function vedlikSignalLocFromItem(item) {
+  if (!item || typeof item !== 'object') return null
+  const slug = typeof item.slug === 'string' && item.slug.trim() ? item.slug.trim() : null
+  const id = typeof item.id === 'string' && item.id.trim() ? item.id.trim() : null
+  const seg = slug ?? id
+  if (!seg) return null
+  return `${SITE_URL}/signal/${encodeURIComponent(seg)}`
 }
 
 function buildUrlsetXml(urls) {
@@ -116,7 +147,10 @@ async function fetchArticleSitemapEntries() {
     const payload = await response.json()
     const items = Array.isArray(payload.items) ? payload.items : []
     for (const item of items) {
-      const loc = normalizeSitemapLoc(item?.loc)
+      const onSite = vedlikSignalLocFromItem(item)
+      const loc =
+        (onSite && normalizeSitemapLoc(onSite)) ??
+        normalizeSitemapLoc(pickLocFromItem(item))
       if (!loc) continue
       const existing = unique.get(loc)
       const candidate = {
@@ -136,7 +170,9 @@ async function fetchArticleSitemapEntries() {
     page += 1
     const nextCursor = payload.nextCursor ?? null
     const hasMore = Boolean(payload.hasMore && nextCursor)
-    console.log(`Fetched sitemap page ${page}: ${items.length} items`)
+    console.log(
+      `Fetched sitemap page ${page}: ${items.length} items (${unique.size} Vedlik /signal URLs after dedupe so far)`,
+    )
     if (!hasMore) break
     cursor = nextCursor
   }

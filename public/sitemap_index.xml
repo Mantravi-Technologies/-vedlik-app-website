@@ -2,10 +2,14 @@
 <sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <sitemap>
     <loc>https://vedlik.com/sitemap-static.xml</loc>
-    <lastmod>2026-04-30T21:08:01.407Z</lastmod>
+    <lastmod>2026-04-30T21:22:49.988Z</lastmod>
   </sitemap>
   <sitemap>
     <loc>https://vedlik.com/sitemaps/sitemap-latest.xml</loc>
-    <lastmod>2026-04-30T21:08:01.407Z</lastmod>
+    <lastmod>2026-04-30T15:51:25.201Z</lastmod>
+  </sitemap>
+  <sitemap>
+    <loc>https://vedlik.com/sitemaps/sitemap-articles-1.xml</loc>
+    <lastmod>2026-04-30T15:51:25.201Z</lastmod>
   </sitemap>
 </sitemapindex>

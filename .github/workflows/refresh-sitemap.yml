@@ -3,6 +3,12 @@
 # Schedule: cron is UTC-only (20:30 UTC daily). Scheduled runs use the workflow file only on the
 # repository DEFAULT branch — merge this file to `main` before expecting automatic runs.
 #
+# If "Open PR" fails with: GitHub Actions is not permitted to create or approve pull requests:
+#   Option A — Repo → Settings → Actions → General → Workflow permissions → enable
+#   "Read and write permissions" AND check "Allow GitHub Actions to create and approve pull requests".
+#   Option B — Add repo secret TOKEN: a GitHub PAT (classic: `repo` scope, or fine-grained: contents+pull
+#   requests write on this repo). The step below uses TOKEN when set, else `github.token`.
+#
 # Repo secrets (optional WEB_API_SECRET if your sitemap API requires x-web-api-secret):
 # - WEB_API_UPSTREAM — Cloud Functions HTTPS origin (with or without `/webApi`; the script normalizes like api/*.ts).
 name: Refresh sitemaps
@@ -45,6 +51,7 @@ jobs:
       - name: Open PR if files changed
         uses: peter-evans/create-pull-request@v6
         with:
+          token: ${{ secrets.TOKEN != '' && secrets.TOKEN || github.token }}
           commit-message: 'chore: refresh sitemaps from API'
           title: 'chore: refresh sitemaps (automated)'
           body: |
