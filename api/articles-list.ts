@@ -44,6 +44,8 @@ async function forwardUpstreamGet(
     const ct = r.headers.get('content-type')
     if (ct) res.setHeader('content-type', ct)
     res.setHeader('cache-control', cacheControl)
+    res.setHeader('cdn-cache-control', 'private, no-store')
+    res.setHeader('vercel-cdn-cache-control', 'private, no-store')
     res.status(r.status).send(body)
   } catch (err) {
     console.error(`[${logLabel}] upstream:`, err)
