@@ -58,6 +58,157 @@ export type ListArticlesResponse = {
   items: WebArticleSummary[]
   nextCursor: string | null
   hasMore: boolean
+  /** Some APIs return the deep-linked row alongside `items` instead of reordering `items`. */
+  leadStory?: WebArticleSummary
+}
+
+function pickStr(o: Record<string, unknown>, keys: string[]): string | undefined {
+  for (const k of keys) {
+    const v = o[k]
+    if (typeof v === 'string' && v.trim()) return v.trim()
+  }
+  return undefined
+}
+
+/** Map mixed API shapes (camelCase, snake_case, nested ids) into `WebArticleSummary` for stable UI matching. */
+export function normalizeArticleSummaryFromApi(raw: unknown): WebArticleSummary {
+  if (!raw || typeof raw !== 'object' || Array.isArray(raw)) {
+    return {
+      id: 'unknown',
+      title: 'Untitled',
+      publishedAt: new Date(0).toISOString(),
+    }
+  }
+  const o = raw as Record<string, unknown>
+  if (o.article && typeof o.article === 'object' && !Array.isArray(o.article)) {
+    return normalizeArticleSummaryFromApi(o.article)
+  }
+  if (o.data && typeof o.data === 'object' && !Array.isArray(o.data)) {
+    return normalizeArticleSummaryFromApi(o.data)
+  }
+
+  let slug = pickStr(o, ['slug', 'storySlug', 'story_slug', 'urlSlug', 'url_slug'])
+  const pathRaw = pickStr(o, ['path', 'webPath', 'pathname', 'signalPath', 'web_path'])
+  if (!slug && pathRaw && pathRaw.includes('/signal/')) {
+    try {
+      const seg = pathRaw.split('/signal/')[1]?.split('/')[0]?.split('?')[0]
+      if (seg) slug = decodeURIComponent(seg)
+    } catch {
+      /* ignore */
+    }
+  }
+
+  const id =
+    pickStr(o, ['id', '_id', 'articleId', 'article_id', 'firebaseId']) ?? slug ?? 'unknown'
+
+  const canonicalSlug = pickStr(o, ['canonicalSlug', 'canonical_slug', 'canonicalPath', 'canonical_path'])
+
+  const title = pickStr(o, ['title', 'headline', 'metaTitle']) ?? 'Untitled'
+  const publishedAt =
+    pickStr(o, ['publishedAt', 'published_at', 'createdAt', 'created_at']) ??
+    new Date(0).toISOString()
+
+  const imageUrl = pickStr(o, [
+    'imageUrl',
+    'image_url',
+    'coverImage',
+    'cover_image',
+    'heroImage',
+    'hero_image',
+    'thumbnailUrl',
+    'thumbnail_url',
+  ])
+
+  const whyItMattersPreview = Array.isArray(o.whyItMattersPreview)
+    ? (o.whyItMattersPreview as string[])
+    : Array.isArray(o.why_it_matters_preview)
+      ? (o.why_it_matters_preview as string[])
+      : undefined
+  const whyItMatters = Array.isArray(o.whyItMatters)
+    ? (o.whyItMatters as string[])
+    : Array.isArray(o.why_it_matters)
+      ? (o.why_it_matters as string[])
+      : undefined
+
+  const disruptionScore =
+    (typeof o.disruptionScore === 'number' || typeof o.disruptionScore === 'string'
+      ? o.disruptionScore
+      : undefined) ??
+    (typeof o.disruption_score === 'number' || typeof o.disruption_score === 'string'
+      ? o.disruption_score
+      : undefined)
+
+  const seo =
+    o.seo && typeof o.seo === 'object' && !Array.isArray(o.seo)
+      ? (o.seo as WebArticleSummary['seo'])
+      : undefined
+
+  return {
+    id,
+    slug,
+    canonicalSlug,
+    title,
+    imageUrl,
+    articleUrl:
+      pickStr(o, ['articleUrl', 'article_url', 'canonicalSourceUrl', 'canonical_source_url']) ??
+      undefined,
+    author: pickStr(o, ['author', 'authorName', 'author_name']),
+    uiCategory:
+      pickStr(o, ['uiCategory', 'ui_category', 'categoryLabel', 'category_label']) ?? undefined,
+    source: pickStr(o, ['source', 'publisher', 'publisherName']),
+    category: pickStr(o, ['category', 'segment']) ?? undefined,
+    topicSlugs: Array.isArray(o.topicSlugs)
+      ? (o.topicSlugs as string[])
+      : Array.isArray(o.topic_slugs)
+        ? (o.topic_slugs as string[])
+        : undefined,
+    whyItMattersPreview,
+    whyItMatters,
+    publishedAt,
+    disruptionScore,
+    canonicalUrl: pickStr(o, ['canonicalUrl', 'canonical_url']),
+    seo,
+  }
+}
+
+const OPTIONAL_LEAD_KEYS = [
+  'anchor',
+  'anchorItem',
+  'anchorStory',
+  'pinnedItem',
+  'pinned',
+  'pinnedStory',
+  'lead',
+  'leadItem',
+  'targetItem',
+  'highlightedItem',
+  'focusedItem',
+  'focusedStory',
+  'include',
+  'included',
+  'includedItem',
+  'includedStory',
+  'included_item',
+  'included_story',
+]
+
+function extractLeadStory(data: Record<string, unknown>): WebArticleSummary | undefined {
+  for (const key of OPTIONAL_LEAD_KEYS) {
+    const v = data[key]
+    if (v && typeof v === 'object' && !Array.isArray(v)) {
+      const n = normalizeArticleSummaryFromApi(v)
+      if (n.id !== 'unknown' || n.slug) return n
+    }
+    if (Array.isArray(v)) {
+      for (const el of v) {
+        if (el && typeof el === 'object' && !Array.isArray(el)) {
+          const n = normalizeArticleSummaryFromApi(el)
+          if (n.id !== 'unknown' || n.slug) return n
+        }
+      }
+    }
+  }
+  return undefined
 }
 
 function jsonContentType(response: Response): boolean {
@@ -84,8 +235,8 @@ export async function listCategories(): Promise<WebCategory[]> {
 }
 
 /**
- * Feed list. Proxied as `GET /api/v1/articles?…` (Vite + Vercel) → upstream `GET …/webApi/v1/web/articles?…`.
- * Send `anchorSlug` only on the first page (omit when `cursor` is set).
+ * Feed list. Proxied as `GET /api/v1/articles?…` → upstream `…/articles?…`.
+ * On the first page only, pass pinned story keys; omit whenever `cursor` is set.
  */
 export async function listArticles(params: {
   limit?: number
@@ -93,7 +244,7 @@ export async function listArticles(params: {
   uiCategory?: string
   sort?: string
   topic?: string
-  /** First page only: pins matching story for shared `/signal/:slug` opens. */
+  /** First-page deep link key (pathname segment); sent as `anchorSlug` (Firebase webApi contract). */
   anchorSlug?: string
 }): Promise<ListArticlesResponse> {
   const query = new URLSearchParams()
@@ -109,21 +260,38 @@ export async function listArticles(params: {
   if (!response.ok) throw new Error('Unable to load articles')
   if (!jsonContentType(response)) throw new Error('Unable to load articles')
   const data = (await response.json()) as Record<string, unknown>
-  const items = Array.isArray(data.items) ? (data.items as WebArticleSummary[]) : []
+  const rawItems = Array.isArray(data.items) ? data.items : []
+  const items = rawItems.map((row) => normalizeArticleSummaryFromApi(row))
+  const leadStory = extractLeadStory(data)
+
   return {
     items,
     nextCursor: typeof data.nextCursor === 'string' ? data.nextCursor : null,
     hasMore: Boolean(data.hasMore),
+    ...(leadStory ? { leadStory } : {}),
   }
 }
 
-/** Direct article lookup — use only as fallback when list + `anchorSlug` did not surface the row. */
-export async function getArticleByIdOrSlug(idOrSlug: string): Promise<WebArticleDetail> {
-  const response = await fetch(`/api/v1/articles/${encodeURIComponent(idOrSlug)}`)
+/** Direct lookup when the list endpoint did not return the keyed story on the first page. */
+export async function getArticleByIdOrSlug(
+  idOrSlug: string,
+  options?: { signal?: AbortSignal },
+): Promise<WebArticleDetail> {
+  const response = await fetch(`/api/v1/articles/${encodeURIComponent(idOrSlug)}`, {
+    signal: options?.signal,
+  })
   if (!response.ok) {
     if (response.status === 404) throw new Error('not_found')
     throw new Error('Unable to load article')
   }
   if (!jsonContentType(response)) throw new Error('Unable to load article')
-  return (await response.json()) as WebArticleDetail
+  const raw = await response.json()
+  if (!raw || typeof raw !== 'object' || Array.isArray(raw)) {
+    throw new Error('Unable to load article')
+  }
+  const r = raw as Record<string, unknown>
+  return {
+    ...(r as unknown as WebArticleDetail),
+    ...normalizeArticleSummaryFromApi(r),
+  } as WebArticleDetail
 }

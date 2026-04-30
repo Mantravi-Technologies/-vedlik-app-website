@@ -95,7 +95,7 @@ function VedlikWordmarkLink({ theme, className }: { theme: 'dark' | 'light'; cla
     theme === 'dark' ? '/brand/vedlik-wordmark-dark.png' : '/brand/vedlik-wordmark-light.png'
   return (
     <a
-      href="/web"
+      href="/"
       className={`inline-flex min-w-0 shrink-0 items-center ${className ?? ''}`}
       aria-label="Vedlik home"
     >
@@ -217,6 +217,24 @@ function articleListParamsFromCategorySelection(
   return {
     uiCategory,
     ...(sort ? { sort } : {}),
+  }
+}
+
+/**
+ * When Browse · All loads before `listCategories()` has hydrated, `articleListParamsFromCategorySelection`
+ * returns `{}`; the list API still needs `uiCategory` + `sort`. Defaults match the anchored share path.
+ */
+function listQueryForActiveCategory(
+  topicSlug: string | undefined,
+  categories: WebCategory[],
+  activeSlug: string,
+): { uiCategory?: string; sort?: string; topic?: string } {
+  const parsed = articleListParamsFromCategorySelection(topicSlug, categories, activeSlug)
+  if (topicSlug || activeSlug !== 'all') return parsed
+  return {
+    ...parsed,
+    uiCategory: parsed.uiCategory ?? 'All',
+    sort: parsed.sort ?? 'feedRank',
   }
 }
 
@@ -792,15 +810,60 @@ function ArticleCard({
   )
 }
 
-/** Exact match for shared `/signal/:slug` URLs vs API `slug` / `canonicalSlug` / `id`. */
-function articleRowMatchesSignalUrl(
-  item: Pick<WebArticle, 'id' | 'slug' | 'canonicalSlug'>,
-  urlSignal: string,
+const foldSharedKey = (s: string) => s.trim().toLowerCase()
+
+/** Match URL pathname key to feed row (`id`, `slug`, `canonicalSlug`, URL fields) — exact, then ASCII case-fold. */
+function articleRowMatchesSharedKey(
+  item: Pick<WebArticle, 'id' | 'slug' | 'canonicalSlug' | 'canonicalUrl' | 'articleUrl'>,
+  pathnameKey: string,
 ): boolean {
-  if (item.id === urlSignal) return true
-  if (item.slug != null && item.slug !== '' && item.slug === urlSignal) return true
-  if (item.canonicalSlug != null && item.canonicalSlug !== '' && item.canonicalSlug === urlSignal) return true
+  const k = pathnameKey.trim()
+  if (k === '') return false
+
+  if (item.id === k) return true
+  if (item.slug != null && item.slug !== '' && item.slug === k) return true
+  if (item.canonicalSlug != null && item.canonicalSlug !== '' && item.canonicalSlug === k) return true
+
+  const fk = foldSharedKey(k)
+  if (foldSharedKey(item.id) === fk) return true
+  if (item.slug && foldSharedKey(item.slug) === fk) return true
+  if (item.canonicalSlug && foldSharedKey(item.canonicalSlug) === fk) return true
+
+  const url = item.canonicalUrl ?? item.articleUrl
+  if (typeof url === 'string' && url.includes('/signal/')) {
+    try {
+      const base =
+        typeof window !== 'undefined' ? window.location.origin : 'https://vedlik.com'
+      const path = new URL(url, base).pathname
+      const seg = path.match(/\/signal\/([^/]+)/)?.[1]
+      if (seg) {
+        if (seg === k || foldSharedKey(seg) === fk) return true
+        try {
+          if (decodeURIComponent(seg) === k || foldSharedKey(decodeURIComponent(seg)) === fk)
+            return true
+        } catch {
+          /* ignore */
+        }
+      }
+    } catch {
+      /* ignore invalid URL */
+    }
+  }
+
   return false
+}
+
+/** Dev-only: confirms `items[0]` resolved to the share URL segment after client reorder/hydrate. */
+function assertAnchoredFeedHeadOrDevWarn(rows: WebArticle[], urlSegment: string): void {
+  if (!import.meta.env.DEV || rows.length === 0) return
+  if (articleRowMatchesSharedKey(rows[0], urlSegment)) return
+  console.warn(
+    '[vedlik-feed] Anchored landing: first row does not match URL segment (check Firestore slug vs share link, or list filters).',
+    {
+      urlSegment,
+      head: { slug: rows[0].slug, canonicalSlug: rows[0].canonicalSlug, id: rows[0].id },
+    },
+  )
 }
 
 function mapArticle(item: WebArticleSummary): WebArticle {
@@ -850,9 +913,14 @@ export default function WebHomePage({
   const categoryScrollReadyRef = useRef(false)
   /** Avoid re-running deep-link scroll on every append (e.g. Load more). */
   const didScrollToDeepLinkRef = useRef<string | null>(null)
+  /** Keeps catalogue rows readable without listing `categories` in the feed effect deps (avoids duplicate page-1 fetches). */
+  const categoriesRef = useRef<WebCategory[]>(categories)
+  categoriesRef.current = categories
 
   const hasArticles = useMemo(() => articles.length > 0, [articles.length])
-  const awaitingCategoriesForFeed = !topicSlug && categories.length === 0
+  /** Chips for non–Browse-All tabs; never block the shimmer on `/categories` while on “All”. */
+  const awaitingCategoriesForFeed =
+    !topicSlug && categories.length === 0 && activeCategory !== 'all'
   const showFeedSkeleton = useMemo(
     () =>
       articles.length === 0 &&
@@ -898,6 +966,14 @@ export default function WebHomePage({
     setInitialSeekDone(false)
   }, [initialSignalIdOrSlug])
 
+  /**
+   * Category tab changes imply a fresh page-1 fetch (cursor reset in loader) and must not reuse
+   * anchored-scroll bookkeeping from the “All + share slug” landing.
+   */
+  useEffect(() => {
+    didScrollToDeepLinkRef.current = null
+  }, [activeCategory])
+
   /** After choosing a homepage category, ease the viewport back to the feed start. */
   useEffect(() => {
     if (topicSlug) return
@@ -932,7 +1008,9 @@ export default function WebHomePage({
   }, [topicSlug])
 
   useEffect(() => {
-    if (!topicSlug && categories.length === 0) return
+    // Browse · All (and `/signal/:slug`) use fixed catalogue params — don’t block on `listCategories()`.
+    const browseAllBootstrap = !topicSlug && activeCategory === 'all'
+    if (!topicSlug && categories.length === 0 && !browseAllBootstrap) return
 
     let cancelled = false
 
@@ -941,53 +1019,90 @@ export default function WebHomePage({
       setFeedReady(false)
       setFeedError(null)
       try {
-        const params = articleListParamsFromCategorySelection(
-          topicSlug,
-          categories,
-          activeCategory,
-        )
+        const cats = categoriesRef.current
+        const params = listQueryForActiveCategory(topicSlug, cats, activeCategory)
 
+        /**
+         * Share landing: anchored first page — same catalogue row as Browse · All (`listCategories`).
+         * No `intent` query param unless share URLs deliberately encode persona.
+         */
         if (initialSignalIdOrSlug && !topicSlug && activeCategory === 'all') {
           const urlSlug = initialSignalIdOrSlug
+          const catalogueParams = listQueryForActiveCategory(topicSlug, cats, 'all')
+          const detailAbort = new AbortController()
+          const detailPromise = getArticleByIdOrSlug(urlSlug, { signal: detailAbort.signal }).catch(
+            () => null,
+          )
+
           const listPayload = await listArticles({
             limit: 20,
-            uiCategory: 'All',
-            sort: 'feedRank',
+            ...catalogueParams,
             anchorSlug: urlSlug,
           })
-          if (cancelled) return
+          if (cancelled) {
+            detailAbort.abort()
+            return
+          }
 
           let fromList = listPayload.items.map(mapArticle)
 
-          const firstMatches = fromList.length > 0 && articleRowMatchesSignalUrl(fromList[0], urlSlug)
-          const matchIdx = fromList.findIndex((a) => articleRowMatchesSignalUrl(a, urlSlug))
+          if (listPayload.leadStory) {
+            const lead = mapArticle(listPayload.leadStory)
+            if (articleRowMatchesSharedKey(lead, urlSlug)) {
+              fromList = [
+                lead,
+                ...fromList.filter(
+                  (a) => a.id !== lead.id && !articleRowMatchesSharedKey(a, urlSlug),
+                ),
+              ]
+            }
+          }
+
+          const firstMatches = fromList.length > 0 && articleRowMatchesSharedKey(fromList[0], urlSlug)
+          const matchIdx = fromList.findIndex((a) => articleRowMatchesSharedKey(a, urlSlug))
+
+          const commitAnchoredLanding = (
+            rows: WebArticle[],
+            cursor: string | null,
+            seekResolved: boolean,
+          ) => {
+            assertAnchoredFeedHeadOrDevWarn(rows, urlSlug)
+            setArticles(rows)
+            setNextCursor(cursor)
+            setInitialSeekDone(seekResolved)
+          }
 
           if (firstMatches) {
-            setArticles(fromList)
-            setNextCursor(listPayload.nextCursor)
-            setInitialSeekDone(true)
+            detailAbort.abort()
+            commitAnchoredLanding(fromList, listPayload.nextCursor, true)
           } else if (matchIdx >= 0) {
+            detailAbort.abort()
             const hit = fromList[matchIdx]
             const rest = fromList.filter((_, i) => i !== matchIdx)
-            setArticles([hit, ...rest])
-            setNextCursor(listPayload.nextCursor)
-            setInitialSeekDone(true)
+            commitAnchoredLanding([hit, ...rest], listPayload.nextCursor, true)
           } else {
             try {
-              const detail = await getArticleByIdOrSlug(urlSlug)
+              const detail = await detailPromise
               if (cancelled) return
-              const pin = mapArticle(detail as WebArticleSummary)
-              const pinId = pin.id
-              const deduped = fromList.filter(
-                (a) => a.id !== pinId && !articleRowMatchesSignalUrl(a, urlSlug),
-              )
-              setArticles([pin, ...deduped])
-              setNextCursor(listPayload.nextCursor)
-              setInitialSeekDone(true)
+              if (detail && typeof detail === 'object' && 'id' in detail) {
+                const pin = mapArticle(detail as WebArticleSummary)
+                const pinId = pin.id
+                const deduped = fromList.filter(
+                  (a) => a.id !== pinId && !articleRowMatchesSharedKey(a, urlSlug),
+                )
+                commitAnchoredLanding([pin, ...deduped], listPayload.nextCursor, true)
+              } else {
+                assertAnchoredFeedHeadOrDevWarn(fromList, urlSlug)
+                setArticles(fromList)
+                setNextCursor(listPayload.nextCursor)
+                setInitialSeekDone(true)
+              }
             } catch {
+              assertAnchoredFeedHeadOrDevWarn(fromList, urlSlug)
               setArticles(fromList)
               setNextCursor(listPayload.nextCursor)
-              setInitialSeekDone(false)
+              /** Never paginate client-side to “find” the slug — that burns O(n) requests on deep items. */
+              setInitialSeekDone(true)
             }
           }
         } else {
@@ -1000,7 +1115,8 @@ export default function WebHomePage({
           setArticles(mapped)
           setNextCursor(payload.nextCursor)
           if (initialSignalIdOrSlug && !topicSlug) {
-            setInitialSeekDone(false)
+            /** Non–Browse-All: no `anchorSlug`; still finish “landing” without cursor-chaining. */
+            setInitialSeekDone(true)
           }
         }
       } catch {
@@ -1025,17 +1141,20 @@ export default function WebHomePage({
     return () => {
       cancelled = true
     }
-  }, [activeCategory, topicSlug, categories, feedReloadKey, initialSignalIdOrSlug])
+    // Omit `categories` from deps intentionally: Browse · All first paint uses refs + fixed fallbacks so
+    // `/categories` returning does not re-fetch the feed (would duplicate Firebase work).
+  }, [activeCategory, topicSlug, feedReloadKey, initialSignalIdOrSlug])
 
-  const loadMore = async () => {
+  const loadMore = useCallback(async (): Promise<void> => {
     if (!nextCursor || loading) return
     setLoading(true)
     setFeedError(null)
     try {
+      // Continuation page: cursor only — never resend `anchorSlug` on paginated fetches.
       const payload = await listArticles({
         limit: 20,
         cursor: nextCursor,
-        ...articleListParamsFromCategorySelection(topicSlug, categories, activeCategory),
+        ...listQueryForActiveCategory(topicSlug, categories, activeCategory),
       })
       const mapped = payload.items.map(mapArticle)
       setArticles((current) => [...current, ...mapped])
@@ -1049,7 +1168,7 @@ export default function WebHomePage({
     } finally {
       setLoading(false)
     }
-  }
+  }, [nextCursor, loading, topicSlug, categories, activeCategory])
 
   const retryInitialFeed = useCallback(() => {
     setFeedError(null)
@@ -1064,33 +1183,37 @@ export default function WebHomePage({
     }
   }
 
+  /**
+   * After the anchored row is committed, bring it into view (fixed header + `scroll-margin-top`).
+   */
   useEffect(() => {
-    if (topicSlug || !initialSignalIdOrSlug || initialSeekDone || loading) return
+    if (!initialSignalIdOrSlug || !initialSeekDone || topicSlug || loading) return
     const urlSlug = initialSignalIdOrSlug
-    const found = articles.some((item) => articleRowMatchesSignalUrl(item, urlSlug))
-    if (found) {
-      setInitialSeekDone(true)
-      return
-    }
-    if (nextCursor) {
-      void loadMore()
-      return
-    }
-    setInitialSeekDone(true)
-  }, [articles, initialSeekDone, initialSignalIdOrSlug, loading, nextCursor, topicSlug])
+    if (didScrollToDeepLinkRef.current === urlSlug) return
 
-  useEffect(() => {
-    if (!initialSignalIdOrSlug || !initialSeekDone) return
-    if (didScrollToDeepLinkRef.current === initialSignalIdOrSlug) return
-    const urlSlug = initialSignalIdOrSlug
-    const target = articles.find((item) => articleRowMatchesSignalUrl(item, urlSlug))
-    if (!target) return
-    const key = target.slug ?? target.id
-    if (!cardElementsRef.current.get(key)) return
-    window.scrollTo({ top: 0, behavior: 'auto' })
-    setPathIfChanged(`/signal/${key}`)
-    didScrollToDeepLinkRef.current = initialSignalIdOrSlug
-  }, [articles, initialSeekDone, initialSignalIdOrSlug])
+    const idx = articles.findIndex((item) => articleRowMatchesSharedKey(item, urlSlug))
+    if (idx < 0) return
+
+    let attempts = 0
+    const run = () => {
+      attempts++
+      const el = document.querySelector<HTMLElement>(`[data-feed-index="${idx}"]`)
+      if (!el && attempts < 24) {
+        requestAnimationFrame(run)
+        return
+      }
+      if (!el) return
+      el.scrollIntoView({ behavior: 'auto', block: 'start' })
+      const synced = articles[idx]
+      if (synced)
+        setPathIfChanged(`/signal/${encodeURIComponent(synced.slug ?? synced.id)}`)
+      didScrollToDeepLinkRef.current = urlSlug
+    }
+
+    requestAnimationFrame(() => {
+      requestAnimationFrame(run)
+    })
+  }, [articles, initialSeekDone, initialSignalIdOrSlug, loading, topicSlug])
 
   useEffect(() => {
     if (articles.length === 0) return
@@ -1147,9 +1270,11 @@ export default function WebHomePage({
     const path = getPathname()
     const canonicalUrl = topicSlug
       ? `${SITE_URL}/topic/${topicSlug}`
-      : path === '/signal' || path === '/web'
-        ? `${SITE_URL}${path}`
-        : `${SITE_URL}/web`
+      : path === '/' || path === '/signal' || path === '/web'
+        ? `${SITE_URL}${path === '/' ? '' : path}`
+        : path.startsWith('/signal/')
+          ? `${SITE_URL}${path}`
+          : `${SITE_URL}/`
     applyPageSeo({ title, description, canonicalUrl })
   }, [topicSlug])
 
@@ -1273,10 +1398,11 @@ export default function WebHomePage({
         >
           {showFeedSkeleton
             ? Array.from({ length: 5 }, (_, i) => <ArticleCardSkeleton key={`feed-skel-${i}`} />)
-            : articles.map((article) => (
+            : articles.map((article, feedIndex) => (
                 <div
                   key={article.id}
-                  className="scroll-mt-[7.5rem] md:scroll-mt-[8rem]"
+                  data-feed-index={feedIndex}
+                  className="scroll-mt-[7.5rem] md:scroll-mt-[8rem] rounded-2xl"
                   ref={(node) => {
                     const key = article.slug ?? article.id
                     if (node) {

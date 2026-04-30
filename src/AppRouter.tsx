@@ -337,11 +337,14 @@ export default function AppRouter() {
 
   useEffect(() => {
     const isAppPath = pathname === '/app'
-    const isWebFeedPath = pathname === '/web' || pathname === '/signal'
+    const isHomeFeedPath = pathname === '/'
+    const isWebFeedPath = isHomeFeedPath || pathname === '/web' || pathname === '/signal'
     const isSignalPath = Boolean(signalIdOrSlug)
     const isTopicPath = Boolean(topicSlug)
     const title = isAppPath
       ? 'Download Vedlik — App Store & Google Play'
+      : isHomeFeedPath
+        ? HOME_TITLE
       : isWebFeedPath
         ? 'Vedlik Web — mSite + Desktop Preview'
       : isSignalPath
@@ -354,7 +357,9 @@ export default function AppRouter() {
     const description = isAppPath
       ? 'Download Vedlik for iOS or Android — AI, tech, and startup briefs in one app.'
       : isWebFeedPath
-        ? 'Vedlik web experience preview for mobile web and desktop with why-it-matters first cards.'
+        ? isHomeFeedPath
+          ? HOME_DESCRIPTION
+          : 'Vedlik web experience preview for mobile web and desktop with why-it-matters first cards.'
       : isSignalPath
         ? 'Read the latest Vedlik signal with why-it-matters context.'
       : isTopicPath
@@ -378,6 +383,16 @@ export default function AppRouter() {
     return <DeepLinkDocumentReload target="/app" />
   }
 
+  /** Primary feed surface (aligned with `/web`, `/signal`, `/signal/<slug>` share landings). */
+  if (pathname === '/') {
+    return <WebHomePage />
+  }
+
+  /** Legacy marketing / motion demo retained at `/showcase`; main site home is `/`. */
+  if (pathname === '/showcase') {
+    return <VedlikShowcase />
+  }
+
   /** `/signal` (no slug): same Signals feed as `/web`; `/signal/<slug>` matched below */
   if (pathname === '/web' || pathname === '/signal') {
     return <WebHomePage />
@@ -392,7 +407,7 @@ export default function AppRouter() {
   }
 
   if (!route) {
-    return <VedlikShowcase />
+    return <WebHomePage />
   }
 
   return (
