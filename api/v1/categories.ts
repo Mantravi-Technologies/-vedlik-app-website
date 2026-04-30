@@ -1,3 +1,3 @@
-import handler from '../../server/webApi/categories'
+import handler from '../_proxy/categories'
 
 export default handler

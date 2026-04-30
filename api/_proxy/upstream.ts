@@ -1,3 +1,7 @@
+/**
+ * Shared Firebase webApi forwarder. Lives under `api/_proxy/` so Vercel bundles it with route
+ * entrypoints; leading `_` excludes this path from becoming its own HTTP route.
+ */
 import type { VercelRequest, VercelResponse } from '@vercel/node'
 
 export function webApiUpstreamRoot(raw: string): string {

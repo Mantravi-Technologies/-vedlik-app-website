@@ -1,4 +1,4 @@
-/** Vercel route only — implementation lives outside `api/` (see server/webApi/). */
-import handler from '../server/webApi/categories'
+/** Route entry — logic in `api/_proxy/` (bundled together on Vercel). */
+import handler from './_proxy/categories'
 
 export default handler

@@ -1,4 +1,3 @@
-/** Vercel route only — implementation in server/webApi/. */
-import handler from '../server/webApi/articlesList'
+import handler from './_proxy/articlesList'
 
 export default handler
