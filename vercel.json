@@ -2,9 +2,6 @@
   "framework": "vite",
   "buildCommand": "npm run build",
   "outputDirectory": "dist",
-  "functions": {
-    "api/**/*.ts": { "maxDuration": 30 }
-  },
   "redirects": [
     {
       "source": "/api/categories",

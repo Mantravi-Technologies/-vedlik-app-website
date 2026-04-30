@@ -1,4 +1,4 @@
-/**
- * **`GET /api/v1/articles/:slug`** — Vercel sets `req.query.slug`; `article-detail` reads it.
- */
-export { default } from '../../article-detail'
+/** GET /api/v1/articles/:slug */
+import handler from '../../handlers/articleDetail'
+
+export default handler

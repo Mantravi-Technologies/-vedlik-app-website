@@ -1,5 +1,4 @@
-/**
- * Served at **`/api/v1/categories`** (no rewrite).
- * Thin re-export — Vite + older Vercel builds were not resolving rewritten `/api/categories`.
- */
-export { default } from '../categories'
+/** GET /api/v1/categories — public route (explicit handler import for stable Vercel bundling). */
+import handler from '../handlers/categories'
+
+export default handler
