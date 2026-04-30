@@ -337,36 +337,36 @@ export default function AppRouter() {
 
   useEffect(() => {
     const isAppPath = pathname === '/app'
-    const isHomeFeedPath = pathname === '/'
-    const isWebFeedPath = isHomeFeedPath || pathname === '/web' || pathname === '/signal'
-    const isSignalPath = Boolean(signalIdOrSlug)
+    const isMarketingHome = pathname === '/' || pathname === '/showcase'
+    const isWebFeedBase = pathname === '/web' || pathname === '/signal'
+    const isSignalSlugPath = Boolean(signalIdOrSlug)
     const isTopicPath = Boolean(topicSlug)
     const title = isAppPath
       ? 'Download Vedlik — App Store & Google Play'
-      : isHomeFeedPath
+      : isMarketingHome
         ? HOME_TITLE
-      : isWebFeedPath
-        ? 'Vedlik Web — mSite + Desktop Preview'
-      : isSignalPath
-        ? 'Vedlik Signal | Vedlik'
-      : isTopicPath
-        ? 'Vedlik Topic | Vedlik'
-      : route
-        ? `${route.title} | Vedlik`
-        : HOME_TITLE
+        : isWebFeedBase
+          ? 'Vedlik Web — mSite + Desktop Preview'
+          : isSignalSlugPath
+            ? 'Vedlik Signal | Vedlik'
+            : isTopicPath
+              ? 'Vedlik Topic | Vedlik'
+              : route
+                ? `${route.title} | Vedlik`
+                : HOME_TITLE
     const description = isAppPath
       ? 'Download Vedlik for iOS or Android — AI, tech, and startup briefs in one app.'
-      : isWebFeedPath
-        ? isHomeFeedPath
-          ? HOME_DESCRIPTION
-          : 'Vedlik web experience preview for mobile web and desktop with why-it-matters first cards.'
-      : isSignalPath
-        ? 'Read the latest Vedlik signal with why-it-matters context.'
-      : isTopicPath
-        ? 'Read stories by topic on Vedlik.'
-      : route
-        ? route.description
-        : HOME_DESCRIPTION
+      : isMarketingHome
+        ? HOME_DESCRIPTION
+        : isWebFeedBase
+          ? 'Vedlik web experience preview for mobile web and desktop with why-it-matters first cards.'
+          : isSignalSlugPath
+            ? 'Read the latest Vedlik signal with why-it-matters context.'
+            : isTopicPath
+              ? 'Read stories by topic on Vedlik.'
+              : route
+                ? route.description
+                : HOME_DESCRIPTION
     const url = `${SITE_URL}${pathname === '/' ? '' : pathname}`
 
     document.title = title
@@ -383,13 +383,8 @@ export default function AppRouter() {
     return <DeepLinkDocumentReload target="/app" />
   }
 
-  /** Primary feed surface (aligned with `/web`, `/signal`, `/signal/<slug>` share landings). */
-  if (pathname === '/') {
-    return <WebHomePage />
-  }
-
-  /** Legacy marketing / motion demo retained at `/showcase`; main site home is `/`. */
-  if (pathname === '/showcase') {
+  /** Marketing home (overview, FAQ, waitlist). Signals feed lives under `/web`, `/signal`, and `/signal/:slug`. */
+  if (pathname === '/' || pathname === '/showcase') {
     return <VedlikShowcase />
   }
 
@@ -407,7 +402,7 @@ export default function AppRouter() {
   }
 
   if (!route) {
-    return <WebHomePage />
+    return <VedlikShowcase />
   }
 
   return (

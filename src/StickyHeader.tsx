@@ -2,8 +2,10 @@
 
 import { useState, useRef, useLayoutEffect, useEffect, useCallback } from 'react'
 import gsap from 'gsap'
+import { spaNavigateTo } from './spaNavigation'
 
 const TEAL = '#2DD4BF'
+const BLOG_URL = 'https://blog.vedlik.com'
 
 const TABS = ['Overview', 'Why Vedlik', 'Features', 'Under The Hood', 'FAQ']
 /** Tab index → full-page section index (0 = hero … 4 = FAQ + footer) */
@@ -123,10 +125,13 @@ export default function StickyHeader() {
             draggable={false}
           />
         </a>
-        <nav className="hidden md:flex flex-1 min-w-0 justify-end overflow-hidden py-2">
+        <nav
+          className="hidden md:flex flex-1 min-w-0 items-center justify-end gap-5 overflow-hidden py-2"
+          aria-label="Primary"
+        >
           <div
             ref={navTrackRef}
-            className="relative w-full flex items-center justify-end gap-2 sm:gap-4 md:gap-8 px-1 sm:px-2 md:min-w-max"
+            className="relative flex min-w-0 flex-1 items-center justify-end gap-2 sm:gap-4 md:gap-8 px-1 sm:px-2 md:min-w-max"
           >
             {TABS.map((label, i) => (
               <button
@@ -147,6 +152,23 @@ export default function StickyHeader() {
               className="absolute bottom-0 h-0.5 rounded-full pointer-events-none"
               style={{ backgroundColor: TEAL }}
             />
+          </div>
+          <div className="flex shrink-0 items-center gap-2">
+            <button
+              type="button"
+              onClick={() => spaNavigateTo('/signal')}
+              className="rounded-md border border-[#2DD4BF] px-3 py-1.5 text-xs font-semibold text-[#2DD4BF] transition-colors hover:bg-[#2DD4BF]/10 md:px-4 md:py-2 md:text-sm"
+            >
+              Read Now
+            </button>
+            <a
+              href={BLOG_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="rounded-md border border-white/[0.22] px-3 py-1.5 text-xs font-semibold text-white/90 transition-colors hover:bg-white/[0.06] md:px-4 md:py-2 md:text-sm"
+            >
+              Blog
+            </a>
           </div>
         </nav>
         <div className="flex-1 min-w-0 md:hidden" aria-hidden />
@@ -183,6 +205,27 @@ export default function StickyHeader() {
               >
                 ×
               </button>
+            </div>
+            <div className="mt-5 flex flex-col gap-2">
+              <button
+                type="button"
+                onClick={() => {
+                  spaNavigateTo('/signal')
+                  setIsMobileMenuOpen(false)
+                }}
+                className="flex w-full items-center justify-center rounded-md border border-[#2DD4BF] px-4 py-2.5 text-sm font-semibold text-[#2DD4BF] bg-white/[0.03]"
+              >
+                Read Now
+              </button>
+              <a
+                href={BLOG_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={() => setIsMobileMenuOpen(false)}
+                className="flex w-full items-center justify-center rounded-md border border-white/[0.22] px-4 py-2.5 text-sm font-semibold text-white/90"
+              >
+                Blog
+              </a>
             </div>
             <div className="mt-4 divide-y divide-white/[0.08] border-t border-b border-white/[0.08]">
               {TABS.map((label, i) => (

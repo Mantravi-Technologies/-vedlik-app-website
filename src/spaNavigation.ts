@@ -1,6 +1,7 @@
 /** Routes handled by client-side AppRouter (static hosts must still rewrite unknown paths to index.html). */
 export const SPA_ROUTE_PATHS = new Set([
   '/',
+  '/showcase',
   '/web',
   '/signal',
   '/app',

@@ -16,7 +16,7 @@ import {
   parseDisruptionScore,
   sanitizeWhyItMatters,
 } from './formatters'
-import { getPathname, spaNavigateTo } from '../spaNavigation'
+import { getPathname } from '../spaNavigation'
 
 const BRAND = '#20b2aa'
 /** Text on primary teal (matches “Install App” pill). */
@@ -24,7 +24,6 @@ const BRAND_ON = '#032a26'
 const APP_STORE_URL = 'https://apps.apple.com/in/app/vedlik-ai-tech-insights/id6761024663'
 const PLAY_STORE_URL = 'https://play.google.com/store/apps/details?id=com.mantravi.ai.briefing'
 const SITE_URL = 'https://vedlik.com'
-const BLOG_URL = 'https://blog.vedlik.com'
 const SURFACE_BASE = 'var(--vedlik-bg-base)'
 const SURFACE_RAISED = 'var(--vedlik-bg-surface-1)'
 const SURFACE_ELEVATED = 'var(--vedlik-bg-surface-2)'
@@ -476,29 +475,6 @@ function CategoryDrawer({
           </button>
         </div>
         <div className="flex-1 overflow-y-auto p-4">
-          <div className="mb-4 space-y-2 border-b pb-4" style={{ borderColor: BORDER }}>
-            <button
-              type="button"
-              onClick={() => {
-                spaNavigateTo('/signal')
-                onClose()
-              }}
-              className="flex w-full items-center justify-center rounded-full border px-4 py-2.5 text-sm font-semibold"
-              style={{ borderColor: BRAND, color: BRAND, backgroundColor: SURFACE_ELEVATED }}
-            >
-              Read Now
-            </button>
-            <a
-              href={BLOG_URL}
-              target="_blank"
-              rel="noopener noreferrer"
-              onClick={onClose}
-              className="flex w-full items-center justify-center rounded-lg border px-3 py-2.5 text-sm font-medium"
-              style={{ borderColor: BORDER, color: TEXT_PRIMARY, backgroundColor: SURFACE_ELEVATED }}
-            >
-              Blog
-            </a>
-          </div>
           <div className="space-y-2">
             {categories.map((category) => {
               const active = category.slug === activeSlug
@@ -510,15 +486,14 @@ function CategoryDrawer({
                     onSelect(category.slug)
                     onClose()
                   }}
-                  className="flex w-full items-center justify-between rounded-lg border px-3 py-2.5 text-left text-sm transition-colors duration-200 ease-out"
+                  className="flex w-full items-center rounded-lg border px-3 py-2.5 text-left text-sm transition-colors duration-200 ease-out"
                   style={{
                     color: active ? '#002f2b' : TEXT_PRIMARY,
                     borderColor: active ? BRAND : BORDER,
                     backgroundColor: active ? BRAND : SURFACE_ELEVATED,
                   }}
                 >
-                  <span>{category.label}</span>
-                  <span style={{ color: active ? 'rgba(0,47,43,0.9)' : TEXT_SECONDARY }}>{category.count}</span>
+                  {category.label}
                 </button>
               )
             })}
@@ -1384,25 +1359,6 @@ export default function WebHomePage({
             </div>
           </div>
           <div className="flex shrink-0 items-center gap-2 sm:gap-3">
-            <nav className="hidden items-center gap-2 sm:flex" aria-label="Site">
-              <button
-                type="button"
-                onClick={() => spaNavigateTo('/signal')}
-                className="rounded-full border px-3 py-1.5 text-xs font-semibold md:px-4 md:py-2 md:text-sm"
-                style={{ borderColor: BRAND, color: BRAND, backgroundColor: SURFACE_ELEVATED }}
-              >
-                Read Now
-              </button>
-              <a
-                href={BLOG_URL}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="rounded-full border px-3 py-1.5 text-xs font-semibold md:px-4 md:py-2 md:text-sm"
-                style={{ borderColor: BORDER, color: TEXT_PRIMARY, backgroundColor: SURFACE_ELEVATED }}
-              >
-                Blog
-              </a>
-            </nav>
             <ThemeToggle value={theme} onChange={setTheme} />
             <a
               href="/app"
