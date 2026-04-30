@@ -1,4 +1,4 @@
-/** GET /api/articles-list — feed list proxy entry. */
-import handler from './handlers/articlesList'
+/** Vercel route only — implementation in server/webApi/. */
+import handler from '../server/webApi/articlesList'
 
 export default handler

@@ -1,13 +1,8 @@
 import type { VercelRequest, VercelResponse } from '@vercel/node'
 
-import {
-  forwardUpstreamGet,
-  readUpstreamRaw,
-  searchFromReq,
-  webApiUpstreamRoot,
-} from '../lib/webApiUpstream'
+import { forwardUpstreamGet, readUpstreamRaw, webApiUpstreamRoot } from './upstream'
 
-export default async function articlesListHandler(
+export default async function categoriesHandler(
   req: VercelRequest,
   res: VercelResponse,
 ): Promise<void> {
@@ -23,12 +18,10 @@ export default async function articlesListHandler(
     return
   }
 
-  const search = searchFromReq(req)
-
   let target: string
   try {
     const root = webApiUpstreamRoot(rawBase)
-    target = `${root}/v1/web/articles${search}`
+    target = `${root}/v1/web/categories`
     new URL(target)
   } catch {
     res.setHeader('content-type', 'application/json; charset=utf-8')
@@ -42,7 +35,7 @@ export default async function articlesListHandler(
   await forwardUpstreamGet(
     res,
     target,
-    'public, s-maxage=30, stale-while-revalidate=60',
-    'api/articles-list',
+    'public, s-maxage=300, stale-while-revalidate=600',
+    'webApi/categories',
   )
 }

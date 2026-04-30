@@ -1,4 +1,3 @@
-/** GET /api/v1/articles — feed proxy. */
-import handler from '../../handlers/articlesList'
+import handler from '../../../server/webApi/articlesList'
 
 export default handler

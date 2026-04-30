@@ -1,6 +1,6 @@
 import type { VercelRequest, VercelResponse } from '@vercel/node'
 
-import { forwardUpstreamGet, readUpstreamRaw, webApiUpstreamRoot } from '../lib/webApiUpstream'
+import { forwardUpstreamGet, readUpstreamRaw, webApiUpstreamRoot } from './upstream'
 
 function resolveSlug(req: VercelRequest): string | undefined {
   const q = req.query.slug
@@ -73,6 +73,6 @@ export default async function articleDetailHandler(
     res,
     target,
     'public, s-maxage=60, stale-while-revalidate=120',
-    'api/article-detail',
+    'webApi/article-detail',
   )
 }
