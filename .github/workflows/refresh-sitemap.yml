@@ -4,7 +4,7 @@
 # repository DEFAULT branch — merge this file to `main` before expecting automatic runs.
 #
 # Repo secrets (optional WEB_API_SECRET if your sitemap API requires x-web-api-secret):
-# - WEB_API_UPSTREAM — Cloud Functions HTTPS origin when the fallback in scripts/generate-sitemap.mjs is wrong.
+# - WEB_API_UPSTREAM — Cloud Functions HTTPS origin (with or without `/webApi`; the script normalizes like api/*.ts).
 name: Refresh sitemaps
 
 on:

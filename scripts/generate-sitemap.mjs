@@ -12,10 +12,17 @@ function pickEnv(...keys) {
   return null
 }
 
-/** Prefer direct upstream (CI/local); vedlik.com SSR need not proxy sitemap builds. */
-const API_BASE =
-  pickEnv('WEB_API_UPSTREAM', 'WEB_API_BASE') ??
-  'https://us-central1-gen-lang-client-0290483815.cloudfunctions.net/webApi'
+/** Same rule as `api/categories.ts`: env may be `…cloudfunctions.net` or `…/webApi`. */
+function webApiUpstreamRoot(raw) {
+  const b = raw.replace(/\/$/, '')
+  return b.endsWith('/webApi') ? b : `${b}/webApi`
+}
+
+/** Prefer direct upstream (CI/local); paths append `/v1/web/…` under this root. */
+const rawUpstream = pickEnv('WEB_API_UPSTREAM', 'WEB_API_BASE')
+const API_BASE = rawUpstream
+  ? webApiUpstreamRoot(rawUpstream)
+  : 'https://us-central1-gen-lang-client-0290483815.cloudfunctions.net/webApi'
 
 function upstreamAuthHeaders() {
   const secret = pickEnv('WEB_API_SECRET')
