@@ -1,9 +1,24 @@
 /**
- * Browser calls same-origin paths that match `api/*.ts` on Vercel (no rewrite required).
- * Override with VITE_PUBLIC_API_BASE if needed (e.g. absolute URL).
- * Local dev: vite.config maps these `/api/*` paths to the Cloud Function.
+ * Browser calls **`/api/v1/*`** (rewritten on Vercel to `api/*.ts` handlers in `vercel.json`).
+ * Override origin/prefix with `VITE_PUBLIC_API_BASE` only when the SPA and API live on different hosts.
+ *
+ * Prefer **`/api/v1/...`** for every fetch so prod rewrites (`/api/v1/categories` → `/api/categories`, etc.)
+ * stay consistent; plain `/api/categories` can 404 on static-only hosts that do not ship the `api/` folder.
  */
-const API_BASE = import.meta.env.VITE_PUBLIC_API_BASE ?? '/api'
+function normalizedApiRoot(): string {
+  let root = String(import.meta.env.VITE_PUBLIC_API_BASE ?? '/api').replace(/\/$/, '')
+  /** `VITE_PUBLIC_API_BASE=https://site.com/api/v1` would double `/v1` in URLs — normalize to `/api`. */
+  if (root.endsWith('/v1')) {
+    root = root.slice(0, -3) || '/api'
+    if (root === '') root = '/api'
+  }
+  return root
+}
+
+function webApiUrl(pathQueryOrHash: string): string {
+  const p = pathQueryOrHash.startsWith('/') ? pathQueryOrHash : `/${pathQueryOrHash}`
+  return `${normalizedApiRoot()}${p}`
+}
 
 export const WEB_FALLBACK_IMAGE = 'https://vedlik.com/assets/images/logo.png'
 
@@ -227,7 +242,7 @@ function normalizeCategoryRows(payload: unknown): WebCategory[] {
 }
 
 export async function listCategories(): Promise<WebCategory[]> {
-  const response = await fetch(`${API_BASE}/categories`)
+  const response = await fetch(webApiUrl('/v1/categories'))
   if (!response.ok) throw new Error('Unable to load categories')
   if (!jsonContentType(response)) throw new Error('Unable to load categories')
   const payload = await response.json()
@@ -256,7 +271,7 @@ export async function listArticles(params: {
   if (!params.cursor && params.anchorSlug) {
     query.set('anchorSlug', params.anchorSlug)
   }
-  const response = await fetch(`/api/v1/articles?${query.toString()}`)
+  const response = await fetch(webApiUrl(`/v1/articles?${query.toString()}`))
   if (!response.ok) throw new Error('Unable to load articles')
   if (!jsonContentType(response)) throw new Error('Unable to load articles')
   const data = (await response.json()) as Record<string, unknown>
@@ -277,7 +292,7 @@ export async function getArticleByIdOrSlug(
   idOrSlug: string,
   options?: { signal?: AbortSignal },
 ): Promise<WebArticleDetail> {
-  const response = await fetch(`/api/v1/articles/${encodeURIComponent(idOrSlug)}`, {
+  const response = await fetch(webApiUrl(`/v1/articles/${encodeURIComponent(idOrSlug)}`), {
     signal: options?.signal,
   })
   if (!response.ok) {

@@ -2,6 +2,26 @@
   "framework": "vite",
   "buildCommand": "npm run build",
   "outputDirectory": "dist",
+  "functions": {
+    "api/**/*.ts": { "maxDuration": 30 }
+  },
+  "redirects": [
+    {
+      "source": "/api/categories",
+      "destination": "/api/v1/categories",
+      "permanent": false
+    },
+    {
+      "source": "/api/articles/:slug",
+      "destination": "/api/v1/articles/:slug",
+      "permanent": false
+    },
+    {
+      "source": "/api/articles",
+      "destination": "/api/v1/articles",
+      "permanent": false
+    }
+  ],
   "headers": [
     {
       "source": "/api/(.*)",
@@ -28,22 +48,6 @@
     }
   ],
   "rewrites": [
-    {
-      "source": "/api/v1/categories",
-      "destination": "/api/categories"
-    },
-    {
-      "source": "/api/v1/articles/:slug",
-      "destination": "/api/article-detail?slug=:slug"
-    },
-    {
-      "source": "/api/v1/articles",
-      "destination": "/api/articles-list"
-    },
-    {
-      "source": "/api/v1/articles/",
-      "destination": "/api/articles-list"
-    },
     {
       "source": "/article/(.*)",
       "destination": "/deep_link_fallback.html"
