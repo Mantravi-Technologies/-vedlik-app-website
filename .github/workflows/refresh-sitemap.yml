@@ -1,11 +1,20 @@
 # Regenerates public/sitemap*.xml from the live sitemap API and opens a PR when URLs change.
-# Runs once per day (evening UTC). Set repo secret WEB_API_UPSTREAM if the default origin is wrong.
+#
+# Schedule: cron is UTC-only (20:30 UTC daily). Scheduled runs use the workflow file only on the
+# repository DEFAULT branch — merge this file to `main` before expecting automatic runs.
+#
+# Repo secrets (optional WEB_API_SECRET if your sitemap API requires x-web-api-secret):
+# - WEB_API_UPSTREAM — Cloud Functions HTTPS origin when the fallback in scripts/generate-sitemap.mjs is wrong.
 name: Refresh sitemaps
 
 on:
   schedule:
     - cron: '30 20 * * *'
   workflow_dispatch:
+
+concurrency:
+  group: ${{ github.workflow }}
+  cancel-in-progress: true
 
 permissions:
   contents: write
@@ -28,7 +37,8 @@ jobs:
         env:
           SITE_URL: https://vedlik.com
           WEB_API_UPSTREAM: ${{ secrets.WEB_API_UPSTREAM }}
-          # “Latest” slice = last calendar day; full article index still refreshed in this single nightly run.
+          WEB_API_SECRET: ${{ secrets.WEB_API_SECRET }}
+          # Latest slice = last calendar day; full article index still refreshed in this nightly run.
           SITEMAP_LATEST_DAYS: '1'
         run: npm run sitemap:generate
 

@@ -16,6 +16,15 @@ function pickEnv(...keys) {
 const API_BASE =
   pickEnv('WEB_API_UPSTREAM', 'WEB_API_BASE') ??
   'https://us-central1-gen-lang-client-0290483815.cloudfunctions.net/webApi'
+
+function upstreamAuthHeaders() {
+  const secret = pickEnv('WEB_API_SECRET')
+  const h = {}
+  if (secret) {
+    h['x-web-api-secret'] = secret
+  }
+  return h
+}
 const API_LIMIT = Number(process.env.SITEMAP_API_LIMIT ?? 1000)
 const URLS_PER_FILE = Number(process.env.SITEMAP_URLS_PER_FILE ?? 5000)
 const LATEST_WINDOW_DAYS = Number(process.env.SITEMAP_LATEST_DAYS ?? 2)
@@ -93,7 +102,7 @@ async function fetchArticleSitemapEntries() {
     qs.set('limit', String(API_LIMIT))
     if (cursor) qs.set('cursor', cursor)
     const url = `${API_BASE}/v1/web/sitemap/articles?${qs.toString()}`
-    const response = await fetch(url)
+    const response = await fetch(url, { headers: upstreamAuthHeaders(), cache: 'no-store' })
     if (!response.ok) {
       throw new Error(`Sitemap API failed (${response.status}) for ${url}`)
     }
