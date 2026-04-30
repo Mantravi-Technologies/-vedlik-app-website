@@ -44,8 +44,9 @@ jobs:
           SITE_URL: https://vedlik.com
           WEB_API_UPSTREAM: ${{ secrets.WEB_API_UPSTREAM }}
           WEB_API_SECRET: ${{ secrets.WEB_API_SECRET }}
-          # Latest slice = last calendar day; full article index still refreshed in this nightly run.
-          SITEMAP_LATEST_DAYS: '1'
+          # sitemap-latest.xml = *recent* articles only (rolling window, here: 5 days). Full index is in
+          # sitemap-articles-*.xml — do not use `1` here or “latest” drops almost everything vs main.
+          SITEMAP_LATEST_DAYS: '5'
         run: npm run sitemap:generate
 
       - name: Open PR if files changed

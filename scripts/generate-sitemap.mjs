@@ -34,7 +34,7 @@ function upstreamAuthHeaders() {
 }
 const API_LIMIT = Number(process.env.SITEMAP_API_LIMIT ?? 1000)
 const URLS_PER_FILE = Number(process.env.SITEMAP_URLS_PER_FILE ?? 5000)
-const LATEST_WINDOW_DAYS = Number(process.env.SITEMAP_LATEST_DAYS ?? 2)
+const LATEST_WINDOW_DAYS = Number(process.env.SITEMAP_LATEST_DAYS ?? 5)
 const LATEST_MAX_URLS = Number(process.env.SITEMAP_LATEST_MAX_URLS ?? 1000)
 
 const STATIC_PATHS = [
@@ -198,9 +198,25 @@ async function main() {
 
   const articleEntries = await fetchArticleSitemapEntries()
   const latestCutoffMs = Date.now() - LATEST_WINDOW_DAYS * 24 * 60 * 60 * 1000
-  const latestEntries = articleEntries
-    .filter((item) => (item.lastmod ? Date.parse(item.lastmod) >= latestCutoffMs : false))
+  function lastmodMs(item) {
+    if (!item.lastmod) return null
+    const t = Date.parse(item.lastmod)
+    return Number.isFinite(t) ? t : null
+  }
+  let latestEntries = articleEntries
+    .filter((item) => {
+      const t = lastmodMs(item)
+      return t != null && t >= latestCutoffMs
+    })
     .slice(0, LATEST_MAX_URLS)
+  /** If the rolling window is too tight or dates are odd, keep newest N so “latest” is never empty while articles exist. */
+  if (latestEntries.length === 0 && articleEntries.length > 0) {
+    const n = Math.min(200, LATEST_MAX_URLS, articleEntries.length)
+    console.warn(
+      `sitemap-latest: no URLs in last ${LATEST_WINDOW_DAYS}d window; using top ${n} articles by recency as fallback`,
+    )
+    latestEntries = articleEntries.slice(0, n)
+  }
   const sitemapIndexEntries = [
     {
       loc: `${SITE_URL}/sitemap-static.xml`,
