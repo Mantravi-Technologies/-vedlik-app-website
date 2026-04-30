@@ -41,7 +41,26 @@ async function forwardUpstreamGet(
   try {
     const r = await fetch(target, { headers: upstreamSecretHeaders(), cache: 'no-store' })
     const body = await r.text()
-    const ct = r.headers.get('content-type')
+    const ct = r.headers.get('content-type') ?? ''
+    const isJson = ct.toLowerCase().includes('application/json')
+
+    if (!r.ok && !isJson) {
+      console.error(`[${logLabel}] upstream ${r.status} (non-json):`, target)
+      res.setHeader('content-type', 'application/json; charset=utf-8')
+      res.setHeader('cache-control', 'private, no-store')
+      res.setHeader('cdn-cache-control', 'private, no-store')
+      res.setHeader('vercel-cdn-cache-control', 'private, no-store')
+      res.status(502).json({
+        error:
+          'Upstream returned a non-JSON response (wrong URL, missing route, or HTML error page).',
+        upstreamStatus: r.status,
+        logLabel,
+        hint:
+          'Set Vercel env WEB_API_UPSTREAM to your HTTPS Cloud Functions origin (e.g. https://us-central1-….cloudfunctions.net). The proxy appends /webApi/v1/web/…. Add WEB_API_SECRET if your function requires x-web-api-secret.',
+      })
+      return
+    }
+
     if (ct) res.setHeader('content-type', ct)
     res.setHeader('cache-control', cacheControl)
     res.setHeader('cdn-cache-control', 'private, no-store')
