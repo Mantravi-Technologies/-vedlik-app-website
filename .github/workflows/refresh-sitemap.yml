@@ -47,6 +47,10 @@ jobs:
           # sitemap-latest.xml = *recent* articles only (rolling window, here: 5 days). Full index is in
           # sitemap-articles-*.xml — do not use `1` here or “latest” drops almost everything vs main.
           SITEMAP_LATEST_DAYS: '5'
+          # Delta + `public/sitemaps/article-master.json`; first run bootstraps full, then `publishedAfter` + `publishedAtLt`.
+          SITEMAP_USE_MASTER: '1'
+          # Optional: thin endpoint: `SITEMAP_DELTA_REL_PATH=v1/web/sitemap/article-delta`
+          # One-time full rebuild: `SITEMAP_FULL_SYNC=1` (ignore master for that run).
         run: npm run sitemap:generate
 
       - name: Open PR if files changed
