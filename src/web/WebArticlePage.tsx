@@ -62,6 +62,7 @@ export default function WebArticlePage({ idOrSlug }: { idOrSlug: string }) {
       description,
       canonicalUrl: canonical,
       ogImage: article.seo?.ogImage ?? article.imageUrl,
+      ogType: 'article',
     })
   }, [article])
 

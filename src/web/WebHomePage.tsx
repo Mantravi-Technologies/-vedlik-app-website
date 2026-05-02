@@ -17,13 +17,25 @@ import {
   sanitizeWhyItMatters,
 } from './formatters'
 import { getPathname } from '../spaNavigation'
+import {
+  SIGNAL_FEED_DESCRIPTION,
+  SIGNAL_FEED_H1,
+  SIGNAL_FEED_TITLE,
+  SIGNAL_STORY_FALLBACK_DESCRIPTION,
+  SIGNAL_STORY_FALLBACK_TITLE,
+  SITE_URL,
+  WEB_FEED_DESCRIPTION,
+  WEB_FEED_TITLE,
+  seoPayloadForFeedArticle,
+  topicPageDescription,
+  topicPageTitle,
+} from '../seo/siteSeoCopy'
 
 const BRAND = '#20b2aa'
 /** Text on primary teal (matches “Install App” pill). */
 const BRAND_ON = '#032a26'
 const APP_STORE_URL = 'https://apps.apple.com/in/app/vedlik-ai-tech-insights/id6761024663'
 const PLAY_STORE_URL = 'https://play.google.com/store/apps/details?id=com.mantravi.ai.briefing'
-const SITE_URL = 'https://vedlik.com'
 const SURFACE_BASE = 'var(--vedlik-bg-base)'
 const SURFACE_RAISED = 'var(--vedlik-bg-surface-1)'
 const SURFACE_ELEVATED = 'var(--vedlik-bg-surface-2)'
@@ -887,6 +899,61 @@ function mapArticle(item: WebArticleSummary): WebArticle {
   }
 }
 
+/** Breadcrumb JSON-LD for feed, topic, and deep-linked Signal URLs. */
+function buildWebFeedBreadcrumbList(
+  path: string,
+  options?: { storyName?: string; storyCanonicalUrl?: string },
+): Record<string, unknown> | null {
+  const homeItem = { '@type': 'ListItem', position: 1, name: 'Home', item: `${SITE_URL}/` }
+  if (path === '/signal' || path === '/web') {
+    const label = path === '/signal' ? 'Signals — AI & tech news' : 'Web preview — mSite & desktop'
+    return {
+      '@context': 'https://schema.org',
+      '@type': 'BreadcrumbList',
+      itemListElement: [
+        homeItem,
+        { '@type': 'ListItem', position: 2, name: label, item: `${SITE_URL}${path}` },
+      ],
+    }
+  }
+  if (path.startsWith('/topic/')) {
+    const raw = path.slice('/topic/'.length)
+    const label = decodeURIComponent(raw)
+    return {
+      '@context': 'https://schema.org',
+      '@type': 'BreadcrumbList',
+      itemListElement: [
+        homeItem,
+        { '@type': 'ListItem', position: 2, name: 'Signals', item: `${SITE_URL}/signal` },
+        {
+          '@type': 'ListItem',
+          position: 3,
+          name: `Topic: ${label}`,
+          item: `${SITE_URL}/topic/${encodeURIComponent(raw)}`,
+        },
+      ],
+    }
+  }
+  if (path.startsWith('/signal/') || path.startsWith('/article/')) {
+    const name = options?.storyName?.trim() || 'Signal'
+    const item =
+      options?.storyCanonicalUrl?.trim() ||
+      (path.startsWith('/signal/')
+        ? `${SITE_URL}${path}`
+        : `${SITE_URL}/signal/${encodeURIComponent(decodeURIComponent(path.slice('/article/'.length)))}`)
+    return {
+      '@context': 'https://schema.org',
+      '@type': 'BreadcrumbList',
+      itemListElement: [
+        homeItem,
+        { '@type': 'ListItem', position: 2, name: 'Signals', item: `${SITE_URL}/signal` },
+        { '@type': 'ListItem', position: 3, name: name.length > 90 ? `${name.slice(0, 87)}…` : name, item },
+      ],
+    }
+  }
+  return null
+}
+
 export default function WebHomePage({
   topicSlug,
   initialSignalIdOrSlug,
@@ -1179,6 +1246,7 @@ export default function WebHomePage({
     currentSignalPathRef.current = path
     if (window.location.pathname !== path) {
       window.history.replaceState({ path }, '', path)
+      window.dispatchEvent(new CustomEvent('vedlik:pathreplace', { detail: { path } }))
     }
   }
 
@@ -1260,22 +1328,89 @@ export default function WebHomePage({
   }, [topicSlug, activeCategory])
 
   useEffect(() => {
-    const title = topicSlug
-      ? `Topic: ${topicSlug} | Vedlik`
-      : 'Vedlik — AI, Tech and Startup Intelligence'
-    const description = topicSlug
-      ? `Latest stories for topic ${topicSlug} on Vedlik.`
-      : 'Read AI, tech, and startup stories with why-it-matters context on Vedlik web.'
-    const path = getPathname()
-    const canonicalUrl = topicSlug
-      ? `${SITE_URL}/topic/${topicSlug}`
-      : path === '/' || path === '/signal' || path === '/web'
-        ? `${SITE_URL}${path === '/' ? '' : path}`
-        : path.startsWith('/signal/')
-          ? `${SITE_URL}${path}`
-          : `${SITE_URL}/`
-    applyPageSeo({ title, description, canonicalUrl })
-  }, [topicSlug])
+    const applyPathSeo = (pathOverride?: string) => {
+      const path = pathOverride ?? getPathname()
+      let breadcrumbLd: Record<string, unknown> | null = null
+
+      if (topicSlug) {
+        const canonicalUrl = `${SITE_URL}/topic/${encodeURIComponent(topicSlug)}`
+        applyPageSeo({
+          title: topicPageTitle(topicSlug),
+          description: topicPageDescription(topicSlug),
+          canonicalUrl,
+        })
+        breadcrumbLd = buildWebFeedBreadcrumbList(path.startsWith('/topic/') ? path : `/topic/${encodeURIComponent(topicSlug)}`)
+      } else if (path === '/signal') {
+        applyPageSeo({
+          title: SIGNAL_FEED_TITLE,
+          description: SIGNAL_FEED_DESCRIPTION,
+          canonicalUrl: `${SITE_URL}/signal`,
+        })
+        breadcrumbLd = buildWebFeedBreadcrumbList(path)
+      } else if (path === '/web') {
+        applyPageSeo({
+          title: WEB_FEED_TITLE,
+          description: WEB_FEED_DESCRIPTION,
+          canonicalUrl: `${SITE_URL}/web`,
+        })
+        breadcrumbLd = buildWebFeedBreadcrumbList(path)
+      } else if (path.startsWith('/signal/') || path.startsWith('/article/')) {
+        const rawSeg = path.startsWith('/signal/') ? path.slice('/signal/'.length) : path.slice('/article/'.length)
+        let key = rawSeg
+        try {
+          key = decodeURIComponent(rawSeg)
+        } catch {
+          key = rawSeg
+        }
+        const article = articles.find((a) => articleRowMatchesSharedKey(a, key))
+        if (article) {
+          const payload = seoPayloadForFeedArticle(article)
+          applyPageSeo({
+            title: payload.title,
+            description: payload.description,
+            canonicalUrl: payload.canonicalUrl,
+            ogImage: payload.ogImage,
+            ogType: 'article',
+          })
+          breadcrumbLd = buildWebFeedBreadcrumbList(path, {
+            storyName: article.title,
+            storyCanonicalUrl: payload.canonicalUrl,
+          })
+        } else {
+          const canonicalUrl =
+            path.startsWith('/signal/') ? `${SITE_URL}${path}` : `${SITE_URL}/signal/${encodeURIComponent(key)}`
+          applyPageSeo({
+            title: SIGNAL_STORY_FALLBACK_TITLE,
+            description: SIGNAL_STORY_FALLBACK_DESCRIPTION,
+            canonicalUrl,
+          })
+          breadcrumbLd = buildWebFeedBreadcrumbList(path)
+        }
+      } else {
+        applyPageSeo({
+          title: SIGNAL_FEED_TITLE,
+          description: SIGNAL_FEED_DESCRIPTION,
+          canonicalUrl: `${SITE_URL}/signal`,
+        })
+      }
+
+      if (breadcrumbLd) upsertJsonLd('breadcrumbs', breadcrumbLd)
+      else removeJsonLd('breadcrumbs')
+    }
+
+    applyPathSeo()
+
+    const onPathReplace = (ev: Event) => {
+      const detail = (ev as CustomEvent<{ path: string }>).detail
+      if (detail?.path) applyPathSeo(detail.path)
+      else applyPathSeo()
+    }
+    window.addEventListener('vedlik:pathreplace', onPathReplace)
+    return () => {
+      window.removeEventListener('vedlik:pathreplace', onPathReplace)
+      removeJsonLd('breadcrumbs')
+    }
+  }, [topicSlug, articles, initialSignalIdOrSlug])
 
   useEffect(() => {
     if (articles.length === 0) {
@@ -1305,7 +1440,10 @@ export default function WebHomePage({
     upsertJsonLd('feed-itemlist', {
       '@context': 'https://schema.org',
       '@type': 'ItemList',
-      name: topicSlug ? `Topic: ${topicSlug}` : 'Vedlik signals',
+      name: topicSlug
+        ? `Vedlik Signals — topic “${topicSlug}” (AI news, tech updates, startups)`
+        : 'Vedlik Signals — latest AI news, tech updates, and startup briefs',
+      numberOfItems: itemListElement.length,
       itemListElement,
     })
     return () => {
@@ -1315,6 +1453,9 @@ export default function WebHomePage({
 
   return (
     <div className="min-h-screen" style={{ backgroundColor: SURFACE_BASE, color: TEXT_PRIMARY }}>
+      <h1 className="sr-only">
+        {topicSlug ? `Topic: ${topicSlug} — ${SIGNAL_FEED_H1}` : SIGNAL_FEED_H1}
+      </h1>
       <header
         className="fixed inset-x-0 top-0 z-30 border-b bg-[color-mix(in_srgb,var(--vedlik-bg-surface-1)_88%,transparent)] pt-[env(safe-area-inset-top,0px)] backdrop-blur-md"
         style={{ borderColor: BORDER }}

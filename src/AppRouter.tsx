@@ -5,6 +5,13 @@ import WebHomePage from './web/WebHomePage'
 import { useEffect, useState } from 'react'
 import type { ReactNode } from 'react'
 import { getPathname } from './spaNavigation'
+import {
+  HOME_DESCRIPTION,
+  HOME_TITLE,
+  SIGNAL_STORY_FALLBACK_DESCRIPTION,
+  SIGNAL_STORY_FALLBACK_TITLE,
+  SITE_URL,
+} from './seo/siteSeoCopy'
 
 type RouteConfig = {
   title: string
@@ -293,11 +300,6 @@ const ROUTES: Record<string, RouteConfig> = {
   },
 }
 
-const SITE_URL = 'https://vedlik.com'
-const HOME_TITLE = 'Vedlik — AI, Tech & Startup Intelligence'
-const HOME_DESCRIPTION =
-  'Stay ahead with artificial intelligence, technology, startups, and funding intelligence in short, trustworthy briefs with source attribution.'
-
 function setMetaTag(selector: string, attr: 'name' | 'property', key: string, content: string) {
   let element = document.head.querySelector<HTMLMetaElement>(selector)
   if (!element) {
@@ -336,37 +338,41 @@ export default function AppRouter() {
   const route = ROUTES[pathname]
 
   useEffect(() => {
+    /** `WebHomePage` owns `<title>` / meta for feed, deep-linked Signals, and topics (single source + scroll URL updates). */
+    const webHomeOwnsMeta =
+      pathname === '/web' ||
+      pathname === '/signal' ||
+      pathname.startsWith('/signal/') ||
+      pathname.startsWith('/article/') ||
+      pathname.startsWith('/topic/')
+    if (webHomeOwnsMeta) return
+
     const isAppPath = pathname === '/app'
     const isMarketingHome = pathname === '/' || pathname === '/showcase'
-    const isWebFeedBase = pathname === '/web' || pathname === '/signal'
     const isSignalSlugPath = Boolean(signalIdOrSlug)
     const isTopicPath = Boolean(topicSlug)
     const title = isAppPath
       ? 'Download Vedlik — App Store & Google Play'
       : isMarketingHome
         ? HOME_TITLE
-        : isWebFeedBase
-          ? 'Vedlik Web — mSite + Desktop Preview'
-          : isSignalSlugPath
-            ? 'Vedlik Signal | Vedlik'
-            : isTopicPath
-              ? 'Vedlik Topic | Vedlik'
-              : route
-                ? `${route.title} | Vedlik`
-                : HOME_TITLE
+        : isSignalSlugPath
+          ? SIGNAL_STORY_FALLBACK_TITLE
+          : isTopicPath
+            ? 'Vedlik Topic | Vedlik'
+            : route
+              ? `${route.title} | Vedlik`
+              : HOME_TITLE
     const description = isAppPath
       ? 'Download Vedlik for iOS or Android — AI, tech, and startup briefs in one app.'
       : isMarketingHome
         ? HOME_DESCRIPTION
-        : isWebFeedBase
-          ? 'Vedlik web experience preview for mobile web and desktop with why-it-matters first cards.'
-          : isSignalSlugPath
-            ? 'Read the latest Vedlik signal with why-it-matters context.'
-            : isTopicPath
-              ? 'Read stories by topic on Vedlik.'
-              : route
-                ? route.description
-                : HOME_DESCRIPTION
+        : isSignalSlugPath
+          ? SIGNAL_STORY_FALLBACK_DESCRIPTION
+          : isTopicPath
+            ? 'Read stories by topic on Vedlik.'
+            : route
+              ? route.description
+              : HOME_DESCRIPTION
     const url = `${SITE_URL}${pathname === '/' ? '' : pathname}`
 
     document.title = title

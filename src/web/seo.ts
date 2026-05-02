@@ -3,6 +3,8 @@ type SeoInput = {
   description: string
   canonicalUrl: string
   ogImage?: string
+  /** Open Graph type; defaults to `website`. Use `article` for individual Signals when appropriate. */
+  ogType?: 'website' | 'article'
 }
 
 function setMetaTag(selector: string, attr: 'name' | 'property', key: string, content: string) {
@@ -29,6 +31,7 @@ export function applyPageSeo(input: SeoInput) {
   document.title = input.title
   setCanonical(input.canonicalUrl)
   setMetaTag('meta[name="description"]', 'name', 'description', input.description)
+  setMetaTag('meta[property="og:type"]', 'property', 'og:type', input.ogType ?? 'website')
   setMetaTag('meta[property="og:title"]', 'property', 'og:title', input.title)
   setMetaTag('meta[property="og:description"]', 'property', 'og:description', input.description)
   setMetaTag('meta[property="og:url"]', 'property', 'og:url', input.canonicalUrl)
