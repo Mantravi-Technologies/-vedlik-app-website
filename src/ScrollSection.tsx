@@ -108,16 +108,20 @@ export default function ScrollSection({
 
       {/*
        * Single unified layout.
-       * Mobile  → flex-col: text block (shrink-to-content) → badges → phone (flex-1)
-       * Desktop → flex-row: text+badges column (40%) | phone (60%)
+       * Stacked → flex-col: text block (shrink-to-content) → badges → phone (flex-1)
+       * Wide      → flex-row: text+badges column (40%) | phone (60%)
+       *
+       * Row + left-aligned copy use lg: (1024px), not md:. Chrome “Desktop site” on phones
+       * often reports ~980px layout width while the screen is narrow; md: would clip under
+       * overflow-x:hidden. True phones stay stacked; real desktops stay unchanged.
        *
        * ONE set of slide divs with refs so GSAP always animates the right elements.
-       * Responsive text via md:hidden / hidden md:inline spans inside each slide.
+       * Short vs long subcopy follows the same lg breakpoint as the row layout.
        */}
-      <div className="relative z-10 w-full h-full flex flex-col md:flex-row md:items-center md:px-[4vw] md:gap-[2vw]">
+      <div className="relative z-10 w-full h-full flex flex-col lg:flex-row lg:items-center lg:px-[4vw] lg:gap-[2vw]">
 
         {/* ── Text + badges column ── */}
-        <div className="hero-text-side shrink-0 w-full md:w-[40%] flex flex-col md:justify-center">
+        <div className="hero-text-side shrink-0 w-full lg:w-[40%] flex flex-col lg:justify-center">
 
           {/*
            * Slide container.
@@ -128,7 +132,7 @@ export default function ScrollSection({
           <div className="relative">
 
             {/* Invisible spacer — reserves height on both mobile and desktop */}
-            <div className="invisible flex flex-col px-6 md:px-0 py-4 md:py-0 items-center md:items-start text-center md:text-left" aria-hidden>
+            <div className="invisible flex flex-col px-6 lg:px-0 py-4 lg:py-0 items-center lg:items-start text-center lg:text-left" aria-hidden>
               <span
                 className="font-bold leading-[1.04] text-[1.9rem]"
                 style={{ fontSize: 'clamp(1.6rem, 3.6vw, 4.5rem)' }}
@@ -136,11 +140,11 @@ export default function ScrollSection({
                 {SLIDES[0].heading}
               </span>
               <span
-                className="mt-2 md:mt-[1.2vw] leading-relaxed text-[0.82rem] md:max-w-[36vw]"
+                className="mt-2 lg:mt-[1.2vw] leading-relaxed text-[0.82rem] lg:max-w-[36vw]"
                 style={{ fontSize: 'clamp(0.82rem, 1.3vw, 1.35rem)' }}
               >
-                <span className="md:hidden">{SLIDES[0].sub}</span>
-                <span className="hidden md:inline">{SLIDES[0].subDesktop}</span>
+                <span className="lg:hidden">{SLIDES[0].sub}</span>
+                <span className="hidden lg:inline">{SLIDES[0].subDesktop}</span>
               </span>
               {/* keyword line placeholder */}
               <span className="mt-[1vw] block h-[1.35em]" />
@@ -154,7 +158,7 @@ export default function ScrollSection({
                 className={`
                   absolute inset-0 flex flex-col
                   justify-center items-center text-center px-6
-                  md:items-start md:text-left md:px-0 md:justify-center
+                  lg:items-start lg:text-left lg:px-0 lg:justify-center
                   ${visible ? 'opacity-100' : 'opacity-0'}
                 `}
               >
@@ -165,11 +169,11 @@ export default function ScrollSection({
                   {heading}
                 </h1>
                 <p
-                  className="mt-2 md:mt-[1.2vw] text-white/70 leading-relaxed text-[0.82rem] md:max-w-[36vw]"
+                  className="mt-2 lg:mt-[1.2vw] text-white/70 leading-relaxed text-[0.82rem] lg:max-w-[36vw]"
                   style={{ fontSize: 'clamp(0.82rem, 1.3vw, 1.35rem)' }}
                 >
-                  <span className="md:hidden">{sub}</span>
-                  <span className="hidden md:inline">{subDesktop}</span>
+                  <span className="lg:hidden">{sub}</span>
+                  <span className="hidden lg:inline">{subDesktop}</span>
                 </p>
                 <HeroKeywordRotate words={words} />
               </div>
@@ -177,13 +181,13 @@ export default function ScrollSection({
           </div>
 
           {/* Store badges — in normal flow, right below the spacer on both mobile & desktop */}
-          <div className="flex justify-center md:justify-start pt-3 md:pt-[1.5vw]">
+          <div className="flex justify-center lg:justify-start pt-3 lg:pt-[1.5vw]">
             <StoreBadges />
           </div>
         </div>
 
         {/* ── Phone — flex-1 takes all remaining height on mobile ── */}
-        <div className="flex-1 w-full md:h-full flex items-start md:items-center justify-center overflow-hidden px-3 pb-1 md:px-0 md:pb-0 md:py-[2vh]">
+        <div className="flex-1 w-full lg:h-full flex items-start lg:items-center justify-center overflow-hidden px-3 pb-1 lg:px-0 lg:pb-0 lg:py-[2vh]">
           <PhoneMockup
             phoneRef={phoneRef}
             screenContainerRef={screenContainerRef}

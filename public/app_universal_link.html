@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="robots" content="noindex, nofollow" />
-    <title>Vedlik — Open app</title>
+    <title>Vedlik</title>
     <meta
       name="apple-itunes-app"
       content="app-id=6761024663, app-argument=https://vedlik.com/app"
@@ -54,9 +54,9 @@
   </head>
   <body>
     <main class="card">
-      <h1>Open Vedlik</h1>
+      <h1>Continue in Vedlik</h1>
       <p id="intro">
-        We are trying to open the Vedlik app. If it does not open, install/update from the store below.
+        Use the Vedlik app for the full experience. Tap below to open it, or install from the App Store or Google Play if you do not have it yet.
       </p>
       <div class="actions">
         <a id="open-app" class="open-btn" href="https://vedlik.com/app" rel="noreferrer">Open in app</a>
@@ -99,7 +99,7 @@
 
         if (isAndroid) {
           openApp.setAttribute("href", androidIntent);
-          hint.textContent = "Android: app opens if installed; otherwise Google Play opens.";
+          hint.textContent = "If Vedlik is already installed, it should open. If not, you will be offered the Play Store.";
           window.setTimeout(function () {
             if (document.visibilityState !== "visible") return;
             window.location.href = androidIntent;
@@ -109,12 +109,12 @@
 
         if (isIOS) {
           openApp.setAttribute("href", APP_LINK);
-          hint.textContent = "iOS: open from Safari/Notes/Messages for best Universal Link handoff.";
+          hint.textContent = "Tip: this link works most smoothly when opened from Safari, Messages, or Notes.";
           return;
         }
 
         openApp.setAttribute("href", APP_LINK);
-        hint.textContent = "Open this link from your mobile device to launch the app.";
+        hint.textContent = "On a phone or tablet, the buttons above open or install Vedlik. On desktop, install the app on your device to use this link in the app.";
       })();
     </script>
   </body>

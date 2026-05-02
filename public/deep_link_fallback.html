@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="robots" content="noindex, nofollow" />
-    <title>Open in Vedlik</title>
+    <title>Continue in Vedlik</title>
     <style>
       :root { color-scheme: dark; }
       * { box-sizing: border-box; }
@@ -35,12 +35,6 @@
         margin: 12px 0 0;
         color: rgba(255, 255, 255, 0.72);
         line-height: 1.5;
-      }
-      .id {
-        margin-top: 10px;
-        font-size: 0.85rem;
-        color: rgba(45, 212, 191, 0.9);
-        word-break: break-all;
       }
       .row {
         margin-top: 18px;
@@ -73,11 +67,10 @@
   </head>
   <body>
     <main class="card">
-      <h1>Open this article in Vedlik</h1>
+      <h1>Continue in the Vedlik app</h1>
       <p>
-        If Vedlik is installed, opening this link from Messages/Notes/WhatsApp should launch the app.
+        This link opens your reading in Vedlik with full context. If the app does not open, install Vedlik below, then use this same link again.
       </p>
-      <p id="article-id" class="id" hidden></p>
       <div class="row">
         <a id="store-link" class="button" href="https://play.google.com/store/apps/details?id=com.mantravi.ai.briefing" rel="noreferrer">Get the app</a>
         <a class="link" href="/">Open website</a>
@@ -85,16 +78,6 @@
     </main>
     <script>
       (function () {
-        var path = window.location.pathname || "";
-        var id = "";
-        var m = path.match(/^\/article\/(.+)$/);
-        if (m && m[1]) id = decodeURIComponent(m[1]);
-        var articleEl = document.getElementById("article-id");
-        if (id && articleEl) {
-          articleEl.hidden = false;
-          articleEl.textContent = "Article ID: " + id;
-        }
-
         var ua = navigator.userAgent || "";
         var isIOS = /iPad|iPhone|iPod/.test(ua) || (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1);
         var storeLink = document.getElementById("store-link");
