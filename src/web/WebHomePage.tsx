@@ -18,6 +18,8 @@ import {
 } from './formatters'
 import { getPathname } from '../spaNavigation'
 import {
+  FEED_BREADCRUMB_SIGNAL_NAME,
+  FEED_BREADCRUMB_WEB_NAME,
   SIGNAL_FEED_DESCRIPTION,
   SIGNAL_FEED_H1,
   SIGNAL_FEED_TITLE,
@@ -633,7 +635,7 @@ function SignalCardFooter({ article, sourceName }: { article: WebArticle; source
     <div className="mt-0">
       {externalSource != null ? (
         <div className="border-t pt-3" style={{ borderColor: BORDER }}>
-          {/* mSite: keep “Read more” left-aligned; timestamp on the right (desktop unchanged: no time here). */}
+          {/* Mobile: “Read more” + time on one row; from md up the time is hidden in this strip. */}
           <div className="flex w-full flex-wrap items-baseline justify-between gap-x-3 gap-y-2 md:justify-start">
             <a
               href={externalSource}
@@ -906,8 +908,7 @@ function buildWebFeedBreadcrumbList(
 ): Record<string, unknown> | null {
   const homeItem = { '@type': 'ListItem', position: 1, name: 'Home', item: `${SITE_URL}/` }
   if (path === '/signal' || path === '/web') {
-    const label =
-      path === '/signal' ? 'Signals — latest AI news & tech updates' : 'Vedlik — latest AI news & tech updates'
+    const label = path === '/signal' ? FEED_BREADCRUMB_SIGNAL_NAME : FEED_BREADCRUMB_WEB_NAME
     return {
       '@context': 'https://schema.org',
       '@type': 'BreadcrumbList',

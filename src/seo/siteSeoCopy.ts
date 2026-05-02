@@ -1,33 +1,42 @@
+/**
+ * All user-visible SEO strings for marketing + feed routes live here.
+ *
+ * Editorial rules (keep future edits boring and consistent):
+ * - Plain English only: no codenames (mSite, “preview” as a product label), no cute stacks (“web + browser + news”).
+ * - `/signal` and `/web` are the same Signals catalog; copy differs only where the URL must be explicit.
+ * - Titles stay parallel; descriptions stay parallel so tabs, OG, and JSON-LD do not drift.
+ */
 import { WEB_FALLBACK_IMAGE } from '../web/api'
 
 /** Canonical site origin for meta URLs. */
 export const SITE_URL = 'https://vedlik.com'
 
-/** Homepage — primary brand line unchanged; description layers keyword themes. */
+/** Marketing homepage (`/`, `/showcase`) — matches `index.html` until we add a build-time sync step. */
 export const HOME_TITLE = 'Vedlik — Latest AI Updates, Tech News & Startup Intelligence'
 export const HOME_DESCRIPTION =
-  'Vedlik delivers the latest AI updates, tech news, startup funding rounds, and technology breakthroughs in concise, source-backed briefs. Stay ahead of AI tools, machine learning models, and tech industry trends—and browse Signals (AI news, LLM updates, tech policy, VC rounds) on vedlik.com/signal or use Vedlik on iOS & Android.'
+  'Vedlik delivers the latest AI updates, tech news, startup funding rounds, and technology breakthroughs in concise, source-backed briefs. Stay ahead of AI tools, machine learning models, and industry trends—browse Signals on vedlik.com/signal or vedlik.com/web, or download Vedlik for iOS and Android.'
 
-/**
- * `/signal` vs `/web`: same Signals feed and the same SEO themes (AI news, tech updates, startups).
- * Only the path differs—titles mirror each other so copy stays predictable, not random edits.
- */
+/** `/signal` — primary public feed URL. */
 export const SIGNAL_FEED_TITLE = 'Vedlik Signals — Latest AI News & Tech Updates | Vedlik'
 export const SIGNAL_FEED_DESCRIPTION =
-  'Latest AI news, tech updates, and startup intelligence at vedlik.com/signal, source-backed Signals with why-it-matters context (models, funding, generative AI, policy). Get the Vedlik app on iOS or Android for the full in-app experience.'
+  'Browse Vedlik Signals at vedlik.com/signal: the latest AI news, tech updates, and startup intelligence in short, source-backed briefs—with context on models, funding, generative AI, and policy. Download Vedlik on iOS or Android for the full app experience.'
 
-/** Same feed as `SIGNAL_*`; “Web” = this URL only (`/web`). */
+/** `/web` — same catalog as `/signal`; only the path changes. */
 export const WEB_FEED_TITLE = 'Vedlik Web — Latest AI News & Tech Updates | Vedlik'
 export const WEB_FEED_DESCRIPTION =
-  'Same Signals feed as vedlik.com/signal, on vedlik.com/web: latest AI news, tech updates, and startup briefs—source-backed, why-it-matters first. Get the Vedlik app on iOS or Android for the full in-app experience.'
+  'Browse Vedlik Signals at vedlik.com/web (the same feed as vedlik.com/signal): the latest AI news, tech updates, and startup intelligence in short, source-backed briefs—with context on models, funding, generative AI, and policy. Download Vedlik on iOS or Android for the full app experience.'
 
-/** Visible + SR heading for the Signals feed shell (one H1 per view). */
+/** One H1 for the feed shell (screen-reader + crawler clarity; layout unchanged). */
 export const SIGNAL_FEED_H1 = 'Latest AI news, tech updates, and startup Signals — Vedlik'
 
-/** Before a deep-linked row hydrates into `articles`. */
+/** JSON-LD `BreadcrumbList` item names — must stay aligned with feed titles above. */
+export const FEED_BREADCRUMB_SIGNAL_NAME = 'Signals — latest AI news & tech updates'
+export const FEED_BREADCRUMB_WEB_NAME = 'Vedlik Web — latest AI news & tech updates'
+
+/** Deep-linked row not yet merged into `articles`. */
 export const SIGNAL_STORY_FALLBACK_TITLE = 'Vedlik Signal | Vedlik'
 export const SIGNAL_STORY_FALLBACK_DESCRIPTION =
-  'Read this Vedlik Signal with why-it-matters context—AI news, tech updates, and source-backed briefs. Open vedlik.com/signal for the full feed or install Vedlik on iOS & Android.'
+  'Read this Signal for AI and tech context—open vedlik.com/signal for the full feed, or download Vedlik on iOS or Android.'
 
 function clampText(input: string, maxLen: number): string {
   const t = input.trim()
@@ -41,7 +50,7 @@ export function topicPageTitle(topicSlug: string): string {
 
 export function topicPageDescription(topicSlug: string): string {
   return clampText(
-    `Latest AI news, tech updates, and startup stories for topic “${topicSlug}” on Vedlik—Signals with why-it-matters context. More AI & tech coverage at vedlik.com/signal; install Vedlik for the full app experience on iOS or Android.`,
+    `Signals about “${topicSlug}” on Vedlik—AI news, tech updates, and startups with source-backed context. Browse vedlik.com/signal or vedlik.com/web, or download Vedlik on iOS or Android.`,
     320,
   )
 }
