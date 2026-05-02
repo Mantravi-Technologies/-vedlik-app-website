@@ -9,6 +9,11 @@
  * 2. If missing/empty → one full fetch (same as above), write master + XML.
  * 3. Else → GET delta with `publishedAfter` + `publishedBefore` (or legacy single param), merge into master, write master + XML.
  *
+ * **PR / git noise:** The API merge is incremental, but outputs used to be rewritten every run.
+ * Now: `article-master.json` is **pretty-printed** with **sorted URL keys**; it is **not rewritten** when
+ * `entries` + `lastmod` are unchanged (typical “0 delta rows” cron). XML sitemap files use the same
+ * **skip-if-byte-identical** rule. Static route URLs omit `lastmod` so `sitemap-static.xml` does not churn daily.
+ *
  * ### Backend contract (delta = same host, either option)
  *
  * **A — Window on existing articles route (matches webApi):**
@@ -236,20 +241,75 @@ async function readMasterJson() {
   }
 }
 
-async function writeMasterJson(map) {
+/** Sorted `loc` keys so git diffs stay small when only a few URLs change. */
+function buildSortedEntriesRecord(map) {
   /** @type {Record<string, { lastmod: string | null }>} */
   const entries = {}
   for (const [, e] of map) {
     entries[e.loc] = { lastmod: e.lastmod }
   }
-  const body = JSON.stringify({
+  return Object.fromEntries(Object.entries(entries).sort(([a], [b]) => a.localeCompare(b)))
+}
+
+function entriesRecordEqual(a, b) {
+  if (!a || !b || typeof a !== 'object' || typeof b !== 'object') return false
+  const ak = Object.keys(a)
+  const bk = Object.keys(b)
+  if (ak.length !== bk.length) return false
+  for (const k of ak) {
+    if (!Object.prototype.hasOwnProperty.call(b, k)) return false
+    const la = a[k]?.lastmod ?? null
+    const lb = b[k]?.lastmod ?? null
+    if (la !== lb) return false
+  }
+  return true
+}
+
+/**
+ * Writes pretty JSON with stable key order. Skips disk write when `entries` are unchanged
+ * (typical incremental run with 0 API rows) so PRs stay reviewable.
+ */
+async function writeMasterJsonIfChanged(map) {
+  const sortedEntries = buildSortedEntriesRecord(map)
+  const doc = {
     v: 1,
     savedAt: new Date().toISOString(),
     count: map.size,
-    entries,
-  })
+    entries: sortedEntries,
+  }
+  const content = `${JSON.stringify(doc, null, 2)}\n`
+
+  try {
+    const raw = await readFile(MASTER_PATH, 'utf8')
+    const prev = JSON.parse(raw)
+    if (prev.v === 1 && prev.entries && entriesRecordEqual(prev.entries, sortedEntries)) {
+      console.log('[sitemap] article-master.json entries unchanged — skip write')
+      return
+    }
+  } catch (e) {
+    if (e.code !== 'ENOENT') throw e
+  }
   await mkdir(path.dirname(MASTER_PATH), { recursive: true })
-  await writeFile(MASTER_PATH, body, 'utf8')
+  await writeFile(MASTER_PATH, content, 'utf8')
+  console.log('[sitemap] wrote article-master.json')
+}
+
+/** Avoid noisy PRs: no-op when file content is byte-identical. */
+async function writeFileIfChanged(absPath, content) {
+  const label = path.relative(publicDir, absPath) || path.basename(absPath)
+  try {
+    const prev = await readFile(absPath, 'utf8')
+    if (prev === content) {
+      console.log(`[sitemap] unchanged — skip ${label}`)
+      return false
+    }
+  } catch (e) {
+    if (e.code !== 'ENOENT') throw e
+  }
+  await mkdir(path.dirname(absPath), { recursive: true })
+  await writeFile(absPath, content, 'utf8')
+  console.log(`[sitemap] wrote ${label}`)
+  return true
 }
 
 function mapEntriesToSortedArticleArray(map) {
@@ -370,7 +430,7 @@ async function resolveArticleEntries() {
 
   const entries = mapEntriesToSortedArticleArray(articleMap)
   console.log(`[sitemap] resolved ${entries.length} article URLs (mode=${mode})`)
-  if (USE_MASTER) await writeMasterJson(articleMap)
+  if (USE_MASTER) await writeMasterJsonIfChanged(articleMap)
   return entries
 }
 
@@ -378,14 +438,15 @@ async function main() {
   await mkdir(sitemapsDir, { recursive: true })
 
   const nowIso = new Date().toISOString()
+  /** Omit `lastmod` so static routes do not churn the file on every cron when nothing else changed. */
   const staticUrls = STATIC_PATHS.map((routePath) => ({
     loc: `${SITE_URL}${routePath === '/' ? '' : routePath}`,
-    lastmod: nowIso,
+    lastmod: null,
     changefreq: 'daily',
     priority: routePath === '/' ? 1.0 : 0.7,
   }))
   const staticSitemapXml = buildUrlsetXml(staticUrls)
-  await writeFile(path.join(publicDir, 'sitemap-static.xml'), staticSitemapXml, 'utf8')
+  await writeFileIfChanged(path.join(publicDir, 'sitemap-static.xml'), staticSitemapXml)
 
   const articleEntries = await resolveArticleEntries()
   const latestCutoffMs = Date.now() - LATEST_WINDOW_DAYS * 24 * 60 * 60 * 1000
@@ -411,12 +472,11 @@ async function main() {
   const sitemapIndexEntries = [
     {
       loc: `${SITE_URL}/sitemap-static.xml`,
-      lastmod: nowIso,
     },
   ]
 
   const latestSitemapXml = buildUrlsetXml(latestEntries)
-  await writeFile(path.join(sitemapsDir, 'sitemap-latest.xml'), latestSitemapXml, 'utf8')
+  await writeFileIfChanged(path.join(sitemapsDir, 'sitemap-latest.xml'), latestSitemapXml)
   sitemapIndexEntries.push({
     loc: `${SITE_URL}/sitemaps/sitemap-latest.xml`,
     lastmod: latestEntries[0]?.lastmod ?? nowIso,
@@ -429,7 +489,7 @@ async function main() {
     const fileName = `sitemap-articles-${fileCount}.xml`
     const filePath = path.join(sitemapsDir, fileName)
     const xml = buildUrlsetXml(chunk)
-    await writeFile(filePath, xml, 'utf8')
+    await writeFileIfChanged(filePath, xml)
     sitemapIndexEntries.push({
       loc: `${SITE_URL}/sitemaps/${fileName}`,
       lastmod: chunk[0]?.lastmod ?? nowIso,
@@ -437,11 +497,11 @@ async function main() {
   }
 
   const sitemapIndexXml = buildSitemapIndexXml(sitemapIndexEntries)
-  await writeFile(path.join(publicDir, 'sitemap_index.xml'), sitemapIndexXml, 'utf8')
+  await writeFileIfChanged(path.join(publicDir, 'sitemap_index.xml'), sitemapIndexXml)
   await mkdir(path.join(publicDir, 'sitemap'), { recursive: true })
-  await writeFile(path.join(publicDir, 'sitemap', 'sitemap.xml'), sitemapIndexXml, 'utf8')
+  await writeFileIfChanged(path.join(publicDir, 'sitemap', 'sitemap.xml'), sitemapIndexXml)
   // Keep a compatibility alias for crawlers/tools still checking /sitemap.xml.
-  await writeFile(path.join(publicDir, 'sitemap.xml'), sitemapIndexXml, 'utf8')
+  await writeFileIfChanged(path.join(publicDir, 'sitemap.xml'), sitemapIndexXml)
 
   console.log(
     `Generated sitemap_index.xml (+ sitemap.xml alias), sitemap-latest.xml (${latestEntries.length} URLs), and ${fileCount} article sitemap file(s) with ${articleEntries.length} deduplicated article URLs.`
