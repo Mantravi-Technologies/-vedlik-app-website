@@ -906,7 +906,8 @@ function buildWebFeedBreadcrumbList(
 ): Record<string, unknown> | null {
   const homeItem = { '@type': 'ListItem', position: 1, name: 'Home', item: `${SITE_URL}/` }
   if (path === '/signal' || path === '/web') {
-    const label = path === '/signal' ? 'Signals — AI & tech news' : 'Web preview — mSite & desktop'
+    const label =
+      path === '/signal' ? 'Signals — latest AI news & tech updates' : 'Vedlik — latest AI news & tech updates'
     return {
       '@context': 'https://schema.org',
       '@type': 'BreadcrumbList',

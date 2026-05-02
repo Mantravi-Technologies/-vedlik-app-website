@@ -8,15 +8,18 @@ export const HOME_TITLE = 'Vedlik — Latest AI Updates, Tech News & Startup Int
 export const HOME_DESCRIPTION =
   'Vedlik delivers the latest AI updates, tech news, startup funding rounds, and technology breakthroughs in concise, source-backed briefs. Stay ahead of AI tools, machine learning models, and tech industry trends—and browse Signals (AI news, LLM updates, tech policy, VC rounds) on vedlik.com/signal or use Vedlik on iOS & Android.'
 
-/** `/signal` feed hub — distinct from `/web`. */
+/**
+ * `/signal` vs `/web`: same Signals feed and the same SEO themes (AI news, tech updates, startups).
+ * Only the path differs—titles mirror each other so copy stays predictable, not random edits.
+ */
 export const SIGNAL_FEED_TITLE = 'Vedlik Signals — Latest AI News & Tech Updates | Vedlik'
 export const SIGNAL_FEED_DESCRIPTION =
-  'Vedlik web feed at vedlik.com/signal: today’s AI news, tech updates, startup intelligence, and why-it-matters-first Signals—mobile web & desktop preview with source-backed briefs on models, funding, generative AI, and policy. Install Vedlik on iOS or Android for the full in-app experience.'
+  'Latest AI news, tech updates, and startup intelligence at vedlik.com/signal, source-backed Signals with why-it-matters context (models, funding, generative AI, policy). Get the Vedlik app on iOS or Android for the full in-app experience.'
 
-/** `/web` feed preview entry. */
-export const WEB_FEED_TITLE = 'Vedlik Web — mSite + Desktop Preview | Vedlik'
+/** Same feed as `SIGNAL_*`; “Web” = this URL only (`/web`). */
+export const WEB_FEED_TITLE = 'Vedlik Web — Latest AI News & Tech Updates | Vedlik'
 export const WEB_FEED_DESCRIPTION =
-  'Vedlik web experience preview for mobile web and desktop: AI updates, tech news, startup funding, LLM & developer Signals with why-it-matters-first cards. Same Signals spirit as vedlik.com/signal—open in browser or install Vedlik for iOS & Android.'
+  'Same Signals feed as vedlik.com/signal, on vedlik.com/web: latest AI news, tech updates, and startup briefs—source-backed, why-it-matters first. Get the Vedlik app on iOS or Android for the full in-app experience.'
 
 /** Visible + SR heading for the Signals feed shell (one H1 per view). */
 export const SIGNAL_FEED_H1 = 'Latest AI news, tech updates, and startup Signals — Vedlik'
