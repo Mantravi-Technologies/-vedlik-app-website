@@ -1,7 +1,7 @@
 {
   "v": 1,
-  "savedAt": "2026-05-06T21:40:32.192Z",
-  "count": 3203,
+  "savedAt": "2026-05-08T21:33:59.200Z",
+  "count": 3391,
   "entries": {
     "https://vedlik.com/signal/10x-science-secures-48m-seed-to-characterize-ai-generated-drug-candidates": {
       "lastmod": "2026-04-22T15:11:06.284Z"
@@ -47,6 +47,12 @@
     },
     "https://vedlik.com/signal/aavishkaar-capital-funds-gnaniai-with-10-million-series-b": {
       "lastmod": "2026-03-31T09:17:11.798Z"
+    },
+    "https://vedlik.com/signal/abacus-ai-platform-integrates-multi-model-agents-and-automation": {
+      "lastmod": "2026-05-07T04:36:06.074Z"
+    },
+    "https://vedlik.com/signal/ably-extends-platform-for-long-running-ai-agent-sessions": {
+      "lastmod": "2026-05-07T04:35:29.745Z"
     },
     "https://vedlik.com/signal/academic-researcher-shifts-to-production-code-learns-iteration": {
       "lastmod": "2026-04-11T14:39:21.476Z"
@@ -108,6 +114,9 @@
     "https://vedlik.com/signal/addy-osmani-defines-comprehension-debt-in-ai-generated-code": {
       "lastmod": "2026-04-14T04:00:44.937Z"
     },
+    "https://vedlik.com/signal/aditya-birla-sun-life-amc-launches-2-000-crore-aif": {
+      "lastmod": "2026-05-07T11:16:15.427Z"
+    },
     "https://vedlik.com/signal/adobe-databricks-launch-delta-sharing-for-agentic-marketing": {
       "lastmod": "2026-04-20T15:13:53.014Z"
     },
@@ -119,6 +128,9 @@
     },
     "https://vedlik.com/signal/adobe-nvidia-wpp-partner-on-enterprise-ai-agents": {
       "lastmod": "2026-04-20T15:13:50.822Z"
+    },
+    "https://vedlik.com/signal/adobe-opens-seventh-india-office-expands-ai-focus": {
+      "lastmod": "2026-05-08T15:22:25.617Z"
     },
     "https://vedlik.com/signal/adobe-premiere-adds-gpu-accelerated-color-grading-mode": {
       "lastmod": "2026-04-15T15:04:04.052Z"
@@ -225,6 +237,9 @@
     "https://vedlik.com/signal/ai-accelerates-drug-discovery-fails-to-cure-major-diseases": {
       "lastmod": "2026-04-12T04:03:01.717Z"
     },
+    "https://vedlik.com/signal/ai-accelerates-global-cybersecurity-threats-governments-respond": {
+      "lastmod": "2026-05-08T10:32:39.099Z"
+    },
     "https://vedlik.com/signal/ai-accelerates-open-source-vulnerability-discovery-overwhelming-maintainers": {
       "lastmod": "2026-04-10T07:04:01.168Z"
     },
@@ -318,6 +333,9 @@
     "https://vedlik.com/signal/ai-app-prepares-users-for-difficult-conversations": {
       "lastmod": "2026-03-25T19:37:21.983Z"
     },
+    "https://vedlik.com/signal/ai-assistance-reduces-human-persistence-impairs-independent-performance": {
+      "lastmod": "2026-05-08T10:31:04.131Z"
+    },
     "https://vedlik.com/signal/ai-assistant-refactors-css-with-visual-regression-safety-net": {
       "lastmod": "2026-03-28T08:00:43.862Z"
     },
@@ -338,6 +356,9 @@
     },
     "https://vedlik.com/signal/ai-boom-derails-clean-air-efforts-in-polluted-city": {
       "lastmod": "2026-04-12T04:04:19.602Z"
+    },
+    "https://vedlik.com/signal/ai-boom-divides-bay-area-housing-market-redfin-reports": {
+      "lastmod": "2026-05-07T11:16:13.229Z"
     },
     "https://vedlik.com/signal/ai-bot-organizes-manchester-party-tests-human-ai-dynamics": {
       "lastmod": "2026-04-06T05:13:05.100Z"
@@ -381,11 +402,17 @@
     "https://vedlik.com/signal/ai-coded-apps-create-data-islands-rootcx-offers-shared-infrastructure": {
       "lastmod": "2026-04-26T14:41:04.550Z"
     },
+    "https://vedlik.com/signal/ai-coded-apps-expose-corporate-personal-data-online": {
+      "lastmod": "2026-05-07T11:15:32.920Z"
+    },
     "https://vedlik.com/signal/ai-coding-agents-break-containment-in-2026": {
       "lastmod": "2026-04-24T04:18:50.461Z"
     },
     "https://vedlik.com/signal/ai-coding-assistants-need-persistent-memory-layers": {
       "lastmod": "2026-04-11T14:37:56.720Z"
+    },
+    "https://vedlik.com/signal/ai-coding-assistants-reshape-junior-developer-onboarding": {
+      "lastmod": "2026-05-07T11:14:18.492Z"
     },
     "https://vedlik.com/signal/ai-companies-establish-neo-feudal-control-over-digital-infrastructure": {
       "lastmod": "2026-04-19T14:39:40.486Z"
@@ -435,11 +462,17 @@
     "https://vedlik.com/signal/ai-displaces-professionals-forcing-identity-reassessment": {
       "lastmod": "2026-04-06T13:55:58.957Z"
     },
+    "https://vedlik.com/signal/ai-driven-sales-marketing-startups-attract-billions-in-funding": {
+      "lastmod": "2026-05-08T15:18:42.356Z"
+    },
     "https://vedlik.com/signal/ai-driven-tools-redefine-developer-productivity-testing-and-infrastructure": {
       "lastmod": "2026-04-20T07:19:32.271Z"
     },
     "https://vedlik.com/signal/ai-drives-jevons-employment-effect-in-professional-services": {
       "lastmod": "2026-04-30T15:47:09.664Z"
+    },
+    "https://vedlik.com/signal/ai-economy-architects-discuss-supply-chain-energy-and-new-architectures": {
+      "lastmod": "2026-05-07T07:45:58.702Z"
     },
     "https://vedlik.com/signal/ai-engineer-europe-2026-conference-highlights-key-trends": {
       "lastmod": "2026-04-11T03:40:11.837Z"
@@ -492,6 +525,9 @@
     "https://vedlik.com/signal/ai-hallucinations-plague-legal-sector-cases-rise-globally": {
       "lastmod": "2026-04-13T10:52:04.820Z"
     },
+    "https://vedlik.com/signal/ai-harness-engineering-improves-llm-context-reduces-hallucinations": {
+      "lastmod": "2026-05-08T06:56:30.713Z"
+    },
     "https://vedlik.com/signal/ai-helps-two-brothers-build-18-billion-telehealth-company": {
       "lastmod": "2026-04-12T06:25:23.429Z"
     },
@@ -524,6 +560,9 @@
     },
     "https://vedlik.com/signal/ai-journaling-app-mindsera-offers-instant-feedback-raises-privacy-concerns": {
       "lastmod": "2026-04-12T14:37:03.942Z"
+    },
+    "https://vedlik.com/signal/ai-kids-toys-face-scrutiny-over-safety-regulation": {
+      "lastmod": "2026-05-08T10:31:36.984Z"
     },
     "https://vedlik.com/signal/ai-knowledge-systems-catalog-maps-rag-memory-architectures": {
       "lastmod": "2026-04-12T06:33:50.434Z"
@@ -575,6 +614,9 @@
     },
     "https://vedlik.com/signal/ai-models-struggle-to-predict-social-unrest": {
       "lastmod": "2026-04-12T04:04:21.700Z"
+    },
+    "https://vedlik.com/signal/ai-native-hedge-funds-offer-profitability-not-unicorn-returns": {
+      "lastmod": "2026-05-08T06:57:58.248Z"
     },
     "https://vedlik.com/signal/ai-needs-data-fabric-for-business-value-sap-executive-says": {
       "lastmod": "2026-04-22T15:10:38.010Z"
@@ -1059,6 +1101,9 @@
     "https://vedlik.com/signal/american-airlines-ceo-rejects-united-merger-as-anti-competitive": {
       "lastmod": "2026-04-24T10:29:08.861Z"
     },
+    "https://vedlik.com/signal/amex-ventures-shifts-focus-to-agentic-commerce-startups": {
+      "lastmod": "2026-05-07T11:14:09.706Z"
+    },
     "https://vedlik.com/signal/amnitex": {
       "lastmod": "2026-05-02T04:18:26.551Z"
     },
@@ -1137,6 +1182,9 @@
     "https://vedlik.com/signal/anthropic-ceo-meets-white-house-over-mythos-ai-access": {
       "lastmod": "2026-04-18T03:47:07.661Z"
     },
+    "https://vedlik.com/signal/anthropic-challenges-european-ai-startups-with-new-products": {
+      "lastmod": "2026-05-07T16:04:48.653Z"
+    },
     "https://vedlik.com/signal/anthropic-charges-extra-for-claude-code-third-party-tool-support": {
       "lastmod": "2026-04-06T13:54:47.727Z"
     },
@@ -1203,6 +1251,9 @@
     "https://vedlik.com/signal/anthropic-faces-user-backlash-over-claude-ai-performance-decline": {
       "lastmod": "2026-04-14T10:21:51.324Z"
     },
+    "https://vedlik.com/signal/anthropic-finance-agents-threaten-established-service-providers": {
+      "lastmod": "2026-05-07T11:14:29.096Z"
+    },
     "https://vedlik.com/signal/anthropic-forms-consortium-to-address-ai-hacking-risks": {
       "lastmod": "2026-04-08T03:51:02.201Z"
     },
@@ -1251,6 +1302,9 @@
     "https://vedlik.com/signal/anthropic-launches-claude-design-rivaling-figma-and-canva": {
       "lastmod": "2026-04-18T03:47:09.883Z"
     },
+    "https://vedlik.com/signal/anthropic-launches-claude-financial-services-solution-for-enterprise-workflows": {
+      "lastmod": "2026-05-08T04:17:07.660Z"
+    },
     "https://vedlik.com/signal/anthropic-launches-claude-managed-agents-for-enterprise-ai": {
       "lastmod": "2026-04-09T06:27:48.249Z"
     },
@@ -1278,6 +1332,9 @@
     "https://vedlik.com/signal/anthropic-leaks-model-plans-exposes-claude-codebase": {
       "lastmod": "2026-04-05T05:04:53.001Z"
     },
+    "https://vedlik.com/signal/anthropic-leases-spacex-colossus-1-compute-cluster": {
+      "lastmod": "2026-05-07T11:14:31.121Z"
+    },
     "https://vedlik.com/signal/anthropic-limits-claude-mythos-access-amidst-ai-doomsday-fears": {
       "lastmod": "2026-04-09T06:25:21.618Z"
     },
@@ -1286,6 +1343,9 @@
     },
     "https://vedlik.com/signal/anthropic-mcp-flaw-exposes-200k-servers-to-takeover": {
       "lastmod": "2026-04-17T04:01:43.647Z"
+    },
+    "https://vedlik.com/signal/anthropic-mythos-model-rewrites-firefox-cybersecurity-approach": {
+      "lastmod": "2026-05-08T04:17:14.710Z"
     },
     "https://vedlik.com/signal/anthropic-nears-50b-funding-round-at-900b-valuation": {
       "lastmod": "2026-04-30T07:31:11.779Z"
@@ -1344,6 +1404,9 @@
     "https://vedlik.com/signal/anthropic-reveals-claude-mythos-restricts-access-to-partners": {
       "lastmod": "2026-04-08T03:48:15.847Z"
     },
+    "https://vedlik.com/signal/anthropic-s-dreaming-feature-blurs-ai-human-language": {
+      "lastmod": "2026-05-08T06:59:35.469Z"
+    },
     "https://vedlik.com/signal/anthropic-secures-5b-amazon-investment-pledges-100b-aws-spend": {
       "lastmod": "2026-04-21T04:01:47.316Z"
     },
@@ -1353,8 +1416,23 @@
     "https://vedlik.com/signal/anthropic-secures-broadcom-google-ai-chip-partnership": {
       "lastmod": "2026-04-07T10:13:57.934Z"
     },
+    "https://vedlik.com/signal/anthropic-secures-compute-deal-with-spacexai-for-claude-capacity": {
+      "lastmod": "2026-05-08T10:30:13.574Z"
+    },
+    "https://vedlik.com/signal/anthropic-secures-spacex-compute-deal-deepseek-raises-funds": {
+      "lastmod": "2026-05-08T15:18:13.405Z"
+    },
+    "https://vedlik.com/signal/anthropic-secures-spacex-data-center-deal-boosts-claude-ai-capacity": {
+      "lastmod": "2026-05-07T16:05:11.271Z"
+    },
+    "https://vedlik.com/signal/anthropic-secures-spacexai-colossus-1-deal-boosts-claude-limits": {
+      "lastmod": "2026-05-07T07:45:47.875Z"
+    },
     "https://vedlik.com/signal/anthropic-ships-14-features-suffers-outages-leaks-mythos-model": {
       "lastmod": "2026-03-28T15:25:07.729Z"
+    },
+    "https://vedlik.com/signal/anthropic-ships-autoencoders-eu-simplifies-ai-act-cloudflare-cuts-jobs": {
+      "lastmod": "2026-05-08T06:58:28.897Z"
     },
     "https://vedlik.com/signal/anthropic-ships-claude-design-openai-execs-depart-pre-ipo": {
       "lastmod": "2026-04-20T04:16:40.754Z"
@@ -1385,6 +1463,9 @@
     },
     "https://vedlik.com/signal/anthropic-unveils-claude-mythos-preview-alarming-cybersecurity-experts": {
       "lastmod": "2026-04-11T14:37:22.555Z"
+    },
+    "https://vedlik.com/signal/anthropic-unveils-dreaming-feature-for-ai-agent-self-improvement": {
+      "lastmod": "2026-05-08T15:18:28.372Z"
     },
     "https://vedlik.com/signal/anthropic-weighs-building-custom-ai-chips-amid-shortage": {
       "lastmod": "2026-04-10T07:00:17.223Z"
@@ -1500,6 +1581,9 @@
     "https://vedlik.com/signal/apple-hires-ex-google-executive-to-lead-ai-marketing": {
       "lastmod": "2026-03-30T04:26:46.602Z"
     },
+    "https://vedlik.com/signal/apple-hosts-workshop-on-privacy-preserving-ml-and-ai": {
+      "lastmod": "2026-05-08T15:19:11.827Z"
+    },
     "https://vedlik.com/signal/apple-inc-eyes-indias-middle-class-boom": {
       "lastmod": "2026-05-01T14:54:59.335Z"
     },
@@ -1533,6 +1617,9 @@
     "https://vedlik.com/signal/apple-mac-mini-799-price-ai-demand": {
       "lastmod": "2026-05-02T10:05:18.595Z"
     },
+    "https://vedlik.com/signal/apple-meta-warn-canadian-bill-threatens-encryption": {
+      "lastmod": "2026-05-08T06:59:16.062Z"
+    },
     "https://vedlik.com/signal/apple-names-hardware-chief-john-ternus-as-new-ceo": {
       "lastmod": "2026-04-21T10:23:19.808Z"
     },
@@ -1560,6 +1647,9 @@
     "https://vedlik.com/signal/apple-names-john-ternus-next-ceo-tim-cook-transitions": {
       "lastmod": "2026-04-22T07:01:14.394Z"
     },
+    "https://vedlik.com/signal/apple-nears-production-of-ai-powered-airpods-with-cameras": {
+      "lastmod": "2026-05-08T15:18:26.409Z"
+    },
     "https://vedlik.com/signal/apple-presents-hci-research-demos-at-chi-2026": {
       "lastmod": "2026-04-11T03:40:21.664Z"
     },
@@ -1578,6 +1668,9 @@
     "https://vedlik.com/signal/apple-research-prunes-training-data-boosts-llm-fact-memorization": {
       "lastmod": "2026-04-14T03:59:22.364Z"
     },
+    "https://vedlik.com/signal/apple-researchers-detail-practical-learned-image-compression": {
+      "lastmod": "2026-05-08T04:16:25.564Z"
+    },
     "https://vedlik.com/signal/apple-researchers-introduce-starflow-v-for-video-generation": {
       "lastmod": "2026-04-30T15:50:30.045Z"
     },
@@ -1592,6 +1685,9 @@
     },
     "https://vedlik.com/signal/apple-researchers-quantify-synthetic-data-trade-offs-for-generalization": {
       "lastmod": "2026-04-02T09:23:00.442Z"
+    },
+    "https://vedlik.com/signal/apple-researchers-reconstruct-high-quality-3d-gaussian-heads": {
+      "lastmod": "2026-05-08T15:18:35.866Z"
     },
     "https://vedlik.com/signal/apple-researchers-release-protext-gender-bias-benchmark": {
       "lastmod": "2026-04-02T04:44:53.339Z"
@@ -1719,6 +1815,9 @@
     "https://vedlik.com/signal/augusta-national-expansion-blocked-by-93-year-old-homeowner": {
       "lastmod": "2026-04-12T14:40:13.682Z"
     },
+    "https://vedlik.com/signal/aurora-ceo-chris-urmson-scales-self-driving-truck-operations": {
+      "lastmod": "2026-05-08T06:59:39.394Z"
+    },
     "https://vedlik.com/signal/australia-energy-security-renewables-hormuz": {
       "lastmod": "2026-05-02T07:05:49.198Z"
     },
@@ -1790,6 +1889,9 @@
     },
     "https://vedlik.com/signal/aws-bedrock-agentcore-adds-persistent-storage-shell-commands": {
       "lastmod": "2026-04-04T13:36:51.711Z"
+    },
+    "https://vedlik.com/signal/aws-bedrock-agentcore-adds-transactional-payments-with-coinbase-stripe": {
+      "lastmod": "2026-05-07T16:04:33.984Z"
     },
     "https://vedlik.com/signal/aws-bedrock-agentcore-browser-adds-os-level-actions": {
       "lastmod": "2026-05-06T04:32:11.377Z"
@@ -1941,6 +2043,9 @@
     "https://vedlik.com/signal/aws-offers-cost-efficient-custom-text-to-sql-with-nova-micro-bedrock": {
       "lastmod": "2026-04-17T04:00:58.925Z"
     },
+    "https://vedlik.com/signal/aws-offers-ec2-capacity-blocks-sagemaker-training-plans-for-gpu-access": {
+      "lastmod": "2026-05-07T16:04:47.219Z"
+    },
     "https://vedlik.com/signal/aws-quick-builds-ai-onboarding-agents-for-hr": {
       "lastmod": "2026-04-07T03:45:45.727Z"
     },
@@ -1961,6 +2066,9 @@
     },
     "https://vedlik.com/signal/aws-sagemaker-hyperpod-boosts-llm-inference-with-new-features": {
       "lastmod": "2026-04-15T03:59:16.939Z"
+    },
+    "https://vedlik.com/signal/aws-sagemaker-improves-rl-with-verifiable-rewards-grpo": {
+      "lastmod": "2026-05-07T16:04:47.782Z"
     },
     "https://vedlik.com/signal/aws-sagemaker-jumpstart-adds-use-case-optimized-model-deployments": {
       "lastmod": "2026-04-15T03:58:38.953Z"
@@ -2004,6 +2112,9 @@
     "https://vedlik.com/signal/bachatt-secures-12-million-funding-from-accel-lightspeed": {
       "lastmod": "2026-03-31T09:17:21.889Z"
     },
+    "https://vedlik.com/signal/badco-ai-orchestrates-car-buying-with-crm-native-ai-layer": {
+      "lastmod": "2026-05-07T16:05:53.719Z"
+    },
     "https://vedlik.com/signal/bagmane-reit-ipo-targets-acquisitions-cites-gcc-demand": {
       "lastmod": "2026-04-30T15:50:34.459Z"
     },
@@ -2027,6 +2138,12 @@
     },
     "https://vedlik.com/signal/barracuda-re-architects-cybersecurity-platform-for-ai-native-operations": {
       "lastmod": "2026-04-29T04:26:23.562Z"
+    },
+    "https://vedlik.com/signal/barry-diller-agi-nears-trust-in-leaders-irrelevant": {
+      "lastmod": "2026-05-07T04:35:38.368Z"
+    },
+    "https://vedlik.com/signal/basata-secures-21m-series-a-to-automate-healthcare-referrals": {
+      "lastmod": "2026-05-08T06:56:33.666Z"
     },
     "https://vedlik.com/signal/baskar-subramanian-builds-amagi-into-global-cloud-media-unicorn": {
       "lastmod": "2026-04-11T14:42:21.674Z"
@@ -2097,6 +2214,9 @@
     "https://vedlik.com/signal/bezos-project-prometheus-nears-10-billion-funding-round": {
       "lastmod": "2026-04-21T10:24:38.863Z"
     },
+    "https://vedlik.com/signal/bezos-representative-exits-slate-auto-board-amid-production-questions": {
+      "lastmod": "2026-05-08T06:56:37.923Z"
+    },
     "https://vedlik.com/signal/bharatpe-co-founder-shashvat-nakrani-exits-operations-becomes-advisor": {
       "lastmod": "2026-04-14T10:22:33.078Z"
     },
@@ -2111,6 +2231,9 @@
     },
     "https://vedlik.com/signal/bigtech-ai-news-launches-chrome-side-panel-for-company-updates": {
       "lastmod": "2026-04-26T09:59:36.891Z"
+    },
+    "https://vedlik.com/signal/bikaji-promoter-family-office-invests-in-the-filter-coffee": {
+      "lastmod": "2026-05-08T06:56:33.839Z"
     },
     "https://vedlik.com/signal/bill-ackman-pursues-64-billion-universal-music-group-bid": {
       "lastmod": "2026-04-17T10:22:06.613Z"
@@ -2232,6 +2355,9 @@
     "https://vedlik.com/signal/building-with-gemini-embedding-2": {
       "lastmod": "2026-05-01T04:45:57.294Z"
     },
+    "https://vedlik.com/signal/bumble-ceo-confirms-swipe-feature-removal-app-overhaul": {
+      "lastmod": "2026-05-08T06:59:52.659Z"
+    },
     "https://vedlik.com/signal/business-operators-can-sensemake-ai-hype-with-outcome-orientation": {
       "lastmod": "2026-04-24T10:31:50.070Z"
     },
@@ -2264,6 +2390,9 @@
     },
     "https://vedlik.com/signal/calcom-moves-core-codebase-private-citing-ai-security-risks": {
       "lastmod": "2026-04-15T15:04:18.386Z"
+    },
+    "https://vedlik.com/signal/california-farmers-destroy-420-000-peach-trees-after-del-monte-bankruptcy": {
+      "lastmod": "2026-05-08T04:18:05.515Z"
     },
     "https://vedlik.com/signal/california-imposes-new-ai-regulations-despite-trump-opposition": {
       "lastmod": "2026-03-31T04:58:40.651Z"
@@ -2322,6 +2451,9 @@
     "https://vedlik.com/signal/ccceu-estimates-eu-cybersecurity-overhaul-costs-432-billion": {
       "lastmod": "2026-05-06T16:05:29.666Z"
     },
+    "https://vedlik.com/signal/cenovus-ceo-canada-s-carbon-tax-hinders-pipeline-plans": {
+      "lastmod": "2026-05-07T11:16:30.472Z"
+    },
     "https://vedlik.com/signal/central-bank-of-india-anticipates-limited-impact-from-new-rbi-rules": {
       "lastmod": "2026-05-04T15:59:16.937Z"
     },
@@ -2378,6 +2510,9 @@
     },
     "https://vedlik.com/signal/chatgpt-becomes-abusive-when-fed-real-life-arguments-study-finds": {
       "lastmod": "2026-04-22T04:00:28.597Z"
+    },
+    "https://vedlik.com/signal/chatgpt-free-tier-upgrades-to-gpt-5-5-instant": {
+      "lastmod": "2026-05-07T16:05:08.120Z"
     },
     "https://vedlik.com/signal/chatgpt-images-2-0-is-a-hit-in-india-but-not-a-big-winner-elsewhere-yet": {
       "lastmod": "2026-05-01T07:28:10.754Z"
@@ -2453,6 +2588,9 @@
     },
     "https://vedlik.com/signal/china-retaliates-against-eu-sanctions-threatens-european-defense-supply": {
       "lastmod": "2026-04-26T14:41:16.628Z"
+    },
+    "https://vedlik.com/signal/china-s-ai-labs-prioritize-collaboration-practicality-over-ego": {
+      "lastmod": "2026-05-08T10:32:31.485Z"
     },
     "https://vedlik.com/signal/china-s-industrial-rise-driven-by-commercialization-not-subsidies": {
       "lastmod": "2026-05-04T16:00:30.974Z"
@@ -2589,6 +2727,12 @@
     "https://vedlik.com/signal/cloudflare-agents-sdk-adds-experimental-voice-pipeline": {
       "lastmod": "2026-04-15T15:06:08.492Z"
     },
+    "https://vedlik.com/signal/cloudflare-cuts-1-100-jobs-reorganizes-for-agentic-ai-era": {
+      "lastmod": "2026-05-08T10:30:50.052Z"
+    },
+    "https://vedlik.com/signal/cloudflare-cuts-20-workforce-citing-ai-adoption-reshapes-operations": {
+      "lastmod": "2026-05-08T10:32:27.999Z"
+    },
     "https://vedlik.com/signal/cloudflare-details-enterprise-mcp-reference-architecture-for-secure-ai": {
       "lastmod": "2026-04-14T15:12:53.819Z"
     },
@@ -2672,6 +2816,9 @@
     },
     "https://vedlik.com/signal/code-on-incus-hardens-ai-agent-container-runtime": {
       "lastmod": "2026-04-12T06:33:55.297Z"
+    },
+    "https://vedlik.com/signal/codewords-secures-9m-seed-to-automate-workflows-for-non-coders": {
+      "lastmod": "2026-05-07T04:35:32.099Z"
     },
     "https://vedlik.com/signal/coding-agents-leverage-tools-memory-and-repo-context": {
       "lastmod": "2026-04-04T13:38:41.830Z"
@@ -2850,6 +2997,12 @@
     "https://vedlik.com/signal/coreweave-simplifies-cross-cloud-ai-with-new-capabilities": {
       "lastmod": "2026-04-22T15:10:05.554Z"
     },
+    "https://vedlik.com/signal/corgi-secures-160m-series-b-reaches-1-3b-valuation": {
+      "lastmod": "2026-05-07T07:47:46.254Z"
+    },
+    "https://vedlik.com/signal/corgi-secures-160m-series-b-reaching-1-3b-valuation": {
+      "lastmod": "2026-05-07T04:36:17.050Z"
+    },
     "https://vedlik.com/signal/corporate-relations-define-indias-green-energy-future": {
       "lastmod": "2026-04-23T07:06:01.377Z"
     },
@@ -2946,6 +3099,9 @@
     "https://vedlik.com/signal/databricks-agentic-analytics-needs-governed-data-layer": {
       "lastmod": "2026-04-03T04:44:46.158Z"
     },
+    "https://vedlik.com/signal/databricks-ai-bi-genie-unifies-growth-analytics-data": {
+      "lastmod": "2026-05-08T10:30:40.037Z"
+    },
     "https://vedlik.com/signal/databricks-ai-gateway-secures-agent-access-to-external-tools": {
       "lastmod": "2026-04-16T04:12:42.609Z"
     },
@@ -3000,8 +3156,14 @@
     "https://vedlik.com/signal/databricks-integrates-openai-gpt-55-and-codex-with-unity-ai-gateway": {
       "lastmod": "2026-04-25T03:49:54.263Z"
     },
+    "https://vedlik.com/signal/databricks-introduces-genie-data-agent-for-enterprise-data-queries": {
+      "lastmod": "2026-05-08T15:18:30.604Z"
+    },
     "https://vedlik.com/signal/databricks-lakebase-adapts-to-agentic-software-development": {
       "lastmod": "2026-03-30T14:51:18.196Z"
+    },
+    "https://vedlik.com/signal/databricks-lakebase-boosts-postgres-writes-5x-reduces-wal-traffic": {
+      "lastmod": "2026-05-08T04:15:14.904Z"
     },
     "https://vedlik.com/signal/databricks-lakebase-powers-langguards-agentic-workflow-governance-engine": {
       "lastmod": "2026-04-27T11:11:04.482Z"
@@ -3011,6 +3173,9 @@
     },
     "https://vedlik.com/signal/databricks-launches-2026-startup-challenge-with-1m-prizes": {
       "lastmod": "2026-04-02T04:43:29.782Z"
+    },
+    "https://vedlik.com/signal/databricks-launches-academy-pro-for-enterprise-ai-upskilling": {
+      "lastmod": "2026-05-07T07:45:48.037Z"
     },
     "https://vedlik.com/signal/databricks-launches-agent-bricks-for-enterprise-ai-governance": {
       "lastmod": "2026-04-14T15:11:47.420Z"
@@ -3032,6 +3197,9 @@
     },
     "https://vedlik.com/signal/databricks-outlines-multimodal-healthcare-ai-production-architectures": {
       "lastmod": "2026-04-22T10:23:34.428Z"
+    },
+    "https://vedlik.com/signal/databricks-reworks-distributed-systems-for-serverless-spark-performance": {
+      "lastmod": "2026-05-07T04:33:57.659Z"
     },
     "https://vedlik.com/signal/databricks-snowplow-detail-customer-context-layer-for-ai-agents": {
       "lastmod": "2026-04-22T03:58:09.013Z"
@@ -3080,6 +3248,9 @@
     },
     "https://vedlik.com/signal/deepinfra-joins-hugging-face-inference-provider-ecosystem": {
       "lastmod": "2026-04-30T04:29:05.470Z"
+    },
+    "https://vedlik.com/signal/deepl-cuts-250-jobs-realigns-for-ai-leadership": {
+      "lastmod": "2026-05-07T11:14:09.752Z"
     },
     "https://vedlik.com/signal/deepl-launches-real-time-voice-to-voice-translation-suite": {
       "lastmod": "2026-04-17T10:18:49.965Z"
@@ -3137,6 +3308,9 @@
     },
     "https://vedlik.com/signal/delhi-draft-ev-policy-offers-rs-1-lakh-scrapping-incentive": {
       "lastmod": "2026-04-12T04:02:53.539Z"
+    },
+    "https://vedlik.com/signal/delhi-high-court-refers-zee-jiostar-copyright-dispute-to-mediation": {
+      "lastmod": "2026-05-08T10:30:23.087Z"
     },
     "https://vedlik.com/signal/dell-cfo-deploys-ai-agents-drives-25-billion-ai-business": {
       "lastmod": "2026-03-30T08:56:18.043Z"
@@ -3405,6 +3579,9 @@
     "https://vedlik.com/signal/elizabeta-gjorgievska-joshevski-shapes-enterprise-ai-strategy-with-evercognitive": {
       "lastmod": "2026-04-17T04:01:27.933Z"
     },
+    "https://vedlik.com/signal/elyos-ai-automates-trades-sector-admin-with-ai-agents": {
+      "lastmod": "2026-05-08T10:31:32.679Z"
+    },
     "https://vedlik.com/signal/emerald-ai-nvidia-demonstrate-power-flexible-ai-factories-stabilizing-grids": {
       "lastmod": "2026-03-28T15:23:58.371Z"
     },
@@ -3431,6 +3608,9 @@
     },
     "https://vedlik.com/signal/engineers-build-deterministic-3-tiered-graph-rag-system": {
       "lastmod": "2026-04-11T03:39:00.514Z"
+    },
+    "https://vedlik.com/signal/engineers-build-llm-wiki-for-persistent-ai-context": {
+      "lastmod": "2026-05-07T16:04:50.313Z"
     },
     "https://vedlik.com/signal/engineers-connect-claude-code-to-discord-locally": {
       "lastmod": "2026-05-06T16:03:54.003Z"
@@ -3483,6 +3663,9 @@
     "https://vedlik.com/signal/enterprises-must-redesign-processes-for-agent-first-ai": {
       "lastmod": "2026-04-07T15:05:03.828Z"
     },
+    "https://vedlik.com/signal/enterprises-need-ai-tool-registries-to-combat-sprawl": {
+      "lastmod": "2026-05-08T15:18:39.902Z"
+    },
     "https://vedlik.com/signal/enterprises-rebuild-data-stacks-for-ai-adoption": {
       "lastmod": "2026-04-27T15:33:24.886Z"
     },
@@ -3528,11 +3711,17 @@
     "https://vedlik.com/signal/etsy-integrates-native-shopping-app-within-chatgpt": {
       "lastmod": "2026-05-05T15:50:42.593Z"
     },
+    "https://vedlik.com/signal/eu-ai-act-extends-deadlines-bans-non-consensual-nudification-apps": {
+      "lastmod": "2026-05-07T11:16:22.581Z"
+    },
     "https://vedlik.com/signal/eu-ai-act-omnibus-deal-fails-pushing-talks-to-may": {
       "lastmod": "2026-04-29T07:26:57.013Z"
     },
     "https://vedlik.com/signal/eu-awards-180m-sovereign-cloud-contracts-to-four-providers": {
       "lastmod": "2026-04-17T14:52:36.311Z"
+    },
+    "https://vedlik.com/signal/eu-bans-sexualized-ai-deepfakes-delays-high-risk-ai-rules": {
+      "lastmod": "2026-05-07T11:14:22.643Z"
     },
     "https://vedlik.com/signal/eu-child-safety-laws-clash-with-privacy-framework": {
       "lastmod": "2026-04-25T03:51:10.079Z"
@@ -3579,6 +3768,9 @@
     "https://vedlik.com/signal/european-ai-funding-surges-30-in-q1-2026": {
       "lastmod": "2026-04-14T15:11:47.903Z"
     },
+    "https://vedlik.com/signal/european-ai-translation-firms-risk-reputation-partnering-us-cloud": {
+      "lastmod": "2026-05-08T04:17:03.662Z"
+    },
     "https://vedlik.com/signal/european-commission-proposes-digital-omnibus-weakening-ai-act-and-gdpr": {
       "lastmod": "2026-04-13T10:53:30.910Z"
     },
@@ -3590,6 +3782,9 @@
     },
     "https://vedlik.com/signal/everpure-prices-rise-70-amid-ai-fueled-supply-crunch": {
       "lastmod": "2026-04-23T15:52:32.142Z"
+    },
+    "https://vedlik.com/signal/everstone-capital-acquires-germany-s-qlar-group-for-150-200-million": {
+      "lastmod": "2026-05-07T16:05:31.095Z"
     },
     "https://vedlik.com/signal/everstone-capital-invests-270-million-in-apothecon-group": {
       "lastmod": "2026-04-14T15:12:45.635Z"
@@ -3627,6 +3822,9 @@
     "https://vedlik.com/signal/factory-secures-150m-at-15b-valuation-for-enterprise-ai-coding": {
       "lastmod": "2026-04-17T04:01:23.396Z"
     },
+    "https://vedlik.com/signal/fairfax-injects-2-000-crore-into-iifl-capital-for-majority-stake": {
+      "lastmod": "2026-05-07T11:16:05.118Z"
+    },
     "https://vedlik.com/signal/faith-based-ai-apps-emerge-offering-spiritual-chatbots": {
       "lastmod": "2026-04-12T04:08:39.925Z"
     },
@@ -3641,6 +3839,9 @@
     },
     "https://vedlik.com/signal/father-daughter-duo-pleads-guilty-to-2m-art-forgery-scheme": {
       "lastmod": "2026-04-30T15:49:03.858Z"
+    },
+    "https://vedlik.com/signal/fazeshift-secures-17m-to-automate-accounts-receivable-with-ai": {
+      "lastmod": "2026-05-07T16:05:05.696Z"
     },
     "https://vedlik.com/signal/fcc-proposes-onshoring-call-centers-boosting-ai-automation-prospects": {
       "lastmod": "2026-03-28T15:24:39.543Z"
@@ -3671,6 +3872,9 @@
     },
     "https://vedlik.com/signal/fermi-inc-executive-departures-undermine-ai-energy-thesis": {
       "lastmod": "2026-04-21T04:05:18.667Z"
+    },
+    "https://vedlik.com/signal/fidelity-cuts-1-000-jobs-amid-technology-transformation": {
+      "lastmod": "2026-05-08T10:30:25.633Z"
     },
     "https://vedlik.com/signal/fido-alliance-forms-groups-to-secure-ai-agent-payments": {
       "lastmod": "2026-04-28T16:11:02.303Z"
@@ -3756,6 +3960,9 @@
     "https://vedlik.com/signal/fluidstack-seeks-1b-funding-at-18b-valuation": {
       "lastmod": "2026-04-15T10:23:03.890Z"
     },
+    "https://vedlik.com/signal/fmc-sells-india-crop-business-to-crystal-crop-for-252-million": {
+      "lastmod": "2026-05-07T16:04:53.223Z"
+    },
     "https://vedlik.com/signal/foe-first-solution-best-in-large-reasoning-models": {
       "lastmod": "2026-04-06T05:11:25.010Z"
     },
@@ -3764,6 +3971,9 @@
     },
     "https://vedlik.com/signal/ford-ceo-goldman-sachs-warn-ai-buildout-faces-labor-crisis": {
       "lastmod": "2026-04-02T14:06:59.867Z"
+    },
+    "https://vedlik.com/signal/ford-ceo-s-son-chooses-trades-over-college-citing-fulfillment": {
+      "lastmod": "2026-05-08T10:32:56.268Z"
     },
     "https://vedlik.com/signal/forecastr-offers-rfc-3161-timestamps-for-ai-forecasts": {
       "lastmod": "2026-04-19T14:39:43.346Z"
@@ -3786,6 +3996,9 @@
     "https://vedlik.com/signal/former-openai-stargate-leaders-plan-meta-platforms-move": {
       "lastmod": "2026-04-12T04:09:27.114Z"
     },
+    "https://vedlik.com/signal/former-openai-tech-chief-alleges-altman-sowed-distrust": {
+      "lastmod": "2026-05-07T04:32:03.990Z"
+    },
     "https://vedlik.com/signal/former-tesla-hr-chief-advises-gen-z-on-ai-fluency": {
       "lastmod": "2026-04-22T15:10:06.214Z"
     },
@@ -3803,6 +4016,9 @@
     },
     "https://vedlik.com/signal/founders-adopt-ai-finance-tools-for-real-time-cash-flow": {
       "lastmod": "2026-04-17T07:04:00.533Z"
+    },
+    "https://vedlik.com/signal/founders-face-stricter-series-a-funding-landscape-in-2027": {
+      "lastmod": "2026-05-08T15:20:31.198Z"
     },
     "https://vedlik.com/signal/founders-fund-6-billion-ai-venture": {
       "lastmod": "2026-05-02T04:18:22.788Z"
@@ -3836,6 +4052,9 @@
     },
     "https://vedlik.com/signal/freshworks-cuts-11-of-workforce-amid-ai-reshaping-software-sector": {
       "lastmod": "2026-05-06T11:14:42.696Z"
+    },
+    "https://vedlik.com/signal/freshworks-lays-off-500-citing-ai-led-restructuring": {
+      "lastmod": "2026-05-07T07:45:56.483Z"
     },
     "https://vedlik.com/signal/freshworks-lays-off-500-employees-amid-ai-transformation": {
       "lastmod": "2026-05-06T11:12:23.234Z"
@@ -3987,6 +4206,9 @@
     "https://vedlik.com/signal/gitar-secures-9m-to-automate-code-security-with-ai-agents": {
       "lastmod": "2026-04-15T15:05:43.268Z"
     },
+    "https://vedlik.com/signal/github-adds-security-scanning-to-mcp-server-for-ai-agents": {
+      "lastmod": "2026-05-07T16:05:06.779Z"
+    },
     "https://vedlik.com/signal/github-copilot-rate-limits-spark-customer-outcry": {
       "lastmod": "2026-04-16T04:16:12.579Z"
     },
@@ -4037,6 +4259,9 @@
     },
     "https://vedlik.com/signal/godrej-properties-targets-39-000-crore-sales-by-fy27": {
       "lastmod": "2026-05-04T15:59:02.170Z"
+    },
+    "https://vedlik.com/signal/goldman-sachs-analysts-question-ai-boom-s-returns-citing-insecurity": {
+      "lastmod": "2026-05-07T04:34:12.921Z"
     },
     "https://vedlik.com/signal/goldman-sachs-ceo-addresses-anthropic-mythos-ai-cyber-risks": {
       "lastmod": "2026-04-14T03:59:20.667Z"
@@ -4115,6 +4340,9 @@
     },
     "https://vedlik.com/signal/google-chrome-skills-automates-browser-workflows-with-gemini-prompts": {
       "lastmod": "2026-04-15T03:59:26.356Z"
+    },
+    "https://vedlik.com/signal/google-chrome-users-can-disable-gemini-nano-ai": {
+      "lastmod": "2026-05-08T15:18:31.928Z"
     },
     "https://vedlik.com/signal/google-classifies-back-button-hijacking-as-spam-enforcement-starts-june": {
       "lastmod": "2026-04-16T07:01:53.617Z"
@@ -4242,6 +4470,9 @@
     "https://vedlik.com/signal/google-expands-live-translate-to-more-countries": {
       "lastmod": "2026-03-28T13:49:01.037Z"
     },
+    "https://vedlik.com/signal/google-faces-new-uk-lawsuit-over-display-ad-dominance": {
+      "lastmod": "2026-05-08T06:59:08.177Z"
+    },
     "https://vedlik.com/signal/google-flow-platform-unifies-ai-video-generation-tools": {
       "lastmod": "2026-04-08T06:27:24.778Z"
     },
@@ -4263,6 +4494,9 @@
     "https://vedlik.com/signal/google-integrates-ai-mode-with-side-by-side-web-browsing": {
       "lastmod": "2026-04-17T07:04:20.731Z"
     },
+    "https://vedlik.com/signal/google-integrates-reddit-community-discussions-into-ai-search": {
+      "lastmod": "2026-05-07T07:46:00.841Z"
+    },
     "https://vedlik.com/signal/google-io-2026-save-the-date-experience-leverages-gemini-models": {
       "lastmod": "2026-04-06T05:15:56.083Z"
     },
@@ -4283,6 +4517,9 @@
     },
     "https://vedlik.com/signal/google-launches-personal-intelligence-ai-to-all-us-users": {
       "lastmod": "2026-04-17T07:04:38.733Z"
+    },
+    "https://vedlik.com/signal/google-launches-screenless-fitbit-air-with-ai-health-coach": {
+      "lastmod": "2026-05-07T16:04:51.062Z"
     },
     "https://vedlik.com/signal/google-launches-torchtpu-for-native-pytorch-on-tpus": {
       "lastmod": "2026-04-08T15:11:24.508Z"
@@ -4341,6 +4578,9 @@
     "https://vedlik.com/signal/google-releases-offline-first-ai-dictation-app-on-ios-219ad9eb59c9bb": {
       "lastmod": "2026-04-08T10:19:14.257Z"
     },
+    "https://vedlik.com/signal/google-removes-on-device-ai-privacy-claim-in-chrome-settings": {
+      "lastmod": "2026-05-08T10:30:11.462Z"
+    },
     "https://vedlik.com/signal/google-reports-75-new-code-is-ai-generated": {
       "lastmod": "2026-04-26T09:58:30.789Z"
     },
@@ -4361,6 +4601,9 @@
     },
     "https://vedlik.com/signal/google-svp-ll-cool-j-discuss-ai-creativity": {
       "lastmod": "2026-04-02T09:28:10.410Z"
+    },
+    "https://vedlik.com/signal/google-tpus-achieve-3x-llm-inference-speedup-with-dflash": {
+      "lastmod": "2026-05-08T10:30:09.319Z"
     },
     "https://vedlik.com/signal/google-tpus-power-demanding-ai-workloads": {
       "lastmod": "2026-04-24T04:18:32.527Z"
@@ -4383,8 +4626,14 @@
     "https://vedlik.com/signal/google-xprize-launch-3-5m-future-vision-film-competition": {
       "lastmod": "2026-05-06T04:32:23.509Z"
     },
+    "https://vedlik.com/signal/government-veto-on-ai-models-risks-centralized-power": {
+      "lastmod": "2026-05-07T04:36:17.443Z"
+    },
     "https://vedlik.com/signal/governments-face-ai-backlash-without-public-benefit-focus": {
       "lastmod": "2026-04-16T15:24:51.604Z"
+    },
+    "https://vedlik.com/signal/governments-withdraw-documents-citing-ai-hallucinations": {
+      "lastmod": "2026-05-07T11:14:24.418Z"
     },
     "https://vedlik.com/signal/gpt-4-uses-2-of-18-trillion-parameters-per-token": {
       "lastmod": "2026-04-24T04:18:48.157Z"
@@ -4422,8 +4671,14 @@
     "https://vedlik.com/signal/greg-brockman-defends-openai-stake-in-musk-trial": {
       "lastmod": "2026-05-05T04:14:40.821Z"
     },
+    "https://vedlik.com/signal/greg-brockman-details-elon-musk-s-openai-departure": {
+      "lastmod": "2026-05-08T10:32:34.287Z"
+    },
     "https://vedlik.com/signal/greg-brockman-outlines-post-chatgpt-ai-era": {
       "lastmod": "2026-04-29T15:56:12.154Z"
+    },
+    "https://vedlik.com/signal/greyforge-labs-launches-sley-an-agent-native-ai-programming-language": {
+      "lastmod": "2026-05-08T04:17:48.217Z"
     },
     "https://vedlik.com/signal/grievous-mcp-generates-pseudorandom-data-via-anthropic-llm": {
       "lastmod": "2026-04-27T11:12:18.578Z"
@@ -4466,6 +4721,9 @@
     },
     "https://vedlik.com/signal/hackers-embed-malware-in-anthropic-claude-code-leaks": {
       "lastmod": "2026-04-06T05:13:37.512Z"
+    },
+    "https://vedlik.com/signal/halliburton-accelerates-seismic-workflows-with-amazon-bedrock-ai": {
+      "lastmod": "2026-05-08T15:18:32.789Z"
     },
     "https://vedlik.com/signal/halliburton-ceo-sees-us-oil-rebound-drilling-ramp-up": {
       "lastmod": "2026-04-22T04:00:07.299Z"
@@ -4551,6 +4809,9 @@
     "https://vedlik.com/signal/honor-robot-beats-human-half-marathon-record-in-beijing": {
       "lastmod": "2026-04-20T04:16:59.594Z"
     },
+    "https://vedlik.com/signal/hooks-enable-unified-agent-memory-across-llm-harnesses": {
+      "lastmod": "2026-05-08T15:19:08.613Z"
+    },
     "https://vedlik.com/signal/hoover-panels-warn-ai-will-test-governments-on-jobs-trust": {
       "lastmod": "2026-04-12T04:07:42.121Z"
     },
@@ -4560,11 +4821,17 @@
     "https://vedlik.com/signal/how-to-build-run-and-scale-high-quality-creator-workflows-in-comfyui": {
       "lastmod": "2026-05-01T07:27:48.894Z"
     },
+    "https://vedlik.com/signal/huawei-ai-chip-revenue-surges-as-nvidia-exits-china-market": {
+      "lastmod": "2026-05-08T15:20:45.947Z"
+    },
     "https://vedlik.com/signal/huawei-outlines-ai-data-infrastructure-strategy-at-mwc-2026": {
       "lastmod": "2026-04-22T03:59:22.733Z"
     },
     "https://vedlik.com/signal/hugging-face-advocates-openness-for-ai-cybersecurity-defenses": {
       "lastmod": "2026-04-21T15:10:06.574Z"
+    },
+    "https://vedlik.com/signal/hugging-face-clawhub-repositories-compromised-by-malware-attacks": {
+      "lastmod": "2026-05-08T15:18:14.739Z"
     },
     "https://vedlik.com/signal/hugging-face-demos-gemma-4-vla-on-jetson-orin-nano": {
       "lastmod": "2026-04-23T04:04:35.091Z"
@@ -4692,6 +4959,9 @@
     "https://vedlik.com/signal/imageeditor-launches-free-ai-image-editing-and-generation-platform": {
       "lastmod": "2026-04-13T04:17:40.631Z"
     },
+    "https://vedlik.com/signal/imf-warns-ai-cyber-threats-imperil-global-financial-system": {
+      "lastmod": "2026-05-08T06:56:19.549Z"
+    },
     "https://vedlik.com/signal/imf-warns-us-debt-erodes-treasury-bond-safety-premium": {
       "lastmod": "2026-04-20T04:16:47.147Z"
     },
@@ -4712,6 +4982,9 @@
     },
     "https://vedlik.com/signal/inchcape-ceo-sees-optimism-amidst-automotive-industry-shifts": {
       "lastmod": "2026-04-30T15:47:21.135Z"
+    },
+    "https://vedlik.com/signal/incred-holdings-files-updated-ipo-prospectus-targets-1-250-crore": {
+      "lastmod": "2026-05-07T16:05:28.927Z"
     },
     "https://vedlik.com/signal/india-approves-750-million-for-component-manufacturing": {
       "lastmod": "2026-03-30T14:49:59.757Z"
@@ -4760,6 +5033,9 @@
     },
     "https://vedlik.com/signal/indian-bank-forecasts-fy27-margin-compression-amid-elevated-deposit-costs": {
       "lastmod": "2026-04-30T15:51:25.201Z"
+    },
+    "https://vedlik.com/signal/indian-chai-startups-blend-tradition-with-modern-business-models": {
+      "lastmod": "2026-05-07T07:47:50.004Z"
     },
     "https://vedlik.com/signal/indian-consulting-firms-face-job-cuts-amid-ai-geopolitical-shifts": {
       "lastmod": "2026-04-02T04:43:26.794Z"
@@ -4836,6 +5112,9 @@
     "https://vedlik.com/signal/indian-startups-offbeat-zepto-secure-major-funding-ipo-approval": {
       "lastmod": "2026-04-08T06:28:56.725Z"
     },
+    "https://vedlik.com/signal/indian-startups-secure-105-8m-funding-inmobi-acquires-mobileaction": {
+      "lastmod": "2026-05-07T16:05:09.682Z"
+    },
     "https://vedlik.com/signal/indian-startups-secure-150-cr-kruti-ai-goes-offline": {
       "lastmod": "2026-04-16T15:26:28.979Z"
     },
@@ -4893,11 +5172,17 @@
     "https://vedlik.com/signal/indonesia-summons-meta-google-over-child-social-media-curbs": {
       "lastmod": "2026-03-31T04:58:52.033Z"
     },
+    "https://vedlik.com/signal/indosat-ceo-builds-sovereign-ai-for-indonesian-languages": {
+      "lastmod": "2026-05-08T04:17:29.860Z"
+    },
     "https://vedlik.com/signal/inductivityai-breaks-o2n-barrier-for-ai-consciousness-measurement": {
       "lastmod": "2026-04-15T04:00:18.826Z"
     },
     "https://vedlik.com/signal/inference-workloads-offer-ai-chip-startups-new-market-opportunities": {
       "lastmod": "2026-05-03T14:43:51.250Z"
+    },
+    "https://vedlik.com/signal/informity-ai-launches-local-document-chat-for-mac": {
+      "lastmod": "2026-05-07T16:05:33.500Z"
     },
     "https://vedlik.com/signal/infoseeker-framework-boosts-web-information-seeking-agents": {
       "lastmod": "2026-04-06T05:12:42.702Z"
@@ -4949,6 +5234,9 @@
     },
     "https://vedlik.com/signal/intel-buys-back-apollo-stake-in-ireland-factory": {
       "lastmod": "2026-04-01T14:11:47.350Z"
+    },
+    "https://vedlik.com/signal/intel-ceo-tan-builds-external-ties-amid-internal-manufacturing-challenges": {
+      "lastmod": "2026-05-08T15:22:40.490Z"
     },
     "https://vedlik.com/signal/intel-ceo-tan-reports-strong-q1-citing-cpu-resurgence": {
       "lastmod": "2026-04-24T04:17:30.345Z"
@@ -5009,6 +5297,9 @@
     },
     "https://vedlik.com/signal/iran-conflict-highlights-digital-warfare-in-hospitals-spyware": {
       "lastmod": "2026-03-29T08:04:48.208Z"
+    },
+    "https://vedlik.com/signal/iran-establishes-agency-to-tax-ships-in-strait-of-hormuz": {
+      "lastmod": "2026-05-08T04:17:56.978Z"
     },
     "https://vedlik.com/signal/iran-exempts-iraqi-ships-from-strait-of-hormuz-restrictions": {
       "lastmod": "2026-04-05T05:05:51.274Z"
@@ -5217,6 +5508,9 @@
     "https://vedlik.com/signal/kailera-alamar-ipos-signal-biotech-market-rebound": {
       "lastmod": "2026-04-18T09:55:03.672Z"
     },
+    "https://vedlik.com/signal/kalshi-doubles-valuation-to-22-billion-in-five-months": {
+      "lastmod": "2026-05-08T06:56:37.059Z"
+    },
     "https://vedlik.com/signal/kalshis-sports-betting-fight-heads-to-supreme-court": {
       "lastmod": "2026-04-20T10:56:21.255Z"
     },
@@ -5286,6 +5580,9 @@
     "https://vedlik.com/signal/kit-integrates-ai-across-developer-environment-tools": {
       "lastmod": "2026-05-03T10:10:16.850Z"
     },
+    "https://vedlik.com/signal/kodiak-ai-raises-100m-stock-falls-37-amid-discounted-share-sale": {
+      "lastmod": "2026-05-08T04:18:01.031Z"
+    },
     "https://vedlik.com/signal/komelin-benchmarks-18-ai-image-generation-models-for-cost": {
       "lastmod": "2026-04-18T14:42:00.044Z"
     },
@@ -5321,6 +5618,9 @@
     },
     "https://vedlik.com/signal/kwanza-jones-jose-feliciano-lead-group-to-acquire-san-diego-padres": {
       "lastmod": "2026-05-03T04:38:25.192Z"
+    },
+    "https://vedlik.com/signal/lachy-groom-backs-indian-startup-pronto-with-20-million": {
+      "lastmod": "2026-05-07T04:35:36.192Z"
     },
     "https://vedlik.com/signal/lachy-groom-backs-pronto-valuing-indian-startup-at-200m": {
       "lastmod": "2026-04-25T03:49:56.171Z"
@@ -5360,6 +5660,9 @@
     },
     "https://vedlik.com/signal/language-anchoring-method-improves-llm-multilingual-adaptation": {
       "lastmod": "2026-04-27T04:29:25.258Z"
+    },
+    "https://vedlik.com/signal/larsen-toubro-unveils-lakshya-31-five-year-growth-plan": {
+      "lastmod": "2026-05-07T07:47:49.308Z"
     },
     "https://vedlik.com/signal/latitude-unveils-voyage-ai-rpg-platform-for-custom-worlds": {
       "lastmod": "2026-04-22T07:01:48.324Z"
@@ -5408,6 +5711,9 @@
     },
     "https://vedlik.com/signal/linux-kernel-project-allows-ai-code-mandates-human-accountability": {
       "lastmod": "2026-04-13T10:53:04.009Z"
+    },
+    "https://vedlik.com/signal/lisa-ray-co-founds-nuher-clinic-proshort-ai-sales-coaching-hits-1m-arr": {
+      "lastmod": "2026-05-07T04:36:18.445Z"
     },
     "https://vedlik.com/signal/litellm-ditches-delve-for-new-security-certifications": {
       "lastmod": "2026-03-31T04:58:58.266Z"
@@ -5523,6 +5829,9 @@
     "https://vedlik.com/signal/lovelace-ai-launches-elemental-context-engine-for-enterprise-investigations": {
       "lastmod": "2026-04-28T16:11:05.309Z"
     },
+    "https://vedlik.com/signal/ltm-targets-10-billion-revenue-by-fy31-prioritizes-ai-deals": {
+      "lastmod": "2026-05-08T15:18:37.847Z"
+    },
     "https://vedlik.com/signal/lululemon-appoints-former-nike-executive-heidi-oneill-ceo": {
       "lastmod": "2026-04-23T07:05:10.565Z"
     },
@@ -5568,6 +5877,9 @@
     "https://vedlik.com/signal/man-uses-ai-to-track-guinness-prices-pubs-respond": {
       "lastmod": "2026-03-30T17:58:46.477Z"
     },
+    "https://vedlik.com/signal/mandiant-report-ai-accelerates-cyberattacks-beyond-patching-speed": {
+      "lastmod": "2026-05-08T15:18:20.425Z"
+    },
     "https://vedlik.com/signal/manycore-ipos-in-hong-kong-prioritizing-spatial-ai": {
       "lastmod": "2026-04-17T10:20:35.295Z"
     },
@@ -5585,6 +5897,9 @@
     },
     "https://vedlik.com/signal/mark-freeman-details-spec-driven-ai-development-workflow": {
       "lastmod": "2026-04-13T04:17:49.308Z"
+    },
+    "https://vedlik.com/signal/mark-stevens-donates-200-million-to-usc-for-ai-initiative": {
+      "lastmod": "2026-05-07T07:45:54.384Z"
     },
     "https://vedlik.com/signal/mastra-launches-typescript-framework-for-ai-agents": {
       "lastmod": "2026-04-30T04:31:25.673Z"
@@ -5633,6 +5948,15 @@
     },
     "https://vedlik.com/signal/mcp-spine-proxies-llm-tool-calls-with-security-token-control": {
       "lastmod": "2026-04-26T04:22:54.654Z"
+    },
+    "https://vedlik.com/signal/medqa-fine-tunes-clinical-ai-on-amd-rocm-bypassing-cuda": {
+      "lastmod": "2026-05-08T10:30:17.568Z"
+    },
+    "https://vedlik.com/signal/meesho-boosts-ai-investment-after-voice-search-recommendation-tools-lift-users": {
+      "lastmod": "2026-05-07T04:36:12.265Z"
+    },
+    "https://vedlik.com/signal/meesho-ceo-reports-70-codebase-now-ai-generated": {
+      "lastmod": "2026-05-07T07:46:11.897Z"
     },
     "https://vedlik.com/signal/meity-extends-public-comment-deadline-on-it-rule-changes": {
       "lastmod": "2026-04-11T14:35:17.112Z"
@@ -5711,6 +6035,12 @@
     },
     "https://vedlik.com/signal/meta-ceo-zuckerberg-reportedly-builds-ai-clone-for-meetings": {
       "lastmod": "2026-04-13T15:15:03.469Z"
+    },
+    "https://vedlik.com/signal/meta-challenges-ofcom-s-online-safety-act-fee-calculation-in-uk-high-court": {
+      "lastmod": "2026-05-08T04:15:41.722Z"
+    },
+    "https://vedlik.com/signal/meta-challenges-uk-regulator-over-online-safety-fees-fines": {
+      "lastmod": "2026-05-08T06:58:00.412Z"
     },
     "https://vedlik.com/signal/meta-content-policy-chief-bickert-departs-for-harvard-faculty-role": {
       "lastmod": "2026-03-29T14:06:17.355Z"
@@ -5919,6 +6249,9 @@
     "https://vedlik.com/signal/microsoft-boosts-capex-as-cloud-revenue-surges-29": {
       "lastmod": "2026-04-30T11:02:13.967Z"
     },
+    "https://vedlik.com/signal/microsoft-considers-delaying-2030-clean-energy-target-amid-ai-power-surge": {
+      "lastmod": "2026-05-07T16:05:39.294Z"
+    },
     "https://vedlik.com/signal/microsoft-copilot-integrates-claude-gpt-for-enhanced-research": {
       "lastmod": "2026-03-30T14:50:04.975Z"
     },
@@ -5934,11 +6267,17 @@
     "https://vedlik.com/signal/microsoft-excel-introduces-ai-agent-mode-for-multi-step-tasks": {
       "lastmod": "2026-04-15T03:59:31.533Z"
     },
+    "https://vedlik.com/signal/microsoft-executives-debated-openai-funding-in-2018-court-documents-show": {
+      "lastmod": "2026-05-08T06:56:35.745Z"
+    },
     "https://vedlik.com/signal/microsoft-invests-10-billion-in-japan-for-ai-cyber-defense": {
       "lastmod": "2026-04-03T04:46:21.404Z"
     },
     "https://vedlik.com/signal/microsoft-meta-announce-layoffs-amidst-major-ai-investments": {
       "lastmod": "2026-04-24T15:07:42.606Z"
+    },
+    "https://vedlik.com/signal/microsoft-offers-first-voluntary-retirement-program-to-us-staff": {
+      "lastmod": "2026-05-08T15:19:46.196Z"
     },
     "https://vedlik.com/signal/microsoft-offers-voluntary-buyouts-to-experienced-us-workers": {
       "lastmod": "2026-04-26T14:39:43.451Z"
@@ -6090,6 +6429,9 @@
     "https://vedlik.com/signal/most-companies-unprepared-for-ai-adoption-consultant-warns": {
       "lastmod": "2026-05-04T04:40:05.334Z"
     },
+    "https://vedlik.com/signal/motorola-edge-70-pro-delivers-balanced-smartphone-experience": {
+      "lastmod": "2026-05-07T11:16:07.521Z"
+    },
     "https://vedlik.com/signal/mozilla-cto-ai-bug-finder-mythos-levels-security-field": {
       "lastmod": "2026-04-22T07:00:57.215Z"
     },
@@ -6144,6 +6486,9 @@
     "https://vedlik.com/signal/musk-intensifies-openai-lawsuit-calls-altman-scam-altman": {
       "lastmod": "2026-04-29T11:02:57.182Z"
     },
+    "https://vedlik.com/signal/musk-lawsuit-scrutinizes-openai-s-ai-safety-record": {
+      "lastmod": "2026-05-08T15:22:25.260Z"
+    },
     "https://vedlik.com/signal/musk-openai-trial-begins-over-founding-mission-profit-allegations": {
       "lastmod": "2026-04-27T07:36:09.032Z"
     },
@@ -6164,6 +6509,9 @@
     },
     "https://vedlik.com/signal/musk-texted-brockman-seeking-openai-settlement-before-trial": {
       "lastmod": "2026-05-04T15:58:19.570Z"
+    },
+    "https://vedlik.com/signal/musk-tried-to-recruit-altman-to-tesla-ai-lab": {
+      "lastmod": "2026-05-07T04:36:15.724Z"
     },
     "https://vedlik.com/signal/musk-v-altman-trial-begins-over-openais-nonprofit-conversion": {
       "lastmod": "2026-04-26T14:41:15.643Z"
@@ -6309,11 +6657,17 @@
     "https://vedlik.com/signal/nhs-staff-raise-alarm-over-palantir-email-access": {
       "lastmod": "2026-04-08T15:10:57.435Z"
     },
+    "https://vedlik.com/signal/nick-bostrom-shifts-ai-stance-proposes-humanity-s-big-retirement": {
+      "lastmod": "2026-05-08T15:22:04.194Z"
+    },
     "https://vedlik.com/signal/nike-ceo-addresses-employee-turnaround-fatigue": {
       "lastmod": "2026-04-06T13:54:45.280Z"
     },
     "https://vedlik.com/signal/nike-cuts-1400-jobs-technology-teams-most-affected": {
       "lastmod": "2026-04-24T10:29:09.269Z"
+    },
+    "https://vedlik.com/signal/nike-restructures-tech-operations-cuts-1-400-jobs": {
+      "lastmod": "2026-05-07T11:16:10.283Z"
     },
     "https://vedlik.com/signal/nissan-pivots-to-ai-defined-vehicles-cuts-models": {
       "lastmod": "2026-04-14T15:12:08.941Z"
@@ -6492,6 +6846,9 @@
     "https://vedlik.com/signal/nvidia-forms-nemotron-coalition-for-open-frontier-ai-models": {
       "lastmod": "2026-03-25T19:37:21.651Z"
     },
+    "https://vedlik.com/signal/nvidia-gb200-nvl72-clusters-optimize-slurm-block-scheduling": {
+      "lastmod": "2026-05-08T10:30:59.608Z"
+    },
     "https://vedlik.com/signal/nvidia-geforce-now-adds-10-new-cloud-gaming-titles": {
       "lastmod": "2026-04-05T05:00:56.071Z"
     },
@@ -6536,6 +6893,9 @@
     },
     "https://vedlik.com/signal/nvidia-mission-control-30-boosts-ai-factory-token-production": {
       "lastmod": "2026-04-04T13:34:53.950Z"
+    },
+    "https://vedlik.com/signal/nvidia-model-optimizer-quantizes-clip-to-fp8-for-efficient-deployment": {
+      "lastmod": "2026-05-08T04:17:43.258Z"
     },
     "https://vedlik.com/signal/nvidia-nemo-rl-accelerates-reinforcement-learning-with-end-to-end-fp8": {
       "lastmod": "2026-04-21T04:03:39.196Z"
@@ -6635,6 +6995,9 @@
     },
     "https://vedlik.com/signal/oil-gas-tech-shifts-from-pilots-to-procurement": {
       "lastmod": "2026-04-02T09:26:25.573Z"
+    },
+    "https://vedlik.com/signal/ola-consumer-plans-ipo-amid-cash-shortage-market-share-decline": {
+      "lastmod": "2026-05-07T07:47:40.575Z"
     },
     "https://vedlik.com/signal/ola-electric-posts-20-mom-sales-growth": {
       "lastmod": "2026-05-01T14:53:45.791Z"
@@ -6738,6 +7101,12 @@
     "https://vedlik.com/signal/openai-adds-plugins-to-codex-for-expanded-workflows": {
       "lastmod": "2026-03-28T15:25:23.786Z"
     },
+    "https://vedlik.com/signal/openai-adds-trusted-contact-feature-for-self-harm-alerts": {
+      "lastmod": "2026-05-08T15:20:16.474Z"
+    },
+    "https://vedlik.com/signal/openai-adds-voice-intelligence-features-to-api": {
+      "lastmod": "2026-05-08T04:15:11.887Z"
+    },
     "https://vedlik.com/signal/openai-agents-sdk-adds-sandboxed-workspaces-for-production": {
       "lastmod": "2026-04-16T04:15:08.876Z"
     },
@@ -6795,6 +7164,9 @@
     "https://vedlik.com/signal/openai-deepseek-pricing-polarizes-ai-model-market": {
       "lastmod": "2026-04-27T04:27:10.323Z"
     },
+    "https://vedlik.com/signal/openai-deprecates-self-serve-fine-tuning-legacy-models": {
+      "lastmod": "2026-05-08T04:14:56.336Z"
+    },
     "https://vedlik.com/signal/openai-enlists-cognizant-cgi-for-enterprise-codex-deployment": {
       "lastmod": "2026-04-21T15:10:46.483Z"
     },
@@ -6821,6 +7193,9 @@
     },
     "https://vedlik.com/signal/openai-expands-cyber-defense-program-with-gpt-54-cyber": {
       "lastmod": "2026-04-15T03:58:21.965Z"
+    },
+    "https://vedlik.com/signal/openai-expands-trusted-access-for-cyber-with-gpt-5-5-models": {
+      "lastmod": "2026-05-08T04:17:11.435Z"
     },
     "https://vedlik.com/signal/openai-finalizes-10b-enterprise-ai-joint-venture-with-tpg": {
       "lastmod": "2026-05-04T15:59:05.961Z"
@@ -6861,6 +7236,9 @@
     "https://vedlik.com/signal/openai-infosys-partner-to-scale-ai-tools-for-enterprises": {
       "lastmod": "2026-04-22T15:10:09.872Z"
     },
+    "https://vedlik.com/signal/openai-integrates-chatgpt-as-plugin-for-excel-google-sheets": {
+      "lastmod": "2026-05-08T04:15:55.707Z"
+    },
     "https://vedlik.com/signal/openai-integrates-websockets-for-faster-agentic-workflows": {
       "lastmod": "2026-04-23T07:03:58.645Z"
     },
@@ -6900,11 +7278,20 @@
     "https://vedlik.com/signal/openai-launches-gpt-image-2-with-4k-output-95-text-accuracy": {
       "lastmod": "2026-04-21T10:25:18.558Z"
     },
+    "https://vedlik.com/signal/openai-launches-gpt-realtime-2-two-new-voice-api-models": {
+      "lastmod": "2026-05-08T10:30:09.403Z"
+    },
     "https://vedlik.com/signal/openai-launches-gpt-rosalind-for-life-sciences-drug-discovery": {
       "lastmod": "2026-04-17T10:22:31.836Z"
     },
     "https://vedlik.com/signal/openai-launches-new-100-chatgpt-plan-for-heavy-users": {
       "lastmod": "2026-04-10T10:12:48.909Z"
+    },
+    "https://vedlik.com/signal/openai-launches-new-speech-models-with-gpt-5-class-reasoning": {
+      "lastmod": "2026-05-08T06:56:41.266Z"
+    },
+    "https://vedlik.com/signal/openai-launches-realtime-2-voice-apis-with-gpt-5-class-reasoning": {
+      "lastmod": "2026-05-08T15:18:17.475Z"
     },
     "https://vedlik.com/signal/openai-loses-key-executives-amid-leadership-shakeup": {
       "lastmod": "2026-04-18T06:18:12.692Z"
@@ -6926,6 +7313,9 @@
     },
     "https://vedlik.com/signal/openai-outlines-five-part-cybersecurity-action-plan": {
       "lastmod": "2026-04-29T15:55:25.485Z"
+    },
+    "https://vedlik.com/signal/openai-palantir-backed-pac-funds-anti-china-ai-influencer-campaign": {
+      "lastmod": "2026-05-07T04:35:11.586Z"
     },
     "https://vedlik.com/signal/openai-pauses-stargate-uk-project-amid-energy-regulatory-concerns": {
       "lastmod": "2026-04-13T07:16:34.789Z"
@@ -7014,6 +7404,9 @@
     "https://vedlik.com/signal/openai-releases-local-15b-parameter-pii-tagger": {
       "lastmod": "2026-04-26T04:20:53.309Z"
     },
+    "https://vedlik.com/signal/openai-releases-new-voice-api-models-for-real-time-translation": {
+      "lastmod": "2026-05-08T04:14:59.349Z"
+    },
     "https://vedlik.com/signal/openai-releases-privacy-filter-for-pii-detection-in-web-apps": {
       "lastmod": "2026-04-27T15:33:50.805Z"
     },
@@ -7079,6 +7472,9 @@
     },
     "https://vedlik.com/signal/openai-touts-aws-alliance-citing-microsoft-partnership-limitations": {
       "lastmod": "2026-04-13T15:12:36.513Z"
+    },
+    "https://vedlik.com/signal/openai-unveils-three-audio-models-for-real-time-voice-tasks": {
+      "lastmod": "2026-05-08T10:30:10.910Z"
     },
     "https://vedlik.com/signal/openai-updates-agents-sdk-for-safer-enterprise-ai": {
       "lastmod": "2026-04-16T04:13:07.256Z"
@@ -7151,6 +7547,9 @@
     },
     "https://vedlik.com/signal/operationalizing-ai-for-scale-and-sovereignty": {
       "lastmod": "2026-05-02T04:18:11.503Z"
+    },
+    "https://vedlik.com/signal/opsmill-secures-14m-series-a-for-infrastructure-data-platform": {
+      "lastmod": "2026-05-07T07:47:52.852Z"
     },
     "https://vedlik.com/signal/oracle-appoints-hilary-maxson-as-chief-financial-officer": {
       "lastmod": "2026-04-06T13:54:42.117Z"
@@ -7284,6 +7683,9 @@
     "https://vedlik.com/signal/parasail-raises-32m-to-scale-ai-inference-cloud-services": {
       "lastmod": "2026-04-15T15:06:29.863Z"
     },
+    "https://vedlik.com/signal/parloa-leverages-openai-models-for-voice-ai-customer-service": {
+      "lastmod": "2026-05-07T11:14:05.626Z"
+    },
     "https://vedlik.com/signal/patech-labs-study-shows-operational-experience-boosts-ai-assistant-performance": {
       "lastmod": "2026-04-13T15:14:08.728Z"
     },
@@ -7356,6 +7758,9 @@
     "https://vedlik.com/signal/perplexity-integrates-plaid-for-personal-finance-agent-capabilities": {
       "lastmod": "2026-04-10T14:49:02.406Z"
     },
+    "https://vedlik.com/signal/perplexity-releases-personal-computer-ai-agent-for-all-mac-users": {
+      "lastmod": "2026-05-08T04:17:58.950Z"
+    },
     "https://vedlik.com/signal/perplexity-revenue-jumps-50-amid-ai-agent-shift": {
       "lastmod": "2026-04-08T10:13:57.748Z"
     },
@@ -7392,8 +7797,14 @@
     "https://vedlik.com/signal/pine-labs-acquires-shopflo-for-rs-88-crore": {
       "lastmod": "2026-04-25T14:40:56.171Z"
     },
+    "https://vedlik.com/signal/pinsec-ai-secures-5-crore-seed-funding-for-ai-wealth-platform": {
+      "lastmod": "2026-05-07T11:16:27.883Z"
+    },
     "https://vedlik.com/signal/pinterest-crosses-1-billion-quarterly-revenue-on-visual-search-ads": {
       "lastmod": "2026-05-05T07:24:09.369Z"
+    },
+    "https://vedlik.com/signal/piramal-finance-ai-bots-hire-262-sales-executives": {
+      "lastmod": "2026-05-07T04:35:13.654Z"
     },
     "https://vedlik.com/signal/pixxel-sarvam-partner-for-india-s-first-orbital-data-center-satellite": {
       "lastmod": "2026-05-04T11:09:48.729Z"
@@ -7406,6 +7817,9 @@
     },
     "https://vedlik.com/signal/plexa-protocol-reduces-llm-api-calls-for-embodied-ai": {
       "lastmod": "2026-04-14T06:56:49.505Z"
+    },
+    "https://vedlik.com/signal/pnb-allocates-3-400-crore-for-it-ai-to-combat-cyber-fraud": {
+      "lastmod": "2026-05-07T16:05:17.747Z"
     },
     "https://vedlik.com/signal/pneuma-agent-architecture-integrates-seven-cognitive-layers": {
       "lastmod": "2026-04-20T07:19:46.373Z"
@@ -7500,6 +7914,15 @@
     "https://vedlik.com/signal/prompt-injection-attacks-persist-as-unsolvable-ai-problem": {
       "lastmod": "2026-04-20T04:16:43.570Z"
     },
+    "https://vedlik.com/signal/pronto-extends-series-b-to-45-million-doubles-valuation": {
+      "lastmod": "2026-05-07T16:05:58.168Z"
+    },
+    "https://vedlik.com/signal/pronto-extends-series-b-to-45m-at-200m-valuation": {
+      "lastmod": "2026-05-07T11:16:24.939Z"
+    },
+    "https://vedlik.com/signal/pronto-secures-45-million-series-b-doubles-valuation": {
+      "lastmod": "2026-05-07T07:47:36.636Z"
+    },
     "https://vedlik.com/signal/proofsketcher-combines-llms-proof-checkers-for-math-reasoning": {
       "lastmod": "2026-04-09T06:23:53.501Z"
     },
@@ -7542,6 +7965,9 @@
     "https://vedlik.com/signal/python-decorators-enhance-production-ml-system-reliability": {
       "lastmod": "2026-04-16T15:25:55.872Z"
     },
+    "https://vedlik.com/signal/python-deque-optimizes-real-time-sliding-windows": {
+      "lastmod": "2026-05-07T04:35:40.498Z"
+    },
     "https://vedlik.com/signal/python-script-builds-daily-ai-news-briefs-for-pennies": {
       "lastmod": "2026-05-04T04:39:49.533Z"
     },
@@ -7559,6 +7985,12 @@
     },
     "https://vedlik.com/signal/qualixar-os-unveils-universal-ai-agent-orchestration-system": {
       "lastmod": "2026-04-09T06:23:51.071Z"
+    },
+    "https://vedlik.com/signal/quantum-motion-secures-160m-from-eu-scaleup-europe-fund": {
+      "lastmod": "2026-05-07T11:16:02.894Z"
+    },
+    "https://vedlik.com/signal/quantum-motion-secures-160m-series-c-for-quantum-computing": {
+      "lastmod": "2026-05-07T11:16:00.784Z"
     },
     "https://vedlik.com/signal/quantware-secures-152m-to-build-open-architecture-quantum-processor-fab": {
       "lastmod": "2026-05-05T15:50:48.297Z"
@@ -7583,6 +8015,9 @@
     },
     "https://vedlik.com/signal/railtel-shares-jump-14-on-inr-608-crore-order-wins": {
       "lastmod": "2026-04-15T06:58:06.770Z"
+    },
+    "https://vedlik.com/signal/ramp-nears-40b-valuation-eyes-750m-funding-round": {
+      "lastmod": "2026-05-08T04:17:50.105Z"
     },
     "https://vedlik.com/signal/rapido-launches-ownly-enters-bengaluru-food-delivery-market": {
       "lastmod": "2026-04-13T10:52:12.019Z"
@@ -7610,6 +8045,9 @@
     },
     "https://vedlik.com/signal/readers-demand-chatbot-pre-use-screening-for-vulnerable-users": {
       "lastmod": "2026-04-02T09:27:55.847Z"
+    },
+    "https://vedlik.com/signal/real-madrid-exceeds-1-billion-revenue-diversifies-income-streams": {
+      "lastmod": "2026-05-07T11:17:04.844Z"
     },
     "https://vedlik.com/signal/rearm-proposes-zero-trust-sandboxing-for-ai-agent-security": {
       "lastmod": "2026-04-29T15:55:45.530Z"
@@ -7652,6 +8090,9 @@
     },
     "https://vedlik.com/signal/reforms-richard-tice-posts-ai-manipulated-image-experts-say": {
       "lastmod": "2026-04-21T04:03:31.445Z"
+    },
+    "https://vedlik.com/signal/reggae-band-battles-ai-slop-remixes-on-streaming-platforms": {
+      "lastmod": "2026-05-07T11:14:12.299Z"
     },
     "https://vedlik.com/signal/regolo-offers-european-ai-with-zero-data-retention": {
       "lastmod": "2026-04-19T09:54:57.846Z"
@@ -7884,6 +8325,9 @@
     "https://vedlik.com/signal/samsung-dynasty-ai-boom-wealth-doubles": {
       "lastmod": "2026-05-01T07:28:14.319Z"
     },
+    "https://vedlik.com/signal/samsung-electronics-market-value-tops-1-trillion-on-ai-chip-boom": {
+      "lastmod": "2026-05-07T07:46:06.828Z"
+    },
     "https://vedlik.com/signal/samsung-ikea-integrate-matter-devices-lower-smart-home-costs": {
       "lastmod": "2026-04-21T15:11:18.849Z"
     },
@@ -7971,6 +8415,9 @@
     "https://vedlik.com/signal/self-taught-programmers-embrace-coding-as-outcome-independent-hobby": {
       "lastmod": "2026-04-11T14:41:17.946Z"
     },
+    "https://vedlik.com/signal/semantic-layer-consolidates-data-risk-mitigation-for-enterprises": {
+      "lastmod": "2026-05-07T16:05:08.976Z"
+    },
     "https://vedlik.com/signal/semanticforge-framework-verifies-ai-values-across-cultures": {
       "lastmod": "2026-04-18T14:41:44.606Z"
     },
@@ -8009,6 +8456,9 @@
     },
     "https://vedlik.com/signal/series-ai-raises-51m-pre-seed-for-imessage-social-network": {
       "lastmod": "2026-04-25T03:51:50.846Z"
+    },
+    "https://vedlik.com/signal/servicenow-ceo-bill-mcdermott-dismisses-saaspocalypse-fears": {
+      "lastmod": "2026-05-08T10:30:20.276Z"
     },
     "https://vedlik.com/signal/servicenow-introduces-ai-control-tower-with-kill-switch": {
       "lastmod": "2026-05-06T16:03:48.681Z"
@@ -8061,11 +8511,17 @@
     "https://vedlik.com/signal/siguler-guff-invests-40-million-in-trimex-foods": {
       "lastmod": "2026-04-29T07:26:53.267Z"
     },
+    "https://vedlik.com/signal/silex-microsystems-shares-soar-on-nasdaq-stockholm-debut": {
+      "lastmod": "2026-05-07T11:16:48.556Z"
+    },
     "https://vedlik.com/signal/silicon-valley-confronts-ai-job-panic-hiring-shifts": {
       "lastmod": "2026-04-12T06:27:58.430Z"
     },
     "https://vedlik.com/signal/silicon-valley-pacs-oppose-ny-lawmakers-ai-regulation-push": {
       "lastmod": "2026-04-14T15:11:52.319Z"
+    },
+    "https://vedlik.com/signal/silicon-valley-s-25m-governor-bet-polls-at-4": {
+      "lastmod": "2026-05-07T16:05:19.948Z"
     },
     "https://vedlik.com/signal/simbian-ai-study-reveals-ai-models-fail-cyber-defense": {
       "lastmod": "2026-04-30T04:29:37.165Z"
@@ -8124,6 +8580,9 @@
     "https://vedlik.com/signal/singapore-foreign-minister-builds-ai-second-brain-with-nanoclaw": {
       "lastmod": "2026-04-26T09:59:38.426Z"
     },
+    "https://vedlik.com/signal/singapore-pledges-no-jobless-growth-amid-ai-integration": {
+      "lastmod": "2026-05-07T07:46:07.546Z"
+    },
     "https://vedlik.com/signal/singapore-researchers-develop-agentic-siem-rule-translation": {
       "lastmod": "2026-05-05T04:17:07.848Z"
     },
@@ -8147,6 +8606,18 @@
     },
     "https://vedlik.com/signal/skyfora-ceo-discusses-telecom-ai-and-weather-intelligence-market": {
       "lastmod": "2026-04-11T03:39:57.211Z"
+    },
+    "https://vedlik.com/signal/skyroot-aerospace-becomes-india-s-first-space-tech-unicorn": {
+      "lastmod": "2026-05-07T16:04:52.601Z"
+    },
+    "https://vedlik.com/signal/skyroot-aerospace-reaches-unicorn-status-with-60m-funding": {
+      "lastmod": "2026-05-08T04:17:28.934Z"
+    },
+    "https://vedlik.com/signal/skyroot-aerospace-secures-60m-becomes-india-s-first-spacetech-unicorn": {
+      "lastmod": "2026-05-07T07:45:52.197Z"
+    },
+    "https://vedlik.com/signal/skyroot-aerospace-secures-60m-series-c-reaches-unicorn-status": {
+      "lastmod": "2026-05-07T11:14:24.485Z"
     },
     "https://vedlik.com/signal/slash-financial-raises-100m-series-c-at-14b-valuation": {
       "lastmod": "2026-04-17T04:03:09.721Z"
@@ -8192,6 +8663,15 @@
     },
     "https://vedlik.com/signal/snap-cuts-1000-jobs-amid-activist-investor-pressure": {
       "lastmod": "2026-04-16T07:01:23.165Z"
+    },
+    "https://vedlik.com/signal/snap-ends-400m-perplexity-ai-search-integration-deal": {
+      "lastmod": "2026-05-07T04:36:15.862Z"
+    },
+    "https://vedlik.com/signal/snap-ends-perplexity-ai-deal-reports-q1-revenue-growth-amid-losses": {
+      "lastmod": "2026-05-07T04:36:19.084Z"
+    },
+    "https://vedlik.com/signal/snap-flags-ad-revenue-hits-ends-perplexity-deal": {
+      "lastmod": "2026-05-07T11:16:33.818Z"
     },
     "https://vedlik.com/signal/snap-inc-lays-off-1000-workers-citing-ai-advancements": {
       "lastmod": "2026-04-16T04:16:12.405Z"
@@ -8280,6 +8760,9 @@
     "https://vedlik.com/signal/softbank-seeks-10-billion-openai-stake-backed-margin-loan": {
       "lastmod": "2026-04-24T07:07:26.358Z"
     },
+    "https://vedlik.com/signal/softbank-trims-openai-margin-loan-target-to-6-billion": {
+      "lastmod": "2026-05-08T10:31:34.779Z"
+    },
     "https://vedlik.com/signal/sok-paper-details-llm-agent-security-in-agentic-commerce": {
       "lastmod": "2026-04-20T07:19:27.879Z"
     },
@@ -8327,6 +8810,9 @@
     },
     "https://vedlik.com/signal/south-africa-withdraws-ai-policy-over-hallucinated-citations": {
       "lastmod": "2026-04-29T04:26:34.846Z"
+    },
+    "https://vedlik.com/signal/spacex-considers-119b-terafab-chip-factory-in-texas": {
+      "lastmod": "2026-05-07T11:16:20.188Z"
     },
     "https://vedlik.com/signal/spacex-details-ipo-plans-targets-early-june-roadshow": {
       "lastmod": "2026-04-07T06:24:03.785Z"
@@ -8493,6 +8979,9 @@
     "https://vedlik.com/signal/starbucks-pilots-ai-chatbots-for-barista-support": {
       "lastmod": "2026-04-11T14:39:25.604Z"
     },
+    "https://vedlik.com/signal/startup-battlefield-200-applications-close-may-27": {
+      "lastmod": "2026-05-07T16:04:49.899Z"
+    },
     "https://vedlik.com/signal/startup-hiring-shows-hidden-gender-gap-beyond-funding": {
       "lastmod": "2026-05-05T15:53:32.927Z"
     },
@@ -8507,6 +8996,9 @@
     },
     "https://vedlik.com/signal/startuptalky-tracks-us-funding-and-investor-data-weekly": {
       "lastmod": "2026-04-20T10:57:08.066Z"
+    },
+    "https://vedlik.com/signal/state-street-ceo-warns-of-global-fertilizer-crisis-from-iran-war": {
+      "lastmod": "2026-05-08T10:31:01.857Z"
     },
     "https://vedlik.com/signal/stegoforge-tool-hides-payloads-hunts-them-with-offline-ai": {
       "lastmod": "2026-04-19T14:39:31.591Z"
@@ -8547,6 +9039,12 @@
     "https://vedlik.com/signal/students-must-master-digital-manufacturing-skills-for-industry-40": {
       "lastmod": "2026-04-05T13:36:12.044Z"
     },
+    "https://vedlik.com/signal/study-10-minutes-of-ai-use-may-impair-problem-solving": {
+      "lastmod": "2026-05-07T04:35:44.411Z"
+    },
+    "https://vedlik.com/signal/study-finds-10-minutes-of-ai-use-harms-thinking-skills": {
+      "lastmod": "2026-05-07T11:14:34.462Z"
+    },
     "https://vedlik.com/signal/study-finds-ai-makes-internet-content-fake-happy-less-diverse": {
       "lastmod": "2026-04-15T15:05:31.122Z"
     },
@@ -8561,6 +9059,9 @@
     },
     "https://vedlik.com/signal/study-finds-sycophantic-ai-distorts-user-judgment": {
       "lastmod": "2026-03-28T08:00:56.656Z"
+    },
+    "https://vedlik.com/signal/study-observes-ai-models-replicate-themselves-in-controlled-environment": {
+      "lastmod": "2026-05-07T11:14:27.149Z"
     },
     "https://vedlik.com/signal/styleseed-guides-ai-coding-tools-for-professional-ui-design": {
       "lastmod": "2026-04-07T10:11:54.236Z"
@@ -8631,6 +9132,9 @@
     "https://vedlik.com/signal/sygaldry-raises-139m-for-quantum-accelerated-ai-servers": {
       "lastmod": "2026-04-16T10:24:15.946Z"
     },
+    "https://vedlik.com/signal/symposium-enables-ai-agents-to-act-on-rust-dependencies": {
+      "lastmod": "2026-05-07T07:47:34.028Z"
+    },
     "https://vedlik.com/signal/symptomwise-framework-separates-ai-language-understanding-from-reasoning": {
       "lastmod": "2026-04-09T06:23:48.742Z"
     },
@@ -8654,6 +9158,12 @@
     },
     "https://vedlik.com/signal/tata-capital-reduces-credit-costs-with-ai-integration": {
       "lastmod": "2026-04-23T15:52:29.453Z"
+    },
+    "https://vedlik.com/signal/tata-jsw-invest-1-billion-in-india-ev-battery-r-d": {
+      "lastmod": "2026-05-07T11:14:21.268Z"
+    },
+    "https://vedlik.com/signal/tata-motors-4-4-billion-iveco-acquisition-delayed": {
+      "lastmod": "2026-05-07T16:06:00.264Z"
     },
     "https://vedlik.com/signal/tata-sons-ipo-rbi-nbfc-rules-ingovern-tata-sons-11777637366311": {
       "lastmod": "2026-05-01T14:53:43.795Z"
@@ -8718,6 +9228,9 @@
     "https://vedlik.com/signal/techcrunch-details-startup-battlefield-top-20-selection-process": {
       "lastmod": "2026-04-11T06:10:32.278Z"
     },
+    "https://vedlik.com/signal/techcrunch-disrupt-2026-opens-exhibit-sales-for-startups": {
+      "lastmod": "2026-05-07T16:05:13.677Z"
+    },
     "https://vedlik.com/signal/techcrunch-disrupt-2026-ticket-discounts-end-april-10": {
       "lastmod": "2026-04-09T15:20:45.784Z"
     },
@@ -8733,8 +9246,14 @@
     "https://vedlik.com/signal/technology-expands-mental-healthcare-access-in-rural-india": {
       "lastmod": "2026-04-24T04:19:19.719Z"
     },
+    "https://vedlik.com/signal/ted-turner-s-sports-ownership-transformed-media-landscape": {
+      "lastmod": "2026-05-07T04:36:13.970Z"
+    },
     "https://vedlik.com/signal/tejas-networks-reports-fy26-loss-amid-bsnl-project-completion": {
       "lastmod": "2026-04-16T06:59:59.946Z"
+    },
+    "https://vedlik.com/signal/telegram-adds-guest-ai-bots-bot-to-bot-chats-chat-automation": {
+      "lastmod": "2026-05-08T15:22:21.711Z"
     },
     "https://vedlik.com/signal/telematics-data-drives-efficiency-in-freight-transportation": {
       "lastmod": "2026-04-02T09:26:20.420Z"
@@ -8868,6 +9387,12 @@
     "https://vedlik.com/signal/tokenando-launches-ai-economics-intelligence-platform-weekly-briefing": {
       "lastmod": "2026-05-04T07:50:47.032Z"
     },
+    "https://vedlik.com/signal/tom-steyer-proposes-california-ai-job-guarantee-token-tax": {
+      "lastmod": "2026-05-08T15:20:34.230Z"
+    },
+    "https://vedlik.com/signal/toon-format-reduces-llm-token-waste-in-structured-data": {
+      "lastmod": "2026-05-08T15:18:29.901Z"
+    },
     "https://vedlik.com/signal/top-platforms-deliver-sports-data-analysis-for-performance-tracking": {
       "lastmod": "2026-04-13T10:52:54.712Z"
     },
@@ -8916,6 +9441,9 @@
     "https://vedlik.com/signal/truecaller-ceo-confident-in-india-market-amid-cnap-mandate": {
       "lastmod": "2026-04-13T07:16:22.292Z"
     },
+    "https://vedlik.com/signal/trump-administration-considers-ai-model-oversight-executive-order": {
+      "lastmod": "2026-05-08T04:17:52.672Z"
+    },
     "https://vedlik.com/signal/trump-administration-contradicts-itself-on-anthropic-ai-use": {
       "lastmod": "2026-04-14T03:59:40.219Z"
     },
@@ -8928,6 +9456,9 @@
     "https://vedlik.com/signal/trump-administration-seeks-to-preempt-state-ai-regulation": {
       "lastmod": "2026-04-20T04:17:04.386Z"
     },
+    "https://vedlik.com/signal/trump-administration-weighs-default-medicare-advantage-enrollment": {
+      "lastmod": "2026-05-07T16:05:21.897Z"
+    },
     "https://vedlik.com/signal/trump-ai-advisor-sacks-halting-ai-would-halt-us-economy": {
       "lastmod": "2026-05-05T04:15:23.202Z"
     },
@@ -8936,6 +9467,9 @@
     },
     "https://vedlik.com/signal/trump-expedites-psychedelic-drug-reviews-after-rogan-text": {
       "lastmod": "2026-04-19T04:13:27.777Z"
+    },
+    "https://vedlik.com/signal/trump-h-1b-proposal-elevates-entry-level-tech-salary-floor": {
+      "lastmod": "2026-05-08T15:20:41.650Z"
     },
     "https://vedlik.com/signal/trump-jr-investments-fuel-polymarkets-political-betting-surge": {
       "lastmod": "2026-04-23T15:51:45.562Z"
@@ -8987,6 +9521,12 @@
     },
     "https://vedlik.com/signal/u-s-government-gains-pre-release-access-to-new-ai-models": {
       "lastmod": "2026-05-06T16:03:32.279Z"
+    },
+    "https://vedlik.com/signal/u-s-job-market-heals-white-collar-office-jobs-decline": {
+      "lastmod": "2026-05-08T15:19:44.000Z"
+    },
+    "https://vedlik.com/signal/u-s-treasury-projects-2-trillion-borrowing-amid-rising-deficits": {
+      "lastmod": "2026-05-07T11:14:14.593Z"
     },
     "https://vedlik.com/signal/uae-plans-50-government-operations-on-agentic-ai-in-two-years": {
       "lastmod": "2026-05-04T04:39:57.397Z"
@@ -9180,6 +9720,9 @@
     "https://vedlik.com/signal/us-embassy-in-mexico-uses-ai-video-for-self-deportation-message": {
       "lastmod": "2026-03-28T15:25:22.024Z"
     },
+    "https://vedlik.com/signal/us-energy-secretary-nvidia-detail-genesis-mission-ai-supercomputers": {
+      "lastmod": "2026-05-08T04:16:23.272Z"
+    },
     "https://vedlik.com/signal/us-expands-iran-ship-seizures-marines-practice-maritime-raids": {
       "lastmod": "2026-04-19T04:14:11.156Z"
     },
@@ -9206,6 +9749,9 @@
     },
     "https://vedlik.com/signal/us-navy-tests-hormuz-blockade-clears-mines": {
       "lastmod": "2026-04-12T04:02:51.067Z"
+    },
+    "https://vedlik.com/signal/us-prosecutors-link-thai-firm-obon-to-supermicro-chip-smuggling": {
+      "lastmod": "2026-05-08T10:31:04.767Z"
     },
     "https://vedlik.com/signal/us-security-agency-uses-anthropic-mythos-despite-pentagon-blacklist": {
       "lastmod": "2026-04-20T04:16:37.750Z"
@@ -9333,6 +9879,9 @@
     "https://vedlik.com/signal/visier-and-amazon-quick-build-workforce-ai-agents": {
       "lastmod": "2026-04-25T03:49:40.601Z"
     },
+    "https://vedlik.com/signal/voi-founders-launch-pit-secure-16m-seed-for-enterprise-ai": {
+      "lastmod": "2026-05-08T06:58:31.698Z"
+    },
     "https://vedlik.com/signal/voidbox-runs-ai-agents-in-isolated-microvms": {
       "lastmod": "2026-04-14T15:13:02.500Z"
     },
@@ -9362,6 +9911,9 @@
     },
     "https://vedlik.com/signal/wallenberg-family-rescues-stegra-green-steel-project-with-14-billion": {
       "lastmod": "2026-04-14T15:12:59.773Z"
+    },
+    "https://vedlik.com/signal/walmart-ceo-highlights-india-s-dynamic-global-commerce-opportunities": {
+      "lastmod": "2026-05-07T16:05:15.453Z"
     },
     "https://vedlik.com/signal/wan-27-ai-video-generator-delivers-cinematic-1080p-clips": {
       "lastmod": "2026-04-07T03:46:20.320Z"
@@ -9555,6 +10107,9 @@
     "https://vedlik.com/signal/y-combinator-alum-skio-sells-for-105m-cash-only-raised-8m-founder-says": {
       "lastmod": "2026-05-01T04:47:31.932Z"
     },
+    "https://vedlik.com/signal/yale-budget-lab-ai-could-tackle-us-debt-displaced-workers-at-risk": {
+      "lastmod": "2026-05-07T04:34:29.994Z"
+    },
     "https://vedlik.com/signal/yc-leads-fintech-investments-in-q1-2026-amidst-deal-drop": {
       "lastmod": "2026-04-16T07:01:37.119Z"
     },
@@ -9581,6 +10136,15 @@
     },
     "https://vedlik.com/signal/zepto-pursues-ipo-banks-and-brokers-acquire-stakes": {
       "lastmod": "2026-04-14T06:57:19.057Z"
+    },
+    "https://vedlik.com/signal/zepto-secures-sebi-approval-for-1-2-billion-ipo": {
+      "lastmod": "2026-05-08T15:20:36.763Z"
+    },
+    "https://vedlik.com/signal/zepto-secures-sebi-approval-for-1-billion-ipo": {
+      "lastmod": "2026-05-08T15:20:38.403Z"
+    },
+    "https://vedlik.com/signal/zepto-secures-sebi-ipo-nod-gameskraft-founders-arrested": {
+      "lastmod": "2026-05-08T15:22:06.411Z"
     },
     "https://vedlik.com/signal/zerodha-ceo-nithin-kamath-damps-retail-ai-trading-profit-hopes": {
       "lastmod": "2026-03-31T14:08:17.509Z"
