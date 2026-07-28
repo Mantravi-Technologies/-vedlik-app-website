@@ -5,14 +5,18 @@
   </sitemap>
   <sitemap>
     <loc>https://vedlik.com/sitemaps/sitemap-latest.xml</loc>
-    <lastmod>2026-07-19T04:19:08.640Z</lastmod>
+    <lastmod>2026-07-28T16:03:54.263Z</lastmod>
   </sitemap>
   <sitemap>
     <loc>https://vedlik.com/sitemaps/sitemap-articles-1.xml</loc>
-    <lastmod>2026-07-19T04:19:08.640Z</lastmod>
+    <lastmod>2026-07-28T16:03:54.263Z</lastmod>
   </sitemap>
   <sitemap>
     <loc>https://vedlik.com/sitemaps/sitemap-articles-2.xml</loc>
-    <lastmod>2026-05-25T05:15:50.331Z</lastmod>
+    <lastmod>2026-06-01T10:24:37.173Z</lastmod>
+  </sitemap>
+  <sitemap>
+    <loc>https://vedlik.com/sitemaps/sitemap-articles-3.xml</loc>
+    <lastmod>2026-04-02T14:04:48.199Z</lastmod>
   </sitemap>
 </sitemapindex>
